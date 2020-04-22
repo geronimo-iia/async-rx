@@ -1,9 +1,10 @@
 from typing import Any
-from async_rx.protocol import Observer
-from async_rx.op_filter import rx_first
 
-from .model import get_observable
+from async_rx.op_filter import rx_first
+from async_rx.protocol import Observer
+
 from ..model import ObserverCounterCollector
+from .model import get_observable
 
 
 def test_rx_first(kernel):

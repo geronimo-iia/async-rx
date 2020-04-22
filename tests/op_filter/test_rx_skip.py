@@ -1,10 +1,12 @@
-import pytest
 from typing import Any
-from async_rx.protocol import Observer
-from async_rx.op_filter import rx_skip
 
-from .model import get_observable
+import pytest
+
+from async_rx.op_filter import rx_skip
+from async_rx.protocol import Observer
+
 from ..model import ObserverCounterCollector
+from .model import get_observable
 
 
 def test_rx_skip(kernel):

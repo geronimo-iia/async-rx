@@ -1,10 +1,13 @@
-import pytest
 from typing import Any
-from async_rx.protocol import Observer
-from async_rx.op_filter import rx_distinct
+
+import pytest
+
 from async_rx.observable import rx_from
-from .model import get_observable
+from async_rx.op_filter import rx_distinct
+from async_rx.protocol import Observer
+
 from ..model import ObserverCounterCollector
+from .model import get_observable
 
 
 def test_rx_distinct_dummy(kernel):
