@@ -1,6 +1,6 @@
 """Protocol definition and implementation root."""
 from collections import namedtuple
-from typing import Any, NoReturn, Protocol, Union
+from typing import Any, NoReturn, Optional, Protocol
 
 __all__ = [
     'Subscription',
@@ -16,6 +16,7 @@ __all__ = [
     'ObservableDefinition',
     'SubjectDefinition',
     'ConnectableObservableDefinition',
+    'ObservableFactory',
 ]
 
 
@@ -59,7 +60,7 @@ class ErrorHandler(Protocol):
     An error handler receive a message or an exception and raise it.
     """
 
-    async def __call__(self, err: Union[Any, Exception]) -> Union[NoReturn, None]:
+    async def __call__(self, err: Any) -> Optional[NoReturn]:
         """Raise error.
 
         Args:
@@ -95,8 +96,8 @@ class Observer(Protocol):
         """Signal completion of this observable."""
         pass
 
-    async def on_error(self, err: Union[Any, Exception]) -> Union[NoReturn, None]:
-        raise RuntimeError("")
+    async def on_error(self, err: Any) -> Optional[NoReturn]:
+        pass
 
 
 class Subscribe(Protocol):
@@ -105,7 +106,7 @@ class Subscribe(Protocol):
     It's a (sync/async) function wich take an observer and return a subscription.
     """
 
-    async def __call__(self, observer: Observer) -> Subscription:
+    async def __call__(self, an_observer: Observer) -> Subscription:
         """Implement observer subscription.
 
         Args:
@@ -124,7 +125,23 @@ class Observable(Protocol):
     An observable is something on which we can subscribe to listen event.
     """
 
-    async def subscribe(self, observer: Observer) -> Subscription:
+    async def subscribe(self, an_observer: Observer) -> Subscription:
+        pass
+
+
+class ObservableFactory(Protocol):
+    """ObservableFactory Protocol.
+
+    Define async function which create Observable.
+    """
+
+    async def __call__(self) -> Observable:
+        """Create an Observable.
+
+        Returns:
+            (Observable): the new observable instance.
+
+        """
         pass
 
 

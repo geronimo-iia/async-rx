@@ -1,5 +1,5 @@
 """Observer protocol implementation."""
-from typing import Any, NoReturn, Union
+from typing import Any, NoReturn, Optional
 
 from .protocol import CompleteHandler, ErrorHandler, NextHandler, Observer, ObserverDefinition
 
@@ -18,7 +18,7 @@ async def default_on_completed() -> None:
     pass
 
 
-async def default_error(err: Union[Any, Exception]) -> NoReturn:
+async def default_error(err: Any) -> NoReturn:
     """Always raise error.
 
     It's our default error handler implementation.
@@ -72,7 +72,7 @@ def ensure_observable_contract_operator(an_observer: Observer) -> Observer:
         if deliver_next:
             await an_observer.on_next(item)
 
-    async def _on_error(err: Union[Any, Exception]) -> Union[NoReturn, None]:  # type: ignore
+    async def _on_error(err: Any) -> Optional[NoReturn]:  # type: ignore
         nonlocal deliver_next
 
         if deliver_next:
