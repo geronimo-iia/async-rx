@@ -1,4 +1,5 @@
 import pytest
+
 from async_rx.observer import default_error
 
 

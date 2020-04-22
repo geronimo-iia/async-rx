@@ -1,8 +1,9 @@
 import pytest
 
+from async_rx.observable import default_subscription, rx_create, rx_from
+from async_rx.protocol import Observable, Observer
+
 from ..model import ObserverCounterCollector
-from async_rx.protocol import Observer, Observable
-from async_rx.observable import rx_from, rx_create, default_subscription
 
 
 def test_rx_from_iterable(kernel):

@@ -1,8 +1,9 @@
 import pytest
 
+from async_rx.observable import default_subscription, rx_create, rx_forward
+from async_rx.protocol import Observable, Observer
+
 from ..model import ObserverCounter, ObserverCounterSilentError
-from async_rx.protocol import Observer, Observable
-from async_rx.observable import rx_create, rx_forward, default_subscription
 
 
 async def _subscribe(an_observer: Observer):

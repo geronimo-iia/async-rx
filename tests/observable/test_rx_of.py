@@ -1,6 +1,7 @@
+from async_rx.observable import default_subscription, rx_create, rx_of
+from async_rx.protocol import Observable, Observer
+
 from ..model import ObserverCounterCollector
-from async_rx.protocol import Observer, Observable
-from async_rx.observable import rx_of, rx_create, default_subscription
 
 
 def test_rx_of(kernel):

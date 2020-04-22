@@ -1,4 +1,5 @@
 import pytest
+
 from async_rx.observer import ensure_observable_contract_operator
 
 from .model import ObserverCounter
