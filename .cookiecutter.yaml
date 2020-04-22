@@ -1,0 +1,17 @@
+default_context:
+  email: jguibert@gmail.com
+  full_name: Jerome Guibert
+  github_repo: async-rx
+  github_username: geronimo-iia
+  max_code_line_length: 160
+  package_name: async_rx
+  project_name: async-rx
+  project_short_description: Rx or the observable pattern.
+  project_slug: async-rx
+  python_major_version: 3
+  python_minor_version: 7
+  use_coveragespace: 0
+  use_scrutinizer: 0
+  year: 2020
+_extensions:
+  - "jinja2_time.TimeExtension"
