@@ -1,4 +1,4 @@
-from typing import Any, NoReturn, Union
+from typing import Any
 
 from ..observable import rx_create
 from ..observer import observer
@@ -7,7 +7,7 @@ from ..protocol import Observable, Observer, Subscription
 __all__ = ["rx_skip"]
 
 
-def rx_skip(observable: Observable, count: int) -> Union[Observable, NoReturn]:
+def rx_skip(observable: Observable, count: int) -> Observable:
     """Create an obervable wich skip #count event on source.
 
     Args:

@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Any, Deque, NoReturn, Union
+from typing import Any, Deque
 
 from ..observable import rx_create
 from ..observer import observer
@@ -8,7 +8,7 @@ from ..protocol import Observable, Observer, Subscription
 __all__ = ["rx_last"]
 
 
-def rx_last(observable: Observable, count: int = 1) -> Union[Observable, NoReturn]:
+def rx_last(observable: Observable, count: int = 1) -> Observable:
     """Create an observale which only take #count (or less) last events and complete.
 
     Args:
@@ -32,7 +32,7 @@ def rx_last(observable: Observable, count: int = 1) -> Union[Observable, NoRetur
         async def _on_next(item: Any):
             nonlocal _q
 
-            _q.appendleft(item)
+            _q.append(item)
 
         async def _on_completed():
             nonlocal _q

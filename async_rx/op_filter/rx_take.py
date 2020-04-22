@@ -1,4 +1,4 @@
-from typing import Any, NoReturn, Optional, Union
+from typing import Any, Optional
 
 from ..observable import rx_create
 from ..observer import observer
@@ -7,7 +7,7 @@ from ..protocol import Observable, Observer, Subscription
 __all__ = ["rx_take"]
 
 
-def rx_take(observable: Observable, count: int) -> Union[Observable, NoReturn]:
+def rx_take(observable: Observable, count: int) -> Observable:
     """Create an observable which take only first #count event maximum (could be less).
 
     Args:

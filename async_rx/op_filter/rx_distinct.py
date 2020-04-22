@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Any, Deque, NoReturn, Union
+from typing import Any, Deque
 
 from ..observable import rx_create
 from ..observer import observer
@@ -8,7 +8,7 @@ from ..protocol import Observable, Observer, Subscription
 __all__ = ["rx_distinct"]
 
 
-def rx_distinct(observable: Observable, frame_size: int) -> Union[Observable, NoReturn]:
+def rx_distinct(observable: Observable, frame_size: int) -> Observable:
     """Create an observable which send distinct event inside a windows of size #frame_size.
 
     Args:
@@ -34,7 +34,7 @@ def rx_distinct(observable: Observable, frame_size: int) -> Union[Observable, No
             nonlocal _q
 
             if item not in _q:  # distinct value
-                _q.appendleft(item)
+                _q.append(item)
                 await an_observer.on_next(item=item)
 
         async def _on_completed():
