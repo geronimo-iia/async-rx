@@ -1,26 +1,7 @@
-from typing import Any, NoReturn
-
 import pytest
 from async_rx.observer import ensure_observable_contract_operator
 
-
-class ObserverCounter:
-
-    on_next_count = 0
-    on_completed_count = 0
-    on_error_count = 0
-
-    async def on_next(self, item: Any) -> None:
-        """Process item."""
-        self.on_next_count += 1
-
-    async def on_completed(self) -> None:
-        """Signal completion of this observable."""
-        self.on_completed_count += 1
-
-    async def on_error(self, err: Any) -> NoReturn:
-        self.on_error_count += 1
-        raise RuntimeError(err)
+from .model import ObserverCounter
 
 
 def test_ensure_observable_contract_operator_nothing_is_call_after_complete(kernel):

@@ -1,0 +1,58 @@
+from typing import Any, NoReturn
+
+
+class ObserverCounter:
+    def __init__(self):
+        self.on_next_count = 0
+        self.on_completed_count = 0
+        self.on_error_count = 0
+
+    async def on_next(self, item: Any) -> None:
+        """Process item."""
+        self.on_next_count += 1
+
+    async def on_completed(self) -> None:
+        """Signal completion of this observable."""
+        self.on_completed_count += 1
+
+    async def on_error(self, err: Any) -> NoReturn:
+        self.on_error_count += 1
+        raise RuntimeError(err)
+
+
+class ObserverCounterSilentError:
+    def __init__(self):
+        self.on_next_count = 0
+        self.on_completed_count = 0
+        self.on_error_count = 0
+
+    async def on_next(self, item: Any) -> None:
+        """Process item."""
+        self.on_next_count += 1
+
+    async def on_completed(self) -> None:
+        """Signal completion of this observable."""
+        self.on_completed_count += 1
+
+    async def on_error(self, err: Any) -> None:
+        self.on_error_count += 1
+
+
+class ObserverCounterCollector:
+    def __init__(self):
+        self.on_next_count = 0
+        self.on_completed_count = 0
+        self.on_error_count = 0
+        self.items: Any = list([])
+
+    async def on_next(self, item: Any) -> None:
+        """Process item."""
+        self.items.append(item)
+        self.on_next_count += 1
+
+    async def on_completed(self) -> None:
+        """Signal completion of this observable."""
+        self.on_completed_count += 1
+
+    async def on_error(self, err: Any) -> None:
+        self.on_error_count += 1

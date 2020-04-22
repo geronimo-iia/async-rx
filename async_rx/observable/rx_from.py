@@ -47,7 +47,7 @@ def rx_from(observable_input: Any) -> Observable:
     # Build an simple singleton
 
     async def _subscribe_object(an_observer: Observer) -> Subscription:
-        await an_observer.on_next(item=_subscribe_object)
+        await an_observer.on_next(item=observable_input)
         await an_observer.on_completed()
 
         return default_subscription
