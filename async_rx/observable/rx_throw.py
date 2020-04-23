@@ -1,8 +1,7 @@
 from typing import Any
 
-from ..protocol import Observable, Observer, Subscription
+from ..protocol import Observable, Observer, Subscription, default_subscription
 from .rx_create import rx_create
-from .subscription import default_subscription
 
 __all__ = ["rx_throw"]
 

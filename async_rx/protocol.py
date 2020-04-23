@@ -1,6 +1,6 @@
-"""Protocol definition and implementation root."""
+"""Protocol definition."""
 from collections import namedtuple
-from typing import Any, NoReturn, Optional, Protocol
+from typing import Any, NoReturn, Optional, Protocol, TypeVar, Union
 
 __all__ = [
     'Subscription',
@@ -18,7 +18,13 @@ __all__ = [
     'ConnectableObservableDefinition',
     'ObservableFactory',
     'SubjectHandler',
-    'ConnectableObservableHanlder',
+    'ConnectableObservableHandler',
+    'default_subscription',
+    'PredicateOperator',
+    'AccumulatorOperator',
+    'SubjectFactory',
+    'SubjectHandlerDefinition',
+    'ConnectableObservableHandlerDefinition',
 ]
 
 
@@ -132,9 +138,9 @@ class Observable(Protocol):
 
 
 class ObservableFactory(Protocol):
-    """ObservableFactory Protocol.
+    """Async ObservableFactory Protocol.
 
-    Define async function which create Observable.
+    Define function which create Observable.
     """
 
     async def __call__(self) -> Observable:
@@ -183,6 +189,11 @@ class SubjectHandler(Protocol):
         pass
 
 
+class SubjectFactory(Protocol):
+    def __call__(self, subject_handler: Optional[SubjectHandler] = None) -> Subject:
+        pass
+
+
 class ConnectableObservable(Observable, Protocol):
     """Define a connectable observable protocol.
 
@@ -208,8 +219,8 @@ class ConnectableObservable(Observable, Protocol):
         pass
 
 
-class ConnectableObservableHanlder(Protocol):
-    """Connectable Observable Hanlder Protocol.
+class ConnectableObservableHandler(Protocol):
+    """Connectable Observable Handler Protocol.
 
     This handler could be called on conect/disconnect event.
     """
@@ -220,6 +231,46 @@ class ConnectableObservableHanlder(Protocol):
 
     async def on_disconnect(self) -> None:
         """Called on disconnect event."""
+        pass
+
+
+T = TypeVar('T')
+
+
+class AsyncAccumulatorOperator(Protocol[T]):
+    """Async Accumulator Operator Protocol.
+
+    Accumulator are used in reduce operation.
+    """
+
+    async def __call__(self, buffer: T, item: T) -> T:
+        pass
+
+
+class SyncAccumulatorOperator(Protocol[T]):
+    """Async Accumulator Operator Protocol.
+
+    Accumulator are used in reduce operation.
+    """
+
+    def __call__(self, buffer: T, item: T) -> T:
+        pass
+
+
+AccumulatorOperator = Union[AsyncAccumulatorOperator, SyncAccumulatorOperator]
+"""Accumulator Operator Protocol.
+
+Accumulator are used in reduce operation.
+"""
+
+
+class PredicateOperator(Protocol):
+    """Predicate Operator Protocol.
+
+    Predicate ae used in filter operation.
+    """
+
+    async def __call__(self, item: Any) -> bool:
         pass
 
 
@@ -234,3 +285,21 @@ SubjectDefinition = namedtuple("Subject", ["subscribe", "on_next", "on_error", "
 
 ConnectableObservableDefinition = namedtuple("ConnectableObservable", ["connect", "ref_count", "subscribe"])
 """Implements ConnectableObservable Protocol."""
+
+SubjectHandlerDefinition = namedtuple("SubjectHandler", ["on_subscribe", "on_unsubscribe"])
+"""Implements SubjectHandler Protocol."""
+
+ConnectableObservableHandlerDefinition = namedtuple("ConnectableObservableHandler", ["on_connect", "on_disconnect"])
+"""Implements ConnectableObservableHandler Protocol."""
+
+
+async def default_subscription() -> None:
+    """Default subcribe implementation method.
+
+    Do nothing.
+
+    Returns:
+        (None) - nothing to return.
+
+    """
+    pass
