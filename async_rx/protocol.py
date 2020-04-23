@@ -17,6 +17,8 @@ __all__ = [
     'SubjectDefinition',
     'ConnectableObservableDefinition',
     'ObservableFactory',
+    'SubjectHandler',
+    'ConnectableObservableHanlder',
 ]
 
 
@@ -154,6 +156,33 @@ class Subject(Observable, Observer, Protocol):
     pass
 
 
+class SubjectHandler(Protocol):
+    """Subscribe Handler Protocol.
+
+    This handler could be called on subscription/unsubscribe event.
+    """
+
+    async def on_subscribe(self, count: int, source: Observer) -> None:
+        """Notify on subscribe event.
+
+        Args:
+            count (int): current #subscribers after subscription
+            source (Observer): observer source
+
+        """
+        pass
+
+    async def on_unsubscribe(self, count: int, source: Observer) -> None:
+        """Notify on unsubscribe event.
+
+        Args:
+            count (int): current #subscribers after unsubscribe
+            source (Observer): observer source
+
+        """
+        pass
+
+
 class ConnectableObservable(Observable, Protocol):
     """Define a connectable observable protocol.
 
@@ -179,14 +208,29 @@ class ConnectableObservable(Observable, Protocol):
         pass
 
 
+class ConnectableObservableHanlder(Protocol):
+    """Connectable Observable Hanlder Protocol.
+
+    This handler could be called on conect/disconnect event.
+    """
+
+    async def on_connect(self) -> None:
+        """Called on connect event."""
+        pass
+
+    async def on_disconnect(self) -> None:
+        """Called on disconnect event."""
+        pass
+
+
 ObserverDefinition = namedtuple("Observer", ["on_next", "on_error", "on_completed"])
 """Implements Observer Protocol."""
 
 ObservableDefinition = namedtuple("Observable", "subscribe")
 """Implements Observable Protocol."""
 
-SubjectDefinition = namedtuple("Subject", ObservableDefinition._fields + ObserverDefinition._fields)  # type: ignore
+SubjectDefinition = namedtuple("Subject", ["subscribe", "on_next", "on_error", "on_completed"])
 """Implements Subject Protocol."""
 
-ConnectableObservableDefinition = namedtuple("ConnectableObservable", ("connect", "ref_count") + ObservableDefinition._fields)  # type: ignore
+ConnectableObservableDefinition = namedtuple("ConnectableObservable", ["connect", "ref_count", "subscribe"])
 """Implements ConnectableObservable Protocol."""
