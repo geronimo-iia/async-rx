@@ -1,4 +1,5 @@
 from async_rx.observable import rx_avg
+
 from ...model import ObserverCounterCollector
 from .model import get_observable
 

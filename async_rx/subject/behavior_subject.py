@@ -1,7 +1,6 @@
 from typing import Optional
 
 from ..protocol import Subject, SubjectHandler
-
 from .replay_subject import replay_subject
 
 __all__ = ["behavior_subject"]

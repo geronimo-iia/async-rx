@@ -1,8 +1,8 @@
-from typing import Any, Optional, TypeVar
 from inspect import iscoroutinefunction
+from typing import Any, Optional, TypeVar
 
 from ...observer import observer
-from ...protocol import Observable, Observer, Subscription, AccumulatorOperator
+from ...protocol import AccumulatorOperator, Observable, Observer, Subscription
 from ..rx_create import rx_create
 
 __all__ = ["rx_reduce"]

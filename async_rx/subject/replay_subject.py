@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Any, Deque, Optional, NoReturn
+from typing import Any, Deque, NoReturn, Optional
 
 from ..protocol import Observer, Subject, SubjectDefinition, SubjectHandler, Subscription
 from .subject import subject
@@ -68,5 +68,6 @@ def replay_subject(buffer_size: int, subject_handler: Optional[SubjectHandler] =
         nonlocal _error
         _error = err
         await _subject.on_error(err=err)
+        return None
 
     return SubjectDefinition(subscribe=_subscribe, on_next=_on_next, on_error=_on_error, on_completed=_on_complete)

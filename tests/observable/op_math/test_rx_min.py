@@ -1,4 +1,5 @@
 from async_rx.observable import rx_min
+
 from ...model import ObserverCounterCollector
 from .model import get_observable
 

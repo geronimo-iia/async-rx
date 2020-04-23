@@ -27,11 +27,11 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         a_subject = subject(subject_handler=my_handler)
 
         # few observer subscribe on this subject
-        sub_1 = a_subject.subscribe(obs_1)
-        sub_2 = a_subject.subscribe(obs_2)
+        sub_1 = await a_subject.subscribe(obs_1)
+        sub_2 = await a_subject.subscribe(obs_2)
 
         # the subject subscribe himself on an observable
-        rx_range(start=0, stop=10).subscribe(a_subject)
+        await rx_range(start=0, stop=10).subscribe(a_subject)
 
         # obs_1 and obs_2 receive 10 #items
     ```
@@ -43,12 +43,12 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         a_subject = subject()
 
         # few observer subscribe on this subject
-        sub_1 = a_subject.subscribe(obs_1)
-        sub_2 = a_subject.subscribe(obs_2)
+        sub_1 = await a_subject.subscribe(obs_1)
+        sub_2 = await a_subject.subscribe(obs_2)
 
         # send your data by your self
-        a_subject.on_next(item="my value") # obs_1 and obs_2 receive "my value"
-        a_subject.on_completed() # obs_1 and obs_2 receive on_completed
+        await a_subject.on_next(item="my value") # obs_1 and obs_2 receive "my value"
+        await a_subject.on_completed() # obs_1 and obs_2 receive on_completed
     ```
 
     """

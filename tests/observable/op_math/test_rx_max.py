@@ -1,4 +1,5 @@
 from async_rx.observable import rx_max
+
 from ...model import ObserverCounterCollector
 from .model import get_observable
 

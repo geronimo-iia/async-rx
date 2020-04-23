@@ -164,7 +164,7 @@ class Subject(Observable, Observer, Protocol):
 
 
 class SubjectEventHandler(Protocol):
-    """Subject Event Handler Procotol"""
+    """Subject Event Handler Procotol."""
 
     async def __call__(self, count: int, source: Observer) -> None:
         pass

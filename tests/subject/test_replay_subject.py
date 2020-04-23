@@ -1,6 +1,7 @@
-from async_rx.protocol import Observer
 from async_rx.observable import rx_range
+from async_rx.protocol import Observer
 from async_rx.subject import replay_subject
+
 from ..model import ObserverCounterCollector
 
 

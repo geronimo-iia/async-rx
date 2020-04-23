@@ -1,4 +1,4 @@
-from ..protocol import SubjectHandler, SubjectHandlerDefinition, SubjectEventHandler
+from ..protocol import SubjectEventHandler, SubjectHandler, SubjectHandlerDefinition
 
 __all__ = ["subject_handler"]
 
