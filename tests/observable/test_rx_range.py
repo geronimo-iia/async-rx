@@ -1,4 +1,4 @@
-from async_rx.observable import default_subscription, rx_range
+from async_rx.observable import rx_range
 from async_rx.protocol import Observable, Observer
 
 from ..model import ObserverCounterCollector

@@ -14,4 +14,4 @@ def rx_max(observable: Observable) -> Observable:
         (Observable): observable instance
 
     """
-    return rx_reduce(observable=observable, accumulator=lambda a, b: max(a, b))
+    return rx_reduce(observable=observable, accumulator=lambda a, b: max(a, b) if a else b)

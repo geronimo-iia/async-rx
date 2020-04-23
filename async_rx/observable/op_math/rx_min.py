@@ -14,4 +14,4 @@ def rx_min(observable: Observable) -> Observable:
         (Observable): observable instance
 
     """
-    return rx_reduce(observable=observable, accumulator=lambda a, b: min(a, b))
+    return rx_reduce(observable=observable, accumulator=lambda a, b: min(a, b) if a else b)

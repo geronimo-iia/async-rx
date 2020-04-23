@@ -5,7 +5,7 @@ import pytest
 from async_rx.observable import rx_distinct, rx_from
 from async_rx.protocol import Observer
 
-from ..model import ObserverCounterCollector
+from ...model import ObserverCounterCollector
 from .model import get_observable
 
 

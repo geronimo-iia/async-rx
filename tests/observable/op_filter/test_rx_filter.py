@@ -3,7 +3,7 @@ from typing import Any
 from async_rx.observable import rx_filter
 from async_rx.protocol import Observer
 
-from ..model import ObserverCounterCollector
+from ...model import ObserverCounterCollector
 from .model import get_observable
 
 

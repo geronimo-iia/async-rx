@@ -1,34 +1,21 @@
-from typing import Any, Optional, Protocol, TypeVar, Union
+from typing import Any, Optional, TypeVar
+from inspect import iscoroutinefunction
 
 from ...observer import observer
-from ...protocol import Observable, Observer, Subscription
+from ...protocol import Observable, Observer, Subscription, AccumulatorOperator
 from ..rx_create import rx_create
 
-__all__ = ["Accumulator", "rx_reduce"]
+__all__ = ["rx_reduce"]
 
 T = TypeVar('T')
 
 
-class AsyncAccumulator(Protocol[T]):
-    async def __call__(self, buffer: T, item: T) -> T:
-        pass
-
-
-class SyncAccumulator(Protocol[T]):
-    def __call__(self, buffer: T, item: T) -> T:
-        pass
-
-
-Accumulator = Union[AsyncAccumulator, SyncAccumulator]
-
-
-def rx_reduce(observable: Observable, accumulator: Accumulator, seed: Optional[Any] = None) -> Observable:
+def rx_reduce(observable: Observable, accumulator: AccumulatorOperator, seed: Optional[Any] = None) -> Observable:
     """Create an observable which reduce source with accumulator and seed value.
 
     Args:
         observable (Observable): source
-        accumulator (Union[Callable[[Any, Any], Awaitable[Any]], Callable[[Any, Any], Any]]):  # noqa: E501
-            accumulator function (two argument, one result) async or sync.
+        accumulator (AccumulatorOperator): accumulator function (two argument, one result) async or sync.
         seed (Optional[Any]): optional seed value (default none)
 
     Returns:
@@ -36,14 +23,16 @@ def rx_reduce(observable: Observable, accumulator: Accumulator, seed: Optional[A
 
     """
 
+    is_awaitable = iscoroutinefunction(accumulator)
+
     async def _subscribe(an_observer: Observer) -> Subscription:
+        nonlocal is_awaitable
 
         _buffer = seed
 
         async def _on_next(item: Any):
             nonlocal _buffer
-
-            _buffer = await accumulator(buffer=_buffer, item=item)
+            _buffer = await accumulator(_buffer, item) if is_awaitable else accumulator(_buffer, item)
 
         async def _on_completed():
             nonlocal _buffer

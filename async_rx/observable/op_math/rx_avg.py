@@ -19,20 +19,23 @@ def rx_avg(observable: Observable) -> Observable:
 
     """
 
+    _count = 0
+
     async def accumulator(current, item):
-        _sum, _count = current
-        return (_sum + item, _count + 1)
+        nonlocal _count
+        _count += 1
+        return current + item
 
     async def _subscribe(an_observer: Observer) -> Subscription:
 
-        reducer = rx_reduce(observable=observable, accumulator=accumulator, seed=(0, 0))
+        reducer = rx_reduce(observable=observable, accumulator=accumulator, seed=0)
 
         async def _on_next(item: Any):
-            _sum, _count = item
+            nonlocal _count
             if _count == 0:
-                an_observer.on_error('No value emitted')
+                await an_observer.on_error('No value emitted')
             else:
-                await an_observer.on_next(item=_sum / _count)
+                await an_observer.on_next(item=item / _count)
 
         return await reducer.subscribe(an_observer=observer(on_next=_on_next, on_error=an_observer.on_error, on_completed=an_observer.on_completed))
 

@@ -1,7 +1,7 @@
 import pytest
 
-from async_rx.observable import default_subscription, rx_create
-from async_rx.protocol import Observable, Observer
+from async_rx.observable import rx_create
+from async_rx.protocol import Observable, Observer, default_subscription
 
 from ..model import ObserverCounter
 
