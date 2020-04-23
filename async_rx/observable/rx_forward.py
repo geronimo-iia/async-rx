@@ -1,4 +1,5 @@
-from ..observer import default_error, default_on_completed, observer
+from typing import Any
+from ..observer import observer
 from ..protocol import Observable, Observer, Subscription
 from .rx_create import rx_create
 
@@ -18,13 +19,19 @@ def rx_forward(observable: Observable, except_complet: bool = False, except_erro
 
     """
 
+    async def _dummy_on_completed():
+        pass
+
+    async def _dummy_on_error(err: Any):
+        pass
+
     async def _subscribe(an_observer: Observer) -> Subscription:
 
         return await observable.subscribe(
             an_observer=observer(
                 on_next=an_observer.on_next,
-                on_error=default_error if except_error else an_observer.on_error,
-                on_completed=default_on_completed if except_complet else an_observer.on_completed,
+                on_error=_dummy_on_error if except_error else an_observer.on_error,
+                on_completed=_dummy_on_completed if except_complet else an_observer.on_completed,
             )
         )
 

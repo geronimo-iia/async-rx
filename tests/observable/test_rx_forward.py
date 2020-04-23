@@ -56,22 +56,30 @@ def test_rx_forward_without_complete(kernel):
 
 
 def test_rx_forward_without_error(kernel):
-    obs: Observable = rx_create(subscribe=_subscribe_with_error)
 
-    seeker = ObserverCounterSilentError()
+    seeker = ObserverCounter()
     assert seeker.on_next_count == 0
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 0
 
     # no error because is silent
-    kernel.run(obs.subscribe(seeker))
+    with pytest.raises(Exception):
+        kernel.run(rx_create(subscribe=_subscribe_with_error).subscribe(seeker))
     assert seeker.on_next_count == 1
     assert seeker.on_completed_count == 0  # because ensure contract enabled
     assert seeker.on_error_count == 1
 
-    forwarded_obs = rx_forward(observable=obs, except_error=True)
-    with pytest.raises(Exception):
-        kernel.run(forwarded_obs.subscribe(seeker))
+    kernel.run(rx_forward(observable=rx_create(subscribe=_subscribe_with_error), except_error=True).subscribe(seeker))
     assert seeker.on_next_count == 2
     assert seeker.on_completed_count == 0  # because ensure contract enabled
     assert seeker.on_error_count == 1
+
+
+def test_rx_forward_without_completed(kernel):
+
+    seeker = ObserverCounter()
+
+    kernel.run(rx_forward(observable=rx_create(subscribe=_subscribe), except_complet=True).subscribe(seeker))
+    assert seeker.on_next_count == 1
+    assert seeker.on_completed_count == 0
+    assert seeker.on_error_count == 0

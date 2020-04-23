@@ -1,7 +1,8 @@
-from typing import Any, Optional
+from typing import Optional
 
-from ..protocol import Observer, Subject, SubjectDefinition, SubjectHandler, Subscription
-from .subject import subject
+from ..protocol import Subject, SubjectHandler
+
+from .replay_subject import replay_subject
 
 __all__ = ["behavior_subject"]
 
@@ -26,24 +27,4 @@ def behavior_subject(subject_handler: Optional[SubjectHandler] = None) -> Subjec
         (Subject): the subject
 
     """
-    _last_item: Any = None
-
-    _subject = subject(subject_handler=subject_handler)
-
-    async def _on_next(item: Any) -> None:
-        nonlocal _last_item, _subject
-
-        _last_item = item
-        await _subject.on_next(item)
-
-    async def _subscribe(an_observer: Observer) -> Subscription:
-        nonlocal _last_item, _subject
-
-        subscription = await _subject.subscribe(an_observer)
-
-        if _last_item is not None:
-            await an_observer.on_next(_last_item)
-
-        return subscription
-
-    return SubjectDefinition(subscribe=_subscribe, on_next=_on_next, on_error=_subject.on_error, on_completed=_subject.on_completed)
+    return replay_subject(buffer_size=1, subject_handler=subject_handler)

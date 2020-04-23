@@ -21,7 +21,35 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
     Returns:
         (Subject): the subject
 
-    TODO: check with curio how to wait on array of awaitable: With TaskGroup user in a context manager.
+    Example 1:
+    ```python
+        # create a subject
+        a_subject = subject(subject_handler=my_handler)
+
+        # few observer subscribe on this subject
+        sub_1 = a_subject.subscribe(obs_1)
+        sub_2 = a_subject.subscribe(obs_2)
+
+        # the subject subscribe himself on an observable
+        rx_range(start=0, stop=10).subscribe(a_subject)
+
+        # obs_1 and obs_2 receive 10 #items
+    ```
+
+    Example 2:
+    A subject as event emitter
+    ```python
+        # create a subject
+        a_subject = subject()
+
+        # few observer subscribe on this subject
+        sub_1 = a_subject.subscribe(obs_1)
+        sub_2 = a_subject.subscribe(obs_2)
+
+        # send your data by your self
+        a_subject.on_next(item="my value") # obs_1 and obs_2 receive "my value"
+        a_subject.on_completed() # obs_1 and obs_2 receive on_completed
+    ```
 
     """
     _registry = []  # list of registered observer
@@ -36,11 +64,11 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
 
         async def unsubscribe() -> None:
             nonlocal _registry
+            if an_observer in _registry:
+                _registry.remove(an_observer)
 
-            _registry.remove(an_observer)
-
-            if subject_handler:
-                await subject_handler.on_unsubscribe(count=len(_registry), source=an_observer)
+                if subject_handler:
+                    await subject_handler.on_unsubscribe(count=len(_registry), source=an_observer)
 
         return unsubscribe
 

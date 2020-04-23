@@ -17,6 +17,7 @@ __all__ = [
     'SubjectDefinition',
     'ConnectableObservableDefinition',
     'ObservableFactory',
+    'SubjectEventHandler',
     'SubjectHandler',
     'ConnectableObservableHandler',
     'default_subscription',
@@ -160,6 +161,13 @@ class Subject(Observable, Observer, Protocol):
     """
 
     pass
+
+
+class SubjectEventHandler(Protocol):
+    """Subject Event Handler Procotol"""
+
+    async def __call__(self, count: int, source: Observer) -> None:
+        pass
 
 
 class SubjectHandler(Protocol):
