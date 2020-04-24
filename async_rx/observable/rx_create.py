@@ -37,15 +37,12 @@ def rx_create(subscribe: Subscribe, ensure_contract: Optional[bool] = True, max_
         return await subscribe(an_observer)
 
     if max_observer:
-        # This limiter is probably a brain dead issue...
-        # may we fix this disease later...
         current_observer = 0
 
         async def _subscribe_tracked(an_observer: Observer) -> Subscription:
             nonlocal current_observer
 
             if current_observer == max_observer:
-                # TODO should we add NoReturn in Subscribe to manage this case ?
                 raise RuntimeError(f'{max_observer} #observers limit reached')
 
             current_observer = current_observer + 1
