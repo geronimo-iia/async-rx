@@ -158,7 +158,16 @@
 <p>Versions following <a class="reference external" href="https://semver.org/">Semantic Versioning</a></p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Rx or the observable pattern.</p>
+<p>A free implemntation of “rx” alias “react” alias “the power of observable pattern and his children” for application server side.</p>
+<p>Implementation relie on:</p>
+<ul class="simple">
+<li><p>async function</p></li>
+<li><p>closed variable, clojure</p></li>
+<li><p>python 3.8 Protocol declaration</p></li>
+<li><p>a taste of namedtuple</p></li>
+<li><p>a taste for curiosity</p></li>
+<li><p>shake it and tadaa !</p></li>
+</ul>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -171,15 +180,87 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="api-and-usage">
+<h2>API and Usage<a class="headerlink" href="#api-and-usage" title="Permalink to this headline">¶</a></h2>
 <p>After installation, the package can imported:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python
 &gt;&gt;&gt; import async_rx
 &gt;&gt;&gt; async_rx.__version__
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://geronimo-iia.github.io/async-rx">documentation</a>.</p>
+<p>See <a class="reference external" href="https://geronimo-iia.github.io/async-rx">documentation</a> to discover all the api.</p>
+</div>
+<div class="section" id="a-short-sample">
+<h2>A short sample<a class="headerlink" href="#a-short-sample" title="Permalink to this headline">¶</a></h2>
+<p>With this amazing observer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ObserverCounterCollector</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_next_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_completed_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_error_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([])</span> <span class="c1"># a bad idea isn&#39;t it</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Process item.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_next_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_completed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Signal completion of this observable.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_completed_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_error_count</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>We will going to select odd number:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">_predicate</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">item</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="n">seeker</span> <span class="o">=</span> <span class="n">ObserverCounterCollector</span><span class="p">()</span>
+
+<span class="n">observable</span> <span class="o">=</span> <span class="n">rx_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># create an observable of [0, 1, ..., 99]</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rx_filter</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="n">_predicate</span><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="o">=</span><span class="n">seeker</span><span class="p">)</span> <span class="c1"># filter and subscribe</span>
+<span class="n">sub</span><span class="p">()</span> <span class="c1"># release resource</span>
+
+<span class="c1"># we have :</span>
+<span class="k">assert</span> <span class="n">seeker</span><span class="o">.</span><span class="n">on_next_count</span> <span class="o">==</span> <span class="mi">50</span>
+<span class="k">assert</span> <span class="n">seeker</span><span class="o">.</span><span class="n">on_completed_count</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">seeker</span><span class="o">.</span><span class="n">on_error_count</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="n">seeker</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="your-new-on-react-rx-and-wanna-taste-it">
+<h2>Your new on react/rx and wanna taste it ?<a class="headerlink" href="#your-new-on-react-rx-and-wanna-taste-it" title="Permalink to this headline">¶</a></h2>
+<p>First question: Where to begin ?</p>
+<p>If you read this page, you probably ever doing lot of search on google &amp; co, and probably loose as me about
+react component in html/js/whatever.
+I can’t purpose your the best state of the explanation, but… AMHPOV, if you like to known how slug are done behind the scence, you should remember:</p>
+<ul class="simple">
+<li><p>what is Observable pattern (or listener, alias callback)</p></li>
+<li><p>what is an event emiter (something which send event ?)</p></li>
+</ul>
+<p>ok, with this in mind:</p>
+<ul class="simple">
+<li><p>an observer receive event from an observable when he subscribe on it</p></li>
+<li><p>events are “on_next(item)”, “on_completed()”, and … “on_error(err)”</p></li>
+</ul>
+<p>Take a look in “protocole.py” and come back :)</p>
+<p>Did you see Observer/Observable/XXXHandler/Subscribe ? And Subcription (yes it will called for unsubscribe) ?</p>
+<p>So <code class="docutils literal notranslate"><span class="pre">rx_from([1,</span> <span class="pre">2,</span> <span class="pre">...])</span></code> create an observable which will send items of list in sequence when an observer subscribe on it.
+Take time to look at test unit :)
+You can go into observable module and see all rx_from, rx_defer, rx_last, …</p>
+<p>But but but, what is a freaking “subject” ?</p>
+<p>It’s like an observer AND an observable which can multicast items from an observable to several observers.
+As it is an observer, it can receive data from somewhere.
+As it is an observable, observer can subscribe on it.</p>
+<p>Take a look under subject module and test unit, see what is a replay_subject, funny no ?
+See in <a class="reference external" href="https://geronimo-iia.github.io/async-rx">documentation</a> the function <code class="docutils literal notranslate"><span class="pre">subject</span></code>.</p>
+<p>At the last for the goods: the big gun, the “ConnectableObservable” alias multicast. oh my god, they kill kenny!</p>
+<p>Its like a subject which you can connect/disconnect as you want or automatically (with a call on ref_count).
+“connect” mean that subject start to receive from observable, so items will be send on observers.</p>
+<p>I hope this could help you a little bit :)</p>
 </div>
 </div>
 <div class="section" id="contents">

@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>async_rx.protocol &mdash; async_rx 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> async_rx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">async_rx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>async_rx.protocol</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for async_rx.protocol</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Protocol definition.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Subscription&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NextHandler&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CompleteHandler&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ErrorHandler&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Observable&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Observer&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subscribe&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subject&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ConnectableObservable&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ObserverDefinition&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ObservableDefinition&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SubjectDefinition&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ConnectableObservableDefinition&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ObservableFactory&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SubjectEventHandler&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SubjectHandler&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ConnectableObservableHandler&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;default_subscription&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PredicateOperator&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AccumulatorOperator&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SubjectFactory&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SubjectHandlerDefinition&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ConnectableObservableHandlerDefinition&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="Subscription"><a class="viewcode-back" href="../../api.html#async_rx.Subscription">[docs]</a><span class="k">class</span> <span class="nc">Subscription</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Subscription Protocol.</span>
+
+<span class="sd">    Subscription is a function to release resources or cancel Observable executions (act as a Disposable).</span>
+<span class="sd">    It define something to be used and thrown away after you call it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Subscription.__call__"><a class="viewcode-back" href="../../api.html#async_rx.Subscription.__call__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Release subscription.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="NextHandler"><a class="viewcode-back" href="../../api.html#async_rx.NextHandler">[docs]</a><span class="k">class</span> <span class="nc">NextHandler</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;NextHandler Protocol.</span>
+
+<span class="sd">    A next handler process an item from associated observable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NextHandler.__call__"><a class="viewcode-back" href="../../api.html#async_rx.NextHandler.__call__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Process item.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="CompleteHandler"><a class="viewcode-back" href="../../api.html#async_rx.CompleteHandler">[docs]</a><span class="k">class</span> <span class="nc">CompleteHandler</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;CompleteHandler Protocol.</span>
+
+<span class="sd">    A complete handler is call when no more item will came from the associated observable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CompleteHandler.__call__"><a class="viewcode-back" href="../../api.html#async_rx.CompleteHandler.__call__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Signal completion of this observable.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="ErrorHandler"><a class="viewcode-back" href="../../api.html#async_rx.ErrorHandler">[docs]</a><span class="k">class</span> <span class="nc">ErrorHandler</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ErrorHandler Protocol.</span>
+
+<span class="sd">    An error handler receive a message or an exception and raise it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ErrorHandler.__call__"><a class="viewcode-back" href="../../api.html#async_rx.ErrorHandler.__call__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">NoReturn</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Raise error.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            err (Union[Any, Exception]): the error to raise</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            (Exception): the exception</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Observer"><a class="viewcode-back" href="../../api.html#async_rx.Observer">[docs]</a><span class="k">class</span> <span class="nc">Observer</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Observer Protocol.</span>
+
+<span class="sd">    What is an Observer?</span>
+
+<span class="sd">    An Observer is a consumer of values delivered by an Observable.</span>
+
+<span class="sd">    Observers are simply a set of callbacks, one for each type of notification</span>
+<span class="sd">    delivered by the Observable:</span>
+
+<span class="sd">    - next,</span>
+<span class="sd">    - error,</span>
+<span class="sd">    - and complete.</span>
+
+<span class="sd">    Observers are just &quot;objects&quot; with three callbacks, one for each type of</span>
+<span class="sd">    notification that an Observable may deliver.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Observer.on_next"><a class="viewcode-back" href="../../api.html#async_rx.Observer.on_next">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Process item.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Observer.on_completed"><a class="viewcode-back" href="../../api.html#async_rx.Observer.on_completed">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_completed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Signal completion of this observable.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Observer.on_error"><a class="viewcode-back" href="../../api.html#async_rx.Observer.on_error">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">NoReturn</span><span class="p">]:</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Subscribe"><a class="viewcode-back" href="../../api.html#async_rx.Subscribe">[docs]</a><span class="k">class</span> <span class="nc">Subscribe</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Subscribe Protocol.</span>
+
+<span class="sd">    It&#39;s a (sync/async) function wich take an observer and return a subscription.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Subscribe.__call__"><a class="viewcode-back" href="../../api.html#async_rx.Subscribe.__call__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Implement observer subscription.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            observer (Observer): the observer instance</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (Subscription): subscription</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Observable"><a class="viewcode-back" href="../../api.html#async_rx.Observable">[docs]</a><span class="k">class</span> <span class="nc">Observable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Observable Protocol.</span>
+
+<span class="sd">    An observable is something on which we can subscribe to listen event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Observable.subscribe"><a class="viewcode-back" href="../../api.html#async_rx.Observable.subscribe">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="ObservableFactory"><a class="viewcode-back" href="../../api.html#async_rx.ObservableFactory">[docs]</a><span class="k">class</span> <span class="nc">ObservableFactory</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Async ObservableFactory Protocol.</span>
+
+<span class="sd">    Define function which create Observable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ObservableFactory.__call__"><a class="viewcode-back" href="../../api.html#async_rx.ObservableFactory.__call__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create an Observable.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (Observable): the new observable instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="Subject"><a class="viewcode-back" href="../../api.html#async_rx.Subject">[docs]</a><span class="k">class</span> <span class="nc">Subject</span><span class="p">(</span><span class="n">Observable</span><span class="p">,</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Subject is like an Observable, but can multicast to many Observers.</span>
+
+<span class="sd">    Subjects are like EventEmitters: they maintain a registry of many listeners.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SubjectEventHandler"><a class="viewcode-back" href="../../api.html#async_rx.SubjectEventHandler">[docs]</a><span class="k">class</span> <span class="nc">SubjectEventHandler</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Subject Event Handler Procotol.&quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SubjectHandler"><a class="viewcode-back" href="../../api.html#async_rx.SubjectHandler">[docs]</a><span class="k">class</span> <span class="nc">SubjectHandler</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Subscribe Handler Protocol.</span>
+
+<span class="sd">    This handler could be called on subscription/unsubscribe event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SubjectHandler.on_subscribe"><a class="viewcode-back" href="../../api.html#async_rx.SubjectHandler.on_subscribe">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Notify on subscribe event.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            count (int): current #subscribers after subscription</span>
+<span class="sd">            source (Observer): observer source</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="SubjectHandler.on_unsubscribe"><a class="viewcode-back" href="../../api.html#async_rx.SubjectHandler.on_unsubscribe">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Notify on unsubscribe event.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            count (int): current #subscribers after unsubscribe</span>
+<span class="sd">            source (Observer): observer source</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="SubjectFactory"><a class="viewcode-back" href="../../api.html#async_rx.SubjectFactory">[docs]</a><span class="k">class</span> <span class="nc">SubjectFactory</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject_handler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SubjectHandler</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subject</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ConnectableObservable"><a class="viewcode-back" href="../../api.html#async_rx.ConnectableObservable">[docs]</a><span class="k">class</span> <span class="nc">ConnectableObservable</span><span class="p">(</span><span class="n">Observable</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Define a connectable observable protocol.</span>
+
+<span class="sd">    We have :</span>
+<span class="sd">        - subscribe function (it&#39;s an observable)</span>
+<span class="sd">        - connect function: start executing</span>
+<span class="sd">        - ref_count function: makes the Observable automatically start executing</span>
+<span class="sd">            when the first subscriber arrives,</span>
+<span class="sd">            and stop executing when the last subscriber leaves.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ConnectableObservable.connect"><a class="viewcode-back" href="../../api.html#async_rx.ConnectableObservable.connect">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Connect.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ConnectableObservable.ref_count"><a class="viewcode-back" href="../../api.html#async_rx.ConnectableObservable.ref_count">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ref_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Reference counter.</span>
+
+<span class="sd">        Make the multicasted Observable automatically start executing when</span>
+<span class="sd">        the first subscriber arrives,</span>
+<span class="sd">        and stop executing when the last subscriber leaves.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="ConnectableObservableHandler"><a class="viewcode-back" href="../../api.html#async_rx.ConnectableObservableHandler">[docs]</a><span class="k">class</span> <span class="nc">ConnectableObservableHandler</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Connectable Observable Handler Protocol.</span>
+
+<span class="sd">    This handler could be called on conect/disconnect event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ConnectableObservableHandler.on_connect"><a class="viewcode-back" href="../../api.html#async_rx.ConnectableObservableHandler.on_connect">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Called on connect event.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ConnectableObservableHandler.on_disconnect"><a class="viewcode-back" href="../../api.html#async_rx.ConnectableObservableHandler.on_disconnect">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Called on disconnect event.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">AsyncAccumulatorOperator</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Async Accumulator Operator Protocol.</span>
+
+<span class="sd">    Accumulator are used in reduce operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">SyncAccumulatorOperator</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Async Accumulator Operator Protocol.</span>
+
+<span class="sd">    Accumulator are used in reduce operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+
+<span class="n">AccumulatorOperator</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">AsyncAccumulatorOperator</span><span class="p">,</span> <span class="n">SyncAccumulatorOperator</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Accumulator Operator Protocol.</span>
+
+<span class="sd">Accumulator are used in reduce operation.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="PredicateOperator"><a class="viewcode-back" href="../../api.html#async_rx.PredicateOperator">[docs]</a><span class="k">class</span> <span class="nc">PredicateOperator</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Predicate Operator Protocol.</span>
+
+<span class="sd">    Predicate ae used in filter operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<span class="n">ObserverDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Observer&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;on_next&quot;</span><span class="p">,</span> <span class="s2">&quot;on_error&quot;</span><span class="p">,</span> <span class="s2">&quot;on_completed&quot;</span><span class="p">])</span>
+<span class="sd">&quot;&quot;&quot;Implements Observer Protocol.&quot;&quot;&quot;</span>
+
+<span class="n">ObservableDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Observable&quot;</span><span class="p">,</span> <span class="s2">&quot;subscribe&quot;</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;Implements Observable Protocol.&quot;&quot;&quot;</span>
+
+<span class="n">SubjectDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Subject&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;on_next&quot;</span><span class="p">,</span> <span class="s2">&quot;on_error&quot;</span><span class="p">,</span> <span class="s2">&quot;on_completed&quot;</span><span class="p">])</span>
+<span class="sd">&quot;&quot;&quot;Implements Subject Protocol.&quot;&quot;&quot;</span>
+
+<span class="n">ConnectableObservableDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;ConnectableObservable&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;connect&quot;</span><span class="p">,</span> <span class="s2">&quot;ref_count&quot;</span><span class="p">,</span> <span class="s2">&quot;subscribe&quot;</span><span class="p">])</span>
+<span class="sd">&quot;&quot;&quot;Implements ConnectableObservable Protocol.&quot;&quot;&quot;</span>
+
+<span class="n">SubjectHandlerDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;SubjectHandler&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;on_subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;on_unsubscribe&quot;</span><span class="p">])</span>
+<span class="sd">&quot;&quot;&quot;Implements SubjectHandler Protocol.&quot;&quot;&quot;</span>
+
+<span class="n">ConnectableObservableHandlerDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;ConnectableObservableHandler&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;on_connect&quot;</span><span class="p">,</span> <span class="s2">&quot;on_disconnect&quot;</span><span class="p">])</span>
+<span class="sd">&quot;&quot;&quot;Implements ConnectableObservableHandler Protocol.&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="default_subscription"><a class="viewcode-back" href="../../api.html#async_rx.default_subscription">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">default_subscription</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Default subcribe implementation method.</span>
+
+<span class="sd">    Do nothing.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (None) - nothing to return.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

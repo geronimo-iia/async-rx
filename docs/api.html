@@ -168,6 +168,1271 @@
 <div class="section" id="module-async_rx">
 <span id="async-rx"></span><h2><a class="toc-backref" href="#id3">async-rx</a><a class="headerlink" href="#module-async_rx" title="Permalink to this headline">¶</a></h2>
 <p>async-rx definition.</p>
+<p><strong>Classes</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Subscription" title="async_rx.Subscription"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Subscription</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Subscription Protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.NextHandler" title="async_rx.NextHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NextHandler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>NextHandler Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.CompleteHandler" title="async_rx.CompleteHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompleteHandler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>CompleteHandler Protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.ErrorHandler" title="async_rx.ErrorHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ErrorHandler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>ErrorHandler Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Observable</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Observable Protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.Observer" title="async_rx.Observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Observer</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Observer Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Subscribe" title="async_rx.Subscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Subscribe</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Subscribe Protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.Subject" title="async_rx.Subject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Subject</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A Subject is like an Observable, but can multicast to many Observers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.ConnectableObservable" title="async_rx.ConnectableObservable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectableObservable</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Define a connectable observable protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.ObservableFactory" title="async_rx.ObservableFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObservableFactory</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Async ObservableFactory Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.SubjectEventHandler" title="async_rx.SubjectEventHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SubjectEventHandler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Subject Event Handler Procotol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SubjectHandler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Subscribe Handler Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.ConnectableObservableHandler" title="async_rx.ConnectableObservableHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectableObservableHandler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Connectable Observable Handler Protocol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.PredicateOperator" title="async_rx.PredicateOperator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PredicateOperator</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Predicate Operator Protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.SubjectFactory" title="async_rx.SubjectFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SubjectFactory</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.default_subscription" title="async_rx.default_subscription"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_subscription</span></code></a>()</p></td>
+<td><p>Default subcribe implementation method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.observer" title="async_rx.observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">observer</span></code></a>(on_next, on_error, on_completed)</p></td>
+<td><p>Return an observer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.subject" title="async_rx.subject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subject</span></code></a>(subject_handler)</p></td>
+<td><p>Create a subject.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.subject_handler" title="async_rx.subject_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subject_handler</span></code></a>(on_subscribe, on_unsubscribe)</p></td>
+<td><p>Create a SubjectHandler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.replay_subject" title="async_rx.replay_subject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replay_subject</span></code></a>(buffer_size, subject_handler)</p></td>
+<td><p>Create a replay subject.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.behavior_subject" title="async_rx.behavior_subject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">behavior_subject</span></code></a>(subject_handler)</p></td>
+<td><p>Create a behavior subject.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.multicast" title="async_rx.multicast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multicast</span></code></a>(an_observable, subject_handler, …)</p></td>
+<td><p>Create a Connectable Observable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.publish_behavior" title="async_rx.publish_behavior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish_behavior</span></code></a>(an_observable, …)</p></td>
+<td><p>Create a publish_behavior.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.publish_replay" title="async_rx.publish_replay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">publish_replay</span></code></a>(an_observable, buffer_size, …)</p></td>
+<td><p>Create a publish_replay.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_create" title="async_rx.rx_create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_create</span></code></a>(subscribe, ensure_contract, …)</p></td>
+<td><p>Create an observable with specific delayed execution ‘subscribe’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_defer" title="async_rx.rx_defer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_defer</span></code></a>(observable_factory)</p></td>
+<td><p>Create an observable when a subscription occurs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_empty" title="async_rx.rx_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_empty</span></code></a>()</p></td>
+<td><p>Create an empty Observable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_forward" title="async_rx.rx_forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_forward</span></code></a>(observable, except_complet, …)</p></td>
+<td><p>Create an observable wich forward event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_of" title="async_rx.rx_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_of</span></code></a>(*args)</p></td>
+<td><p>Convert arguments into an observable sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_range" title="async_rx.rx_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_range</span></code></a>(start, stop, step)</p></td>
+<td><p>Create an observable sequence of range.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_throw" title="async_rx.rx_throw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_throw</span></code></a>(error)</p></td>
+<td><p>Create an observable wich always call error.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_from" title="async_rx.rx_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_from</span></code></a>(observable_input)</p></td>
+<td><p>Convert almost anything to an Observable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_distinct" title="async_rx.rx_distinct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_distinct</span></code></a>(observable, frame_size)</p></td>
+<td><p>Create an observable which send distinct event inside a windows of size #frame_size.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_filter" title="async_rx.rx_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_filter</span></code></a>(observable, predicate)</p></td>
+<td><p>Create an observable which event are filtered by a predicate function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_first" title="async_rx.rx_first"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_first</span></code></a>(observable)</p></td>
+<td><p>Create an observale which only take the first event and complete.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_last" title="async_rx.rx_last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_last</span></code></a>(observable, count)</p></td>
+<td><p>Create an observale which only take #count (or less) last events and complete.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_skip" title="async_rx.rx_skip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_skip</span></code></a>(observable, count)</p></td>
+<td><p>Create an obervable wich skip #count event on source.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_take" title="async_rx.rx_take"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_take</span></code></a>(observable, count)</p></td>
+<td><p>Create an observable which take only first #count event maximum (could be less).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_reduce" title="async_rx.rx_reduce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_reduce</span></code></a>(observable, accumulator, …)</p></td>
+<td><p>Create an observable which reduce source with accumulator and seed value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_count" title="async_rx.rx_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_count</span></code></a>(observable)</p></td>
+<td><p>Create an observable wich counts the emissions on the source and emits result.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_max" title="async_rx.rx_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_max</span></code></a>(observable)</p></td>
+<td><p>Create an observable wich returns the maximal item in the source when completes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_min" title="async_rx.rx_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_min</span></code></a>(observable)</p></td>
+<td><p>Create an observable wich returns minimal item in the source when completes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_sum" title="async_rx.rx_sum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_sum</span></code></a>(observable)</p></td>
+<td><p>Create an observable wich return the sum items in the source when completes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_avg" title="async_rx.rx_avg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_avg</span></code></a>(observable)</p></td>
+<td><p>Create an observable wich return the average items in the source when completes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_merge" title="async_rx.rx_merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_merge</span></code></a>(*observables)</p></td>
+<td><p>Flattens multiple Observables together by blending their values into one Observable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_zip" title="async_rx.rx_zip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_zip</span></code></a>(*observables)</p></td>
+<td><p>Combine multiple Observables to create an Observable.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="async_rx.Subscription">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">Subscription</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#Subscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Subscription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Subscription Protocol.</p>
+<p>Subscription is a function to release resources or cancel Observable executions (act as a Disposable).
+It define something to be used and thrown away after you call it.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Subscription.__call__" title="async_rx.Subscription.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>()</p></td>
+<td><p>Release subscription.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.Subscription.__call__">
+<em class="property">async </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#Subscription.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Subscription.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release subscription.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.NextHandler">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">NextHandler</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#NextHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.NextHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>NextHandler Protocol.</p>
+<p>A next handler process an item from associated observable.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.NextHandler.__call__" title="async_rx.NextHandler.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(item)</p></td>
+<td><p>Process item.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.NextHandler.__call__">
+<em class="property">async </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">item: Any</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#NextHandler.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.NextHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process item.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.CompleteHandler">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">CompleteHandler</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#CompleteHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.CompleteHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>CompleteHandler Protocol.</p>
+<p>A complete handler is call when no more item will came from the associated observable.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.CompleteHandler.__call__" title="async_rx.CompleteHandler.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>()</p></td>
+<td><p>Signal completion of this observable.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.CompleteHandler.__call__">
+<em class="property">async </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#CompleteHandler.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.CompleteHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signal completion of this observable.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.ErrorHandler">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">ErrorHandler</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#ErrorHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ErrorHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>ErrorHandler Protocol.</p>
+<p>An error handler receive a message or an exception and raise it.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.ErrorHandler.__call__" title="async_rx.ErrorHandler.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(err)</p></td>
+<td><p>Raise error.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.ErrorHandler.__call__">
+<em class="property">async </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">err: Any</em><span class="sig-paren">)</span> &#x2192; Optional[NoReturn]<a class="reference internal" href="_modules/async_rx/protocol.html#ErrorHandler.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ErrorHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>err</strong> (<em>Union</em><em>[</em><em>Any</em><em>, </em><em>Exception</em><em>]</em>) – the error to raise</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>(</strong><strong>Exception</strong><strong>)</strong> – the exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.Observable">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">Observable</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#Observable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Observable Protocol.</p>
+<p>An observable is something on which we can subscribe to listen event.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Observable.subscribe" title="async_rx.Observable.subscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subscribe</span></code></a>(an_observer)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.Observable.subscribe">
+<em class="property">async </em><code class="sig-name descname">subscribe</code><span class="sig-paren">(</span><em class="sig-param">an_observer: async_rx.protocol.Observer</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Subscription<a class="reference internal" href="_modules/async_rx/protocol.html#Observable.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observable.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.Observer">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">Observer</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#Observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Observer Protocol.</p>
+<p>What is an Observer?</p>
+<p>An Observer is a consumer of values delivered by an Observable.</p>
+<p>Observers are simply a set of callbacks, one for each type of notification
+delivered by the Observable:</p>
+<ul class="simple">
+<li><p>next,</p></li>
+<li><p>error,</p></li>
+<li><p>and complete.</p></li>
+</ul>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Observer.on_completed" title="async_rx.Observer.on_completed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_completed</span></code></a>()</p></td>
+<td><p>Signal completion of this observable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.Observer.on_error" title="async_rx.Observer.on_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_error</span></code></a>(err)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Observer.on_next" title="async_rx.Observer.on_next"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_next</span></code></a>(item)</p></td>
+<td><p>Process item.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Observers are just “objects” with three callbacks, one for each type of
+notification that an Observable may deliver.</p>
+<dl class="method">
+<dt id="async_rx.Observer.on_next">
+<em class="property">async </em><code class="sig-name descname">on_next</code><span class="sig-paren">(</span><em class="sig-param">item: Any</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#Observer.on_next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observer.on_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process item.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_rx.Observer.on_completed">
+<em class="property">async </em><code class="sig-name descname">on_completed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#Observer.on_completed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observer.on_completed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signal completion of this observable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_rx.Observer.on_error">
+<em class="property">async </em><code class="sig-name descname">on_error</code><span class="sig-paren">(</span><em class="sig-param">err: Any</em><span class="sig-paren">)</span> &#x2192; Optional[NoReturn]<a class="reference internal" href="_modules/async_rx/protocol.html#Observer.on_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observer.on_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.Subscribe">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">Subscribe</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#Subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Subscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Subscribe Protocol.</p>
+<p>It’s a (sync/async) function wich take an observer and return a subscription.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.Subscribe.__call__" title="async_rx.Subscribe.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(an_observer)</p></td>
+<td><p>Implement observer subscription.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.Subscribe.__call__">
+<em class="property">async </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">an_observer: async_rx.protocol.Observer</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Subscription<a class="reference internal" href="_modules/async_rx/protocol.html#Subscribe.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Subscribe.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement observer subscription.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observer</strong> (<a class="reference internal" href="#async_rx.Observer" title="async_rx.Observer"><em>Observer</em></a>) – the observer instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>subscription</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Subscription" title="async_rx.Subscription">Subscription</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.Subject">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">Subject</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#Subject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">async_rx.protocol.Observable</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">async_rx.protocol.Observer</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>A Subject is like an Observable, but can multicast to many Observers.</p>
+<p>Subjects are like EventEmitters: they maintain a registry of many listeners.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.ConnectableObservable">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">ConnectableObservable</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#ConnectableObservable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ConnectableObservable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">async_rx.protocol.Observable</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Define a connectable observable protocol.</p>
+<dl class="simple">
+<dt>We have :</dt><dd><ul class="simple">
+<li><p>subscribe function (it’s an observable)</p></li>
+<li><p>connect function: start executing</p></li>
+<li><dl class="simple">
+<dt>ref_count function: makes the Observable automatically start executing</dt><dd><p>when the first subscriber arrives,
+and stop executing when the last subscriber leaves.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.ConnectableObservable.connect" title="async_rx.ConnectableObservable.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a>()</p></td>
+<td><p>Connect.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.ConnectableObservable.ref_count" title="async_rx.ConnectableObservable.ref_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ref_count</span></code></a>()</p></td>
+<td><p>Reference counter.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.ConnectableObservable.connect">
+<em class="property">async </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Subscription<a class="reference internal" href="_modules/async_rx/protocol.html#ConnectableObservable.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ConnectableObservable.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_rx.ConnectableObservable.ref_count">
+<em class="property">async </em><code class="sig-name descname">ref_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/protocol.html#ConnectableObservable.ref_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ConnectableObservable.ref_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference counter.</p>
+<p>Make the multicasted Observable automatically start executing when
+the first subscriber arrives,
+and stop executing when the last subscriber leaves.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.ObservableFactory">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">ObservableFactory</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#ObservableFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ObservableFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Async ObservableFactory Protocol.</p>
+<p>Define function which create Observable.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.ObservableFactory.__call__" title="async_rx.ObservableFactory.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>()</p></td>
+<td><p>Create an Observable.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.ObservableFactory.__call__">
+<em class="property">async </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/protocol.html#ObservableFactory.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ObservableFactory.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the new observable instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.SubjectEventHandler">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">SubjectEventHandler</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#SubjectEventHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.SubjectEventHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Subject Event Handler Procotol.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.SubjectHandler">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">SubjectHandler</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#SubjectHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.SubjectHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Subscribe Handler Protocol.</p>
+<p>This handler could be called on subscription/unsubscribe event.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.SubjectHandler.on_subscribe" title="async_rx.SubjectHandler.on_subscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_subscribe</span></code></a>(count, source)</p></td>
+<td><p>Notify on subscribe event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.SubjectHandler.on_unsubscribe" title="async_rx.SubjectHandler.on_unsubscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_unsubscribe</span></code></a>(count, source)</p></td>
+<td><p>Notify on unsubscribe event.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.SubjectHandler.on_subscribe">
+<em class="property">async </em><code class="sig-name descname">on_subscribe</code><span class="sig-paren">(</span><em class="sig-param">count: int</em>, <em class="sig-param">source: async_rx.protocol.Observer</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#SubjectHandler.on_subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.SubjectHandler.on_subscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify on subscribe event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> (<em>int</em>) – current #subscribers after subscription</p></li>
+<li><p><strong>source</strong> (<a class="reference internal" href="#async_rx.Observer" title="async_rx.Observer"><em>Observer</em></a>) – observer source</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_rx.SubjectHandler.on_unsubscribe">
+<em class="property">async </em><code class="sig-name descname">on_unsubscribe</code><span class="sig-paren">(</span><em class="sig-param">count: int</em>, <em class="sig-param">source: async_rx.protocol.Observer</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#SubjectHandler.on_unsubscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.SubjectHandler.on_unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify on unsubscribe event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> (<em>int</em>) – current #subscribers after unsubscribe</p></li>
+<li><p><strong>source</strong> (<a class="reference internal" href="#async_rx.Observer" title="async_rx.Observer"><em>Observer</em></a>) – observer source</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.ConnectableObservableHandler">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">ConnectableObservableHandler</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#ConnectableObservableHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ConnectableObservableHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Connectable Observable Handler Protocol.</p>
+<p>This handler could be called on conect/disconnect event.</p>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.ConnectableObservableHandler.on_connect" title="async_rx.ConnectableObservableHandler.on_connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_connect</span></code></a>()</p></td>
+<td><p>Called on connect event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.ConnectableObservableHandler.on_disconnect" title="async_rx.ConnectableObservableHandler.on_disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_disconnect</span></code></a>()</p></td>
+<td><p>Called on disconnect event.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_rx.ConnectableObservableHandler.on_connect">
+<em class="property">async </em><code class="sig-name descname">on_connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#ConnectableObservableHandler.on_connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ConnectableObservableHandler.on_connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on connect event.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_rx.ConnectableObservableHandler.on_disconnect">
+<em class="property">async </em><code class="sig-name descname">on_disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#ConnectableObservableHandler.on_disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.ConnectableObservableHandler.on_disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on disconnect event.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.default_subscription">
+<em class="property">async </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">default_subscription</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol.html#default_subscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.default_subscription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default subcribe implementation method.</p>
+<p>Do nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(None) - nothing to return.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.PredicateOperator">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">PredicateOperator</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#PredicateOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.PredicateOperator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+<p>Predicate Operator Protocol.</p>
+<p>Predicate ae used in filter operation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="async_rx.SubjectFactory">
+<em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">SubjectFactory</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol.html#SubjectFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.SubjectFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.observer">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">observer</code><span class="sig-paren">(</span><em class="sig-param">on_next: async_rx.protocol.NextHandler</em>, <em class="sig-param">on_error: async_rx.protocol.ErrorHandler = &lt;function default_error&gt;</em>, <em class="sig-param">on_completed: async_rx.protocol.CompleteHandler = &lt;function default_on_completed&gt;</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observer<a class="reference internal" href="_modules/async_rx/observer.html#observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an observer.</p>
+<p>The underlying implementation use an ObserverDefinition named tuple.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on_next</strong> (<a class="reference internal" href="#async_rx.NextHandler" title="async_rx.NextHandler"><em>NextHandler</em></a>) – on_next handler which process items</p></li>
+<li><p><strong>on_error</strong> (<a class="reference internal" href="#async_rx.ErrorHandler" title="async_rx.ErrorHandler"><em>ErrorHandler</em></a>) – on_error handler (default with default_error
+which raise Exception)</p></li>
+<li><p><strong>on_completed</strong> (<a class="reference internal" href="#async_rx.CompleteHandler" title="async_rx.CompleteHandler"><em>CompleteHandler</em></a>) – on_completed handler (default with noop)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an Observer</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observer" title="async_rx.Observer">Observer</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.subject">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">subject</code><span class="sig-paren">(</span><em class="sig-param">subject_handler: Optional[async_rx.protocol.SubjectHandler] = None</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Subject<a class="reference internal" href="_modules/async_rx/subject/subject.html#subject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a subject.</p>
+<p>A Subject is like an Observable, but can multicast to many Observers.
+Subjects are like EventEmitters: they maintain a registry of many listeners,
+and then dispatch events/items to them.</p>
+<p>As subject is also an Observer, it can subscribe to an observable which act at his stream data source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subject_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><em>SubjectHandler</em></a><em>]</em>) – optional suject handler callback</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the subject</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Subject" title="async_rx.Subject">Subject</a>)</p>
+</dd>
+</dl>
+<p>Example 1:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a subject</span>
+<span class="n">a_subject</span> <span class="o">=</span> <span class="n">subject</span><span class="p">(</span><span class="n">subject_handler</span><span class="o">=</span><span class="n">my_handler</span><span class="p">)</span>
+
+<span class="c1"># few observer subscribe on this subject</span>
+<span class="n">sub_1</span> <span class="o">=</span> <span class="k">await</span> <span class="n">a_subject</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">obs_1</span><span class="p">)</span>
+<span class="n">sub_2</span> <span class="o">=</span> <span class="k">await</span> <span class="n">a_subject</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">obs_2</span><span class="p">)</span>
+
+<span class="c1"># the subject subscribe himself on an observable</span>
+<span class="k">await</span> <span class="n">rx_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">a_subject</span><span class="p">)</span>
+
+<span class="c1"># obs_1 and obs_2 receive 10 #items</span>
+</pre></div>
+</div>
+<p>Example 2:
+A subject as event emitter</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a subject</span>
+<span class="n">a_subject</span> <span class="o">=</span> <span class="n">subject</span><span class="p">()</span>
+
+<span class="c1"># few observer subscribe on this subject</span>
+<span class="n">sub_1</span> <span class="o">=</span> <span class="k">await</span> <span class="n">a_subject</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">obs_1</span><span class="p">)</span>
+<span class="n">sub_2</span> <span class="o">=</span> <span class="k">await</span> <span class="n">a_subject</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">obs_2</span><span class="p">)</span>
+
+<span class="c1"># send your data by your self</span>
+<span class="k">await</span> <span class="n">a_subject</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s2">&quot;my value&quot;</span><span class="p">)</span> <span class="c1"># obs_1 and obs_2 receive &quot;my value&quot;</span>
+<span class="k">await</span> <span class="n">a_subject</span><span class="o">.</span><span class="n">on_completed</span><span class="p">()</span> <span class="c1"># obs_1 and obs_2 receive on_completed</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.subject_handler">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">subject_handler</code><span class="sig-paren">(</span><em class="sig-param">on_subscribe: async_rx.protocol.SubjectEventHandler</em>, <em class="sig-param">on_unsubscribe: async_rx.protocol.SubjectEventHandler</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.SubjectHandler<a class="reference internal" href="_modules/async_rx/subject/handler.html#subject_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.subject_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a SubjectHandler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on_subscribe</strong> (<a class="reference internal" href="#async_rx.SubjectEventHandler" title="async_rx.SubjectEventHandler"><em>SubjectEventHandler</em></a>) – on subscribe event handler</p></li>
+<li><p><strong>on_unsubscribe</strong> (<a class="reference internal" href="#async_rx.SubjectEventHandler" title="async_rx.SubjectEventHandler"><em>SubjectEventHandler</em></a>) – on unsubscribe event handler</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a SubjectHandler instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler">SubjectHandler</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.replay_subject">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">replay_subject</code><span class="sig-paren">(</span><em class="sig-param">buffer_size: int</em>, <em class="sig-param">subject_handler: Optional[async_rx.protocol.SubjectHandler] = None</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Subject<a class="reference internal" href="_modules/async_rx/subject/replay_subject.html#replay_subject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.replay_subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a replay subject.</p>
+<p>A ReplaySubject is similar to a BehaviorSubject in that it can send
+old values to new subscribers, but it can also record a part
+of the Observable execution.</p>
+<p>A ReplaySubject records multiple values from the Observable
+execution and replays them to new subscribers.
+When a replay occurs, completed and error events are also replayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buffer_size</strong> (<em>int</em>) – buffer size, or #items which be replayed on subscription</p></li>
+<li><p><strong>subject_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><em>SubjectHandler</em></a><em>]</em>) – optional suject handler callback</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the subject</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Subject" title="async_rx.Subject">Subject</a>)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Raise:</dt><dd><p>(RuntimeError): if buffer_size &lt;= 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.behavior_subject">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">behavior_subject</code><span class="sig-paren">(</span><em class="sig-param">subject_handler: Optional[async_rx.protocol.SubjectHandler] = None</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Subject<a class="reference internal" href="_modules/async_rx/subject/behavior_subject.html#behavior_subject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.behavior_subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a behavior subject.</p>
+<p>One of the variants of Subjects is the BehaviorSubject, which has a notion
+of “the current value”.
+It stores the latest value emitted to its consumers, and whenever
+a new Observer subscribes, it will immediately receive the “current value”
+from the BehaviorSubject.</p>
+<p>BehaviorSubjects are useful for representing “values over time”.
+For instance, an event stream of birthdays is a Subject,
+but the stream of a person’s age would be a BehaviorSubject.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subject_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><em>SubjectHandler</em></a><em>]</em>) – optional suject handler callback</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the subject</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Subject" title="async_rx.Subject">Subject</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.multicast">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">multicast</code><span class="sig-paren">(</span><em class="sig-param">an_observable: async_rx.protocol.Observable</em>, <em class="sig-param">subject_handler: Optional[async_rx.protocol.SubjectHandler] = None</em>, <em class="sig-param">connection_handler: Optional[async_rx.protocol.ConnectableObservableHandler] = None</em>, <em class="sig-param">subject_factory: async_rx.protocol.SubjectFactory = &lt;function subject&gt;</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.ConnectableObservable<a class="reference internal" href="_modules/async_rx/multicast/multicast.html#multicast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.multicast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Connectable Observable.</p>
+<p>A multicasted Observable uses a Subject under the hood to make multiple
+Observers see the same Observable execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>an_observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable to connect</p></li>
+<li><p><strong>subject_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><em>SubjectHandler</em></a><em>]</em>) – optional subject handler</p></li>
+<li><p><strong>connection_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.ConnectableObservableHandler" title="async_rx.ConnectableObservableHandler"><em>ConnectableObservableHandler</em></a><em>]</em>) – optional connection handler</p></li>
+<li><p><strong>subject_factory</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectFactory" title="async_rx.SubjectFactory"><em>SubjectFactory</em></a><em>]</em>) – subject factory, per default use subject</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the multicasted Observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.ConnectableObservable" title="async_rx.ConnectableObservable">ConnectableObservable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.publish_behavior">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">publish_behavior</code><span class="sig-paren">(</span><em class="sig-param">an_observable: async_rx.protocol.Observable</em>, <em class="sig-param">subject_handler: Optional[async_rx.protocol.SubjectHandler] = None</em>, <em class="sig-param">connection_handler: Optional[async_rx.protocol.ConnectableObservableHandler] = None</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.ConnectableObservable<a class="reference internal" href="_modules/async_rx/multicast/publish_behavior.html#publish_behavior"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.publish_behavior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a publish_behavior.</p>
+<p>A publish_behavior uses a behavior_subject under the hood to make multiple
+Observers see the same Observable execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>an_observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable to connect</p></li>
+<li><p><strong>subject_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><em>SubjectHandler</em></a><em>]</em>) – optional subject handler</p></li>
+<li><p><strong>connection_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.ConnectableObservableHandler" title="async_rx.ConnectableObservableHandler"><em>ConnectableObservableHandler</em></a><em>]</em>) – optional connection handler</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the publish_behavior instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.ConnectableObservable" title="async_rx.ConnectableObservable">ConnectableObservable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.publish_replay">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">publish_replay</code><span class="sig-paren">(</span><em class="sig-param">an_observable: async_rx.protocol.Observable</em>, <em class="sig-param">buffer_size: int</em>, <em class="sig-param">subject_handler: Optional[async_rx.protocol.SubjectHandler] = None</em>, <em class="sig-param">connection_handler: Optional[async_rx.protocol.ConnectableObservableHandler] = None</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.ConnectableObservable<a class="reference internal" href="_modules/async_rx/multicast/publish_replay.html#publish_replay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.publish_replay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a publish_replay.</p>
+<p>A publish_replay uses a replay_subject under the hood to make
+multiple Observers see the same Observable execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buffer_size</strong> (<em>int</em>) – max #items to replay</p></li>
+<li><p><strong>an_observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable to connect</p></li>
+<li><p><strong>subject_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.SubjectHandler" title="async_rx.SubjectHandler"><em>SubjectHandler</em></a><em>]</em>) – optional subject handler</p></li>
+<li><p><strong>connection_handler</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#async_rx.ConnectableObservableHandler" title="async_rx.ConnectableObservableHandler"><em>ConnectableObservableHandler</em></a><em>]</em>) – optional connection handler</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the publish_replay instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.ConnectableObservable" title="async_rx.ConnectableObservable">ConnectableObservable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_create">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_create</code><span class="sig-paren">(</span><em class="sig-param">subscribe: async_rx.protocol.Subscribe</em>, <em class="sig-param">ensure_contract: Optional[bool] = True</em>, <em class="sig-param">max_observer: Optional[int] = None</em><span class="sig-paren">)</span> &#x2192; Union[async_rx.protocol.Observable, NoReturn]<a class="reference internal" href="_modules/async_rx/observable/rx_create.html#rx_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable with specific delayed execution ‘subscribe’.</p>
+<p>Observables can be created with create, but usually we use the so-called
+creation operators, like of, from, interval, etc.
+Subscribing to an Observable is like calling a function, providing callbacks
+where the data will be delivered to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subscribe</strong> (<a class="reference internal" href="#async_rx.Subscribe" title="async_rx.Subscribe"><em>Subscribe</em></a>) – subcribe function to use on observable</p></li>
+<li><p><strong>ensure_contract</strong> (<em>bool</em>) – boolean flag (default True) to ensure that
+this observable will follow Observable contract.</p></li>
+<li><p><strong>max_observer</strong> (<em>int</em>) – maximum observer on this Observable (default None &lt;=&gt; unlimited)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an observable instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Raise:</dt><dd><p>(RuntimeError): if subscribe parameter is undefined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_defer">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_defer</code><span class="sig-paren">(</span><em class="sig-param">observable_factory: async_rx.protocol.ObservableFactory</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_defer.html#rx_defer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_defer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable when a subscription occurs.</p>
+<p>Defer allows you to create the Observable only when the Observer subscribes,
+and create a fresh Observable for each Observer.</p>
+<p>It waits until an Observer subscribes to it, and then it generates an Observable,
+typically with an Observable factory function.
+It does this afresh for each subscriber, so although each subscriber may think
+it is subscribing to the same Observable,
+in fact each subscriber gets its own individual Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable_factory</strong> (<a class="reference internal" href="#async_rx.ObservableFactory" title="async_rx.ObservableFactory"><em>ObservableFactory</em></a>) – observable factory</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>an observable instance wich create observable</dt><dd><p>when subscription occurs.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_empty">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_empty.html#rx_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an empty Observable.</p>
+<p>An “empty” Observable emits only the complete notification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(Observable) observable instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_forward">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_forward</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em>, <em class="sig-param">except_complet: bool = False</em>, <em class="sig-param">except_error: bool = False</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_forward.html#rx_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich forward event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p></li>
+<li><p><strong>except_complet</strong> (<em>bool</em>) – if true then did not forward ‘on_complet’ (default: {False})</p></li>
+<li><p><strong>except_error</strong> (<em>bool</em>) – if true then did not forward ‘on_error’ (default: {False})</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_of">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_of</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_of.html#rx_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert arguments into an observable sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – any list of argument to send to observer.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_range">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_range</code><span class="sig-paren">(</span><em class="sig-param">start: int</em>, <em class="sig-param">stop: int</em>, <em class="sig-param">step: int = 1</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_range.html#rx_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable sequence of range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>int</em>) – initiale value</p></li>
+<li><p><strong>stop</strong> (<em>int</em>) – last value</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – default increment (default: {1})</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_throw">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_throw</code><span class="sig-paren">(</span><em class="sig-param">error: Any</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_throw.html#rx_throw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_throw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich always call error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>error</strong> (<em>Union</em><em>[</em><em>Any</em><em>, </em><em>Exception</em><em>]</em>) – the error to observe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_from">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_from</code><span class="sig-paren">(</span><em class="sig-param">observable_input: Any</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/rx_from.html#rx_from"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert almost anything to an Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable_input</strong> (<em>Any</em>) – A subscribable object</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The Observable whose values are originally from the input object</dt><dd><p>that was converted.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_distinct">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_distinct</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em>, <em class="sig-param">frame_size: int</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_filter/rx_distinct.html#rx_distinct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_distinct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable which send distinct event inside a windows of size #frame_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p></li>
+<li><p><strong>frame_size</strong> (<em>int</em>) – windows size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Raise:</dt><dd><p>(RuntimeError): if frame_size &lt;= 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_filter">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_filter</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em>, <em class="sig-param">predicate: async_rx.protocol.PredicateOperator</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_filter/rx_filter.html#rx_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable which event are filtered by a predicate function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p></li>
+<li><p><strong>predicate</strong> (<em>Operator</em>) – predicate function which take on argument and return
+a truthy value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_first">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_first</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_filter/rx_first.html#rx_first"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_first" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observale which only take the first event and complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_last">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_last</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em>, <em class="sig-param">count: int = 1</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_filter/rx_last.html#rx_last"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_last" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observale which only take #count (or less) last events and complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – number of event to get (default 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Raise:</dt><dd><p>(RuntimeError): if count &lt;= 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_skip">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_skip</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em>, <em class="sig-param">count: int</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_filter/rx_skip.html#rx_skip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_skip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an obervable wich skip #count event on source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – number of event to skip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Raise:</dt><dd><p>(RuntimeError): if count &lt;= 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_take">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_take</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em>, <em class="sig-param">count: int</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_filter/rx_take.html#rx_take"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_take" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable which take only first #count event maximum (could be less).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – observable source</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – #items to take</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Raise:</dt><dd><p>(RuntimeError): if count &lt;= 0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_reduce">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_reduce</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable, accumulator: Union[async_rx.protocol.AsyncAccumulatorOperator, async_rx.protocol.SyncAccumulatorOperator], seed: Optional[Any] = None</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_math/rx_reduce.html#rx_reduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_reduce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable which reduce source with accumulator and seed value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observable</strong> (<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable"><em>Observable</em></a>) – source</p></li>
+<li><p><strong>accumulator</strong> (<em>AccumulatorOperator</em>) – accumulator function (two argument, one result) async or sync.</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – optional seed value (default none)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a new observable</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_count">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_count</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_math/rx_count.html#rx_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich counts the emissions on the source and emits result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<em>observable</em>) – the observable source</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_max">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_max</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_math/rx_max.html#rx_max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich returns the maximal item in the source when completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<em>observable</em>) – the observable source</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_min">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_min</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_math/rx_min.html#rx_min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich returns minimal item in the source when completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<em>observable</em>) – the observable source</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_sum">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_sum</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_math/rx_sum.html#rx_sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich return the sum items in the source when completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<em>observable</em>) – the observable source</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_avg">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_avg</code><span class="sig-paren">(</span><em class="sig-param">observable: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_math/rx_avg.html#rx_avg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_avg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an observable wich return the average items in the source when completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<em>observable</em>) – the observable source</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_merge">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_merge</code><span class="sig-paren">(</span><em class="sig-param">*observables: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_combinator/rx_merge.html#rx_merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattens multiple Observables together by blending their values into one Observable.</p>
+<p>Creates an output Observable which concurrently emits all values
+from every given input Observable.
+‘merge’ subscribes to each given input Observable (either the source or
+an Observable given as argument), and simply forwards (without doing any
+transformation) all the values from all the input Observables to the output
+Observable.
+The output Observable only completes once all input Observables have completed.
+Any error delivered by an input Observable will be immediately emitted on
+the output Observable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>(</strong><strong>Observable</strong><strong>)</strong> – a list of observable instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="async_rx.rx_zip">
+<code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">rx_zip</code><span class="sig-paren">(</span><em class="sig-param">*observables: async_rx.protocol.Observable</em><span class="sig-paren">)</span> &#x2192; async_rx.protocol.Observable<a class="reference internal" href="_modules/async_rx/observable/op_combinator/rx_zip.html#rx_zip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.rx_zip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine multiple Observables to create an Observable.</p>
+<p>The Obsevable values are calculated from the values, in order,
+of each of its input Observables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>(</strong><strong>Observable</strong><strong>)</strong> – a list of observable instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>observable instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#async_rx.Observable" title="async_rx.Observable">Observable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 

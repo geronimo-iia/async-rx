@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>async_rx.observer &mdash; async_rx 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> async_rx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">async_rx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>async_rx.observer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for async_rx.observer</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Observer protocol implementation.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">.protocol</span> <span class="kn">import</span> <span class="n">CompleteHandler</span><span class="p">,</span> <span class="n">ErrorHandler</span><span class="p">,</span> <span class="n">NextHandler</span><span class="p">,</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">ObserverDefinition</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;observer&#39;</span><span class="p">,</span> <span class="s1">&#39;default_on_completed&#39;</span><span class="p">,</span> <span class="s1">&#39;default_error&#39;</span><span class="p">,</span> <span class="s1">&#39;ensure_observable_contract_operator&#39;</span><span class="p">]</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">default_on_completed</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Default on complet handler.</span>
+
+<span class="sd">    No operation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (None): nothing</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">default_error</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Always raise error.</span>
+
+<span class="sd">    It&#39;s our default error handler implementation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">err</span>
+
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="observer"><a class="viewcode-back" href="../../api.html#async_rx.observer">[docs]</a><span class="k">def</span> <span class="nf">observer</span><span class="p">(</span><span class="n">on_next</span><span class="p">:</span> <span class="n">NextHandler</span><span class="p">,</span> <span class="n">on_error</span><span class="p">:</span> <span class="n">ErrorHandler</span> <span class="o">=</span> <span class="n">default_error</span><span class="p">,</span> <span class="n">on_completed</span><span class="p">:</span> <span class="n">CompleteHandler</span> <span class="o">=</span> <span class="n">default_on_completed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return an observer.</span>
+
+<span class="sd">    The underlying implementation use an ObserverDefinition named tuple.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        on_next (NextHandler): on_next handler which process items</span>
+<span class="sd">        on_error (ErrorHandler): on_error handler (default with default_error</span>
+<span class="sd">            which raise Exception)</span>
+<span class="sd">        on_completed (CompleteHandler): on_completed handler (default with noop)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (Observer): an Observer</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ObserverDefinition</span><span class="p">(</span><span class="n">on_next</span><span class="o">=</span><span class="n">on_next</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="n">on_error</span><span class="p">,</span> <span class="n">on_completed</span><span class="o">=</span><span class="n">on_completed</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">ensure_observable_contract_operator</span><span class="p">(</span><span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Ensure Observable Grammar or Contract.</span>
+
+<span class="sd">    ```next*(error|complete)?```</span>
+
+<span class="sd">    In an Observable Execution, zero to infinite Next notifications may be delivered.</span>
+<span class="sd">    If either an Error or Complete notification is delivered, then nothing else</span>
+<span class="sd">    can be delivered afterwards.</span>
+
+<span class="sd">    Args;</span>
+<span class="sd">        an_observer (Observer): the observer which must be ensure that subscribed</span>
+<span class="sd">            observable follow contract.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (Observer): an Observer which follow the contract.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">deliver_next</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_next</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">deliver_next</span>
+
+        <span class="k">if</span> <span class="n">deliver_next</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_error</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">NoReturn</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
+        <span class="k">nonlocal</span> <span class="n">deliver_next</span>
+
+        <span class="k">if</span> <span class="n">deliver_next</span><span class="p">:</span>
+            <span class="n">deliver_next</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_error</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_completed</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">deliver_next</span>
+
+        <span class="k">if</span> <span class="n">deliver_next</span><span class="p">:</span>
+            <span class="n">deliver_next</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_completed</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">observer</span><span class="p">(</span><span class="n">on_next</span><span class="o">=</span><span class="n">_on_next</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="n">_on_error</span><span class="p">,</span> <span class="n">on_completed</span><span class="o">=</span><span class="n">_on_completed</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

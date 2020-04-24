@@ -22,7 +22,10 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         (Subject): the subject
 
     Example 1:
-    ```python
+
+    .. highlight:: python
+    .. code-block:: python
+
         # create a subject
         a_subject = subject(subject_handler=my_handler)
 
@@ -34,11 +37,13 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         await rx_range(start=0, stop=10).subscribe(a_subject)
 
         # obs_1 and obs_2 receive 10 #items
-    ```
 
     Example 2:
     A subject as event emitter
-    ```python
+
+    .. highlight:: python
+    .. code-block:: python
+
         # create a subject
         a_subject = subject()
 
@@ -49,7 +54,7 @@ def subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         # send your data by your self
         await a_subject.on_next(item="my value") # obs_1 and obs_2 receive "my value"
         await a_subject.on_completed() # obs_1 and obs_2 receive on_completed
-    ```
+
 
     """
     _registry = []  # list of registered observer

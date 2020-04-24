@@ -83,12 +83,15 @@ class ErrorHandler(Protocol):
 
 
 class Observer(Protocol):
-    """What is an Observer?
+    """Observer Protocol.
+
+    What is an Observer?
 
     An Observer is a consumer of values delivered by an Observable.
 
     Observers are simply a set of callbacks, one for each type of notification
     delivered by the Observable:
+
     - next,
     - error,
     - and complete.
@@ -206,11 +209,11 @@ class ConnectableObservable(Observable, Protocol):
     """Define a connectable observable protocol.
 
     We have :
-    - subscribe function (it's an observable)
-    - connect function: start executing
-    - ref_count function: makes the Observable automatically start executing
-        when the first subscriber arrives,
-        and stop executing when the last subscriber leaves.
+        - subscribe function (it's an observable)
+        - connect function: start executing
+        - ref_count function: makes the Observable automatically start executing
+            when the first subscriber arrives,
+            and stop executing when the last subscriber leaves.
     """
 
     async def connect(self) -> Subscription:

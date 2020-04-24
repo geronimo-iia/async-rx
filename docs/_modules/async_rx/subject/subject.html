@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>async_rx.subject.subject &mdash; async_rx 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> async_rx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">async_rx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>async_rx.subject.subject</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for async_rx.subject.subject</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">..observer</span> <span class="kn">import</span> <span class="n">ensure_observable_contract_operator</span><span class="p">,</span> <span class="n">observer</span>
+<span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">Subject</span><span class="p">,</span> <span class="n">SubjectDefinition</span><span class="p">,</span> <span class="n">SubjectHandler</span><span class="p">,</span> <span class="n">Subscription</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;subject&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="subject"><a class="viewcode-back" href="../../../api.html#async_rx.subject">[docs]</a><span class="k">def</span> <span class="nf">subject</span><span class="p">(</span><span class="n">subject_handler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SubjectHandler</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a subject.</span>
+
+<span class="sd">    A Subject is like an Observable, but can multicast to many Observers.</span>
+<span class="sd">    Subjects are like EventEmitters: they maintain a registry of many listeners,</span>
+<span class="sd">    and then dispatch events/items to them.</span>
+
+<span class="sd">    As subject is also an Observer, it can subscribe to an observable which act at his stream data source.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        subject_handler (Optional[SubjectHandler]): optional suject handler callback</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (Subject): the subject</span>
+
+<span class="sd">    Example 1:</span>
+
+<span class="sd">    .. highlight:: python</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # create a subject</span>
+<span class="sd">        a_subject = subject(subject_handler=my_handler)</span>
+
+<span class="sd">        # few observer subscribe on this subject</span>
+<span class="sd">        sub_1 = await a_subject.subscribe(obs_1)</span>
+<span class="sd">        sub_2 = await a_subject.subscribe(obs_2)</span>
+
+<span class="sd">        # the subject subscribe himself on an observable</span>
+<span class="sd">        await rx_range(start=0, stop=10).subscribe(a_subject)</span>
+
+<span class="sd">        # obs_1 and obs_2 receive 10 #items</span>
+
+<span class="sd">    Example 2:</span>
+<span class="sd">    A subject as event emitter</span>
+
+<span class="sd">    .. highlight:: python</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # create a subject</span>
+<span class="sd">        a_subject = subject()</span>
+
+<span class="sd">        # few observer subscribe on this subject</span>
+<span class="sd">        sub_1 = await a_subject.subscribe(obs_1)</span>
+<span class="sd">        sub_2 = await a_subject.subscribe(obs_2)</span>
+
+<span class="sd">        # send your data by your self</span>
+<span class="sd">        await a_subject.on_next(item=&quot;my value&quot;) # obs_1 and obs_2 receive &quot;my value&quot;</span>
+<span class="sd">        await a_subject.on_completed() # obs_1 and obs_2 receive on_completed</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_registry</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of registered observer</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_registry</span>
+
+        <span class="n">_registry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">an_observer</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">subject_handler</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">subject_handler</span><span class="o">.</span><span class="n">on_subscribe</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">_registry</span><span class="p">),</span> <span class="n">source</span><span class="o">=</span><span class="n">an_observer</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">def</span> <span class="nf">unsubscribe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">nonlocal</span> <span class="n">_registry</span>
+            <span class="k">if</span> <span class="n">an_observer</span> <span class="ow">in</span> <span class="n">_registry</span><span class="p">:</span>
+                <span class="n">_registry</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">an_observer</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">subject_handler</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="n">subject_handler</span><span class="o">.</span><span class="n">on_unsubscribe</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">_registry</span><span class="p">),</span> <span class="n">source</span><span class="o">=</span><span class="n">an_observer</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">unsubscribe</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_next</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_registry</span>
+
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">_registry</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">o</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_error</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_registry</span>
+
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">_registry</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">o</span><span class="o">.</span><span class="n">on_error</span><span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_completed</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_registry</span>
+
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">_registry</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">o</span><span class="o">.</span><span class="n">on_completed</span><span class="p">()</span>
+
+    <span class="n">_obs</span> <span class="o">=</span> <span class="n">ensure_observable_contract_operator</span><span class="p">(</span><span class="n">observer</span><span class="p">(</span><span class="n">on_next</span><span class="o">=</span><span class="n">_on_next</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="n">_on_error</span><span class="p">,</span> <span class="n">on_completed</span><span class="o">=</span><span class="n">_on_completed</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">SubjectDefinition</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">_subscribe</span><span class="p">,</span> <span class="n">on_next</span><span class="o">=</span><span class="n">_obs</span><span class="o">.</span><span class="n">on_next</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="n">_obs</span><span class="o">.</span><span class="n">on_error</span><span class="p">,</span> <span class="n">on_completed</span><span class="o">=</span><span class="n">_obs</span><span class="o">.</span><span class="n">on_completed</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
