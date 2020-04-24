@@ -45,7 +45,7 @@ $ python
 >>> async_rx.__version__
 ```
 
-See [documentation](https://geronimo-iia.github.io/async-rx) to discover all the api.
+Take a look on [documentation](https://geronimo-iia.github.io/async-rx) and [API](https://geronimo-iia.github.io/async-rx/api.html).
 
 ## A short sample
 
@@ -125,7 +125,7 @@ As it is an observer, it can receive data from somewhere.
 As it is an observable, observer can subscribe on it.
 
 Take a look under subject module and test unit, see what is a replay_subject, funny no ?
-See in [documentation](https://geronimo-iia.github.io/async-rx) the function ```subject```.
+See the function [subject](https://geronimo-iia.github.io/async-rx/api.html#async_rx.Subject).
 
 At the last for the goods: the big gun, the "ConnectableObservable" alias multicast. oh my god, they kill kenny!
 
