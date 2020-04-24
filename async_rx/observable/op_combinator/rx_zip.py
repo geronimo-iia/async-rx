@@ -22,6 +22,7 @@ def rx_zip(*observables: Observable) -> Observable:
     """
 
     async def _subscribe(an_observer: Observer) -> Subscription:
+
         subscriptions: List[Subscription] = []
         sources = list(observables)
         n = len(sources)
@@ -39,7 +40,7 @@ def rx_zip(*observables: Observable) -> Observable:
                 nonlocal _disposable, _is_done
                 _is_done[i] = True
                 if _disposable and all(_is_done):
-                    an_observer.on_completed()
+                    await an_observer.on_completed()
                     _disposable = False
 
             return __on_completed
@@ -51,6 +52,7 @@ def rx_zip(*observables: Observable) -> Observable:
 
         async def _on_next_tuple(i: int) -> None:
             nonlocal _disposable, queues, _is_done
+
             if all(len(q) for q in queues):
                 try:
                     queued_values = [x.pop(0) for x in queues]
