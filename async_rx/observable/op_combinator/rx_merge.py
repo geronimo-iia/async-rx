@@ -1,3 +1,4 @@
+import curio
 from typing import Any, List, NoReturn, Optional
 
 from ...observer import observer
@@ -21,12 +22,18 @@ def rx_merge(*observables: Observable) -> Observable:
     the output Observable.
 
     Args:
-        (Observable): a list of observable instance
+        observables (Observable): a list of observable instance
 
     Returns:
         (Observable): observable instance
 
+    Raise:
+        (RuntimeError): if #observables < 1
+
     """
+    if len(observables) < 1:
+        raise RuntimeError("#observables must be greather than 1")
+
     terminated_observable = 0
     deliver_next = True
     subscriptions: List[Subscription] = []
@@ -70,8 +77,12 @@ def rx_merge(*observables: Observable) -> Observable:
         # local observer definition
         _observer = observer(on_next=_on_next, on_completed=_on_completed, on_error=_on_error)
 
-        # local observer subscribe to all observables
-        subscriptions = [await an_observable.subscribe(_observer) for an_observable in observables]
+        # local observer subscribe to all observables in parallele
+        subscriptions = []
+        async with curio.TaskGroup(wait=all) as g:
+            for an_observable in observables:
+                _task = await g.spawn(an_observable.subscribe, _observer)
+                subscriptions.append(_task.result)
 
         return _subscription_handler
 

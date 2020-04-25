@@ -24,11 +24,9 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-
+curio = "^1.2"
 
 [tool.poetry.dev-dependencies]
-
-curio = "^1.2"
 
 black = "=19.3b0" # The uncompromising code formatter.
 isort = "=4.3.4" #A Python utility / library to sort Python imports.

@@ -14,7 +14,7 @@ A free implemntation of "rx" alias "react" alias "the power of observable patter
 
 Implementation relie on:
 
-- async function
+- async function with curio framework
 - closed variable, clojure
 - python 3.8 Protocol declaration
 - a taste of namedtuple

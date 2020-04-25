@@ -1,5 +1,4 @@
 """Protocol definition."""
-from collections import namedtuple
 from typing import Any, NoReturn, Optional, Protocol, TypeVar, Union
 
 __all__ = [
@@ -11,21 +10,17 @@ __all__ = [
     'Observer',
     'Subscribe',
     'Subject',
+    'ConnectHandler',
+    "RefCountHandler',
     'ConnectableObservable',
-    'ObserverDefinition',
-    'ObservableDefinition',
-    'SubjectDefinition',
-    'ConnectableObservableDefinition',
     'ObservableFactory',
     'SubjectEventHandler',
     'SubjectHandler',
+    'ConnectableObservableEventHandler',
     'ConnectableObservableHandler',
-    'default_subscription',
     'PredicateOperator',
     'AccumulatorOperator',
     'SubjectFactory',
-    'SubjectHandlerDefinition',
-    'ConnectableObservableHandlerDefinition',
 ]
 
 
@@ -205,6 +200,20 @@ class SubjectFactory(Protocol):
         pass
 
 
+class ConnectHandler(Protocol):
+    """Connect Handler Protocol."""
+
+    async def __call__(self) -> Subscription:
+        pass
+
+
+class RefCountHandler(Protocol):
+    """RefCount Handler Protocol."""
+
+    async def __call__(self) -> Observable:
+        pass
+
+
 class ConnectableObservable(Observable, Protocol):
     """Define a connectable observable protocol.
 
@@ -227,6 +236,13 @@ class ConnectableObservable(Observable, Protocol):
         the first subscriber arrives,
         and stop executing when the last subscriber leaves.
         """
+        pass
+
+
+class ConnectableObservableEventHandler(Protocol):
+    """Connectable Observable Event Handler Protocol."""
+
+    async def __call__(self) -> None:
         pass
 
 
@@ -283,34 +299,3 @@ class PredicateOperator(Protocol):
 
     async def __call__(self, item: Any) -> bool:
         pass
-
-
-ObserverDefinition = namedtuple("Observer", ["on_next", "on_error", "on_completed"])
-"""Implements Observer Protocol."""
-
-ObservableDefinition = namedtuple("Observable", "subscribe")
-"""Implements Observable Protocol."""
-
-SubjectDefinition = namedtuple("Subject", ["subscribe", "on_next", "on_error", "on_completed"])
-"""Implements Subject Protocol."""
-
-ConnectableObservableDefinition = namedtuple("ConnectableObservable", ["connect", "ref_count", "subscribe"])
-"""Implements ConnectableObservable Protocol."""
-
-SubjectHandlerDefinition = namedtuple("SubjectHandler", ["on_subscribe", "on_unsubscribe"])
-"""Implements SubjectHandler Protocol."""
-
-ConnectableObservableHandlerDefinition = namedtuple("ConnectableObservableHandler", ["on_connect", "on_disconnect"])
-"""Implements ConnectableObservableHandler Protocol."""
-
-
-async def default_subscription() -> None:
-    """Default subcribe implementation method.
-
-    Do nothing.
-
-    Returns:
-        (None) - nothing to return.
-
-    """
-    pass
