@@ -28,6 +28,7 @@ from .rx_merge import rx_merge
 from .rx_concat import rx_concat
 from .rx_zip import rx_zip
 from .rx_amb import rx_amb
+from .rx_map import rx_map
 
 __all__ = [
     "rx_create",
@@ -55,5 +56,6 @@ __all__ = [
     "rx_merge",
     "rx_concat",
     "rx_zip",
-    "rx_amb"
+    "rx_amb",
+    "rx_map"
 ]

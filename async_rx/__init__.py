@@ -53,6 +53,7 @@ from .observable import (
     rx_concat,
     rx_zip,
     rx_amb,
+    rx_map,
 )
 
 from .protocol.definition import __all__ as _def_all
@@ -105,6 +106,7 @@ __all__ = [
     "rx_concat",
     "rx_zip",
     "rx_amb",
+    "rx_map",
     # subject
     "rx_subject",
     "rx_subject_replay",
