@@ -18,7 +18,7 @@ Implementation relie on:
 - closed variable, clojure
 - python 3.8 Protocol declaration
 - a taste of namedtuple
-- a taste for curiosity
+- a taste of curiosity
 - shake it and tadaa !
 
 ## Installation

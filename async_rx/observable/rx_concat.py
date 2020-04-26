@@ -1,4 +1,4 @@
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 from typing import Optional, Any
 
@@ -53,7 +53,7 @@ def rx_concat(*observables: Observable) -> Observable:
                 await _current_subscription()
                 _current_subscription = None
 
-        _observer = rx_observer(on_next=an_observer.on_next, on_completed=_on_completed, on_error=_on_error)
+        _observer = rx_observer_from(observer=an_observer, on_completed=_on_completed, on_error=_on_error)
 
         # initiate
         _current_subscription = await _source.pop(0).subscribe(_observer)

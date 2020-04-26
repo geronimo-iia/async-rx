@@ -1,10 +1,10 @@
 """Observer utilities."""
 from collections import namedtuple
-from typing import Any, NoReturn
+from typing import Any, NoReturn, Optional
 
 from .definition import CompleteHandler, ErrorHandler, NextHandler, Observer
 
-__all__ = ["rx_observer", "default_on_completed", "default_error", "ignore_error_handler"]
+__all__ = ["rx_observer", "rx_observer_from", "default_on_completed", "default_error", "ignore_error_handler"]
 
 
 _ObserverDefinition = namedtuple("Observer", ["on_next", "on_error", "on_completed"])
@@ -55,3 +55,25 @@ def rx_observer(on_next: NextHandler, on_error: ErrorHandler = default_error, on
 
     """
     return _ObserverDefinition(on_next=on_next, on_error=on_error, on_completed=on_completed)
+
+
+def rx_observer_from(
+    observer: Observer, on_next: Optional[NextHandler] = None, on_error: Optional[ErrorHandler] = None, on_completed: Optional[CompleteHandler] = None
+) -> Observer:
+    """Build an observer from another one.
+
+    Args:
+        observer (Observer): the observer to override
+        on_next (Optional[NextHandler]): override on_next handler if set
+        on_error (Optional[ErrorHandler]): override on_error handler if set
+        on_completed (Optional[CompleteHandler]): override on_completed handler if set
+
+    Returns:
+        (Observer): an Observer
+
+    """
+    return rx_observer(
+        on_next=on_next if on_next else observer.on_next,
+        on_error=on_error if on_error else observer.on_error,
+        on_completed=on_completed if on_completed else observer.on_completed,
+    )

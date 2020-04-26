@@ -1,7 +1,7 @@
 from collections import deque
 from typing import Any, Deque
 
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 
 __all__ = ["rx_distinct"]
@@ -42,6 +42,6 @@ def rx_distinct(observable: Observable, frame_size: int) -> Observable:
             _q.clear()
             await an_observer.on_completed()
 
-        return await observable.subscribe(an_observer=rx_observer(on_next=_on_next, on_error=an_observer.on_error, on_completed=_on_completed))
+        return await observable.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next, on_completed=_on_completed))
 
     return rx_create(subscribe=_subscribe)

@@ -22,6 +22,7 @@ from .protocol import (
     AccumulatorOperator,
     SubjectFactory,
     rx_observer,
+    rx_observer_from,
 )
 
 from .subject import rx_subject, rx_subject_replay, rx_subject_behavior
@@ -80,6 +81,7 @@ __all__ = [
     "AccumulatorOperator",
     "SubjectFactory",
     "rx_observer",
+    "rx_observer_from",
     # from observable
     "rx_create",
     "rx_defer",

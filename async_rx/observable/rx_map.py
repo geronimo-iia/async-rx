@@ -1,6 +1,6 @@
 from inspect import iscoroutinefunction
 from typing import Callable, Any
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 
 __all__ = ["rx_map"]
@@ -33,6 +33,6 @@ def rx_map(observable: Observable, transform: Callable) -> Observable:
             else:
                 await an_observer.on_next(item=transform(item))
 
-        return await observable.subscribe(rx_observer(on_next=_on_next, on_completed=an_observer.on_completed, on_error=an_observer.on_error))
+        return await observable.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 
     return rx_create(subscribe=_subscribe)

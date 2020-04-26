@@ -1,6 +1,6 @@
 from typing import Any
 
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 from .rx_reduce import rx_reduce
 
@@ -36,6 +36,6 @@ def rx_avg(observable: Observable) -> Observable:
             else:
                 await an_observer.on_next(item=item / _count)
 
-        return await reducer.subscribe(an_observer=rx_observer(on_next=_on_next, on_error=an_observer.on_error, on_completed=an_observer.on_completed))
+        return await reducer.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next))
 
     return rx_create(subscribe=_subscribe)

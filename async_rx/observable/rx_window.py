@@ -1,4 +1,4 @@
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 from .rx_from import rx_from
 from .rx_buffer import rx_buffer
@@ -39,6 +39,6 @@ def rx_window(observable: Observable, buffer_size: int) -> Observable:
             await an_observer.on_next(item=rx_from(item))
             return None
 
-        return observable.subscribe(rx_observer(on_next=_on_next, on_completed=an_observer.on_completed, on_error=an_observer.on_error))
+        return observable.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 
     return rx_create(subscribe=_subscribe, max_observer=1)

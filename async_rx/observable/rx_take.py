@@ -1,6 +1,6 @@
 from typing import Any, Optional
 
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 
 __all__ = ["rx_take"]
@@ -45,9 +45,7 @@ def rx_take(observable: Observable, count: int) -> Observable:
             if _count == count:
                 await an_observer.on_completed()
 
-        _subscription = await observable.subscribe(
-            an_observer=rx_observer(on_next=_on_next, on_error=an_observer.on_error, on_completed=an_observer.on_completed)
-        )
+        _subscription = await observable.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next))
 
         return _unsubscribe
 
