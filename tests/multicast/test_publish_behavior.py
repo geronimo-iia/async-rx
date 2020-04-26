@@ -1,8 +1,4 @@
-from async_rx.multicast import publish_behavior
-from async_rx.observable import rx_range
-from async_rx.protocol import Observer
-from async_rx.subject import subject
-
+from async_rx import Observer, rx_publish_behavior, rx_range, rx_subject
 from ..model import ObserverCounterCollector
 
 
@@ -11,7 +7,7 @@ def test_publish_behavior(kernel):
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
 
-    a_multicast = publish_behavior(an_observable=rx_range(start=0, stop=100))
+    a_multicast = rx_publish_behavior(an_observable=rx_range(start=0, stop=100))
     assert a_multicast
 
     # subscribe

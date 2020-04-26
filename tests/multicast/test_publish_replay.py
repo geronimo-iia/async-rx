@@ -1,7 +1,4 @@
-from async_rx.multicast import publish_replay
-from async_rx.observable import rx_range
-from async_rx.protocol import Observer
-from async_rx.subject import subject
+from async_rx import Observer, rx_publish_replay, rx_range, rx_subject
 
 from ..model import ObserverCounterCollector
 
@@ -11,7 +8,7 @@ def test_publish_replay(kernel):
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
 
-    a_multicast = publish_replay(an_observable=rx_range(start=0, stop=100), buffer_size=3)
+    a_multicast = rx_publish_replay(an_observable=rx_range(start=0, stop=100), buffer_size=3)
     assert a_multicast
 
     # subscribe

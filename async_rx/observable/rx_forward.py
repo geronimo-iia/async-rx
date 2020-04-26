@@ -1,7 +1,6 @@
 from typing import Any
 
-from ..observer import observer
-from ..protocol import Observable, Observer, Subscription
+from ..protocol import Observable, Observer, Subscription, rx_observer
 from .rx_create import rx_create
 
 __all__ = ["rx_forward"]
@@ -29,7 +28,7 @@ def rx_forward(observable: Observable, except_complet: bool = False, except_erro
     async def _subscribe(an_observer: Observer) -> Subscription:
 
         return await observable.subscribe(
-            an_observer=observer(
+            an_observer=rx_observer(
                 on_next=an_observer.on_next,
                 on_error=_dummy_on_error if except_error else an_observer.on_error,
                 on_completed=_dummy_on_completed if except_complet else an_observer.on_completed,

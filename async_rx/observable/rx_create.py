@@ -1,8 +1,7 @@
 """Define rx_create."""
 from typing import NoReturn, Optional, Union
 
-from ..observer import ensure_observable_contract_operator
-from ..protocol import Observable, ObservableDefinition, Observer, Subscribe, Subscription
+from ..protocol import Observable, Observer, Subscribe, Subscription, observable
 
 __all__ = ["rx_create"]
 
@@ -31,11 +30,6 @@ def rx_create(subscribe: Subscribe, ensure_contract: Optional[bool] = True, max_
     if subscribe is None:
         raise RuntimeError('a subscribe function must be provided')
 
-    async def _subscribe(an_observer: Observer) -> Subscription:
-        if ensure_contract:
-            return await subscribe(ensure_observable_contract_operator(an_observer))
-        return await subscribe(an_observer)
-
     if max_observer:
         current_observer = 0
 
@@ -46,7 +40,7 @@ def rx_create(subscribe: Subscribe, ensure_contract: Optional[bool] = True, max_
                 raise RuntimeError(f'{max_observer} #observers limit reached')
 
             current_observer = current_observer + 1
-            subscription = await _subscribe(an_observer)
+            subscription = await subscribe(an_observer)
 
             async def _unsubscribe():
                 nonlocal current_observer
@@ -55,6 +49,6 @@ def rx_create(subscribe: Subscribe, ensure_contract: Optional[bool] = True, max_
 
             return _unsubscribe
 
-        return ObservableDefinition(subscribe=_subscribe_tracked)
+        return observable(subscribe=_subscribe_tracked, ensure_contract=ensure_contract)
 
-    return ObservableDefinition(subscribe=_subscribe)
+    return observable(subscribe=subscribe, ensure_contract=ensure_contract)

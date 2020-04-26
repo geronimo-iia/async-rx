@@ -1,6 +1,8 @@
 """Subscription utilities."""
-import curio
 from typing import Optional
+
+import curio
+
 from .definition import Observable, Observer, Subscription
 
 __all__ = ["default_subscription", "disposable_subscription_on_cancel"]

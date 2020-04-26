@@ -1,10 +1,10 @@
 """Observable utilities."""
 
 from collections import namedtuple
-from typing import Any, Optional, NoReturn
-from .definition import Observer, Observable, Subscribe, Subscription
-from .observer import rx_observer
+from typing import Any, NoReturn, Optional
 
+from .definition import Observable, Observer, Subscribe, Subscription
+from .observer import rx_observer
 
 __all__ = ["observable", "ensure_observable_contract_operator"]
 
@@ -37,7 +37,7 @@ def observable(subscribe: Subscribe, ensure_contract: Optional[bool] = True) -> 
             return await subscribe(ensure_observable_contract_operator(an_observer))
         return await subscribe(an_observer)
 
-    return _ObservableDefinition(_subscribe=subscribe)
+    return _ObservableDefinition(subscribe=_subscribe)
 
 
 def ensure_observable_contract_operator(an_observer: Observer) -> Observer:

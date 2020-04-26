@@ -1,9 +1,10 @@
 """Observer utilities."""
-from typing import Any, NoReturn
 from collections import namedtuple
+from typing import Any, NoReturn
+
 from .definition import CompleteHandler, ErrorHandler, NextHandler, Observer
 
-__all__ = ['rx_observer', 'default_on_completed', 'default_error', "ignore_error_handler"]
+__all__ = ["rx_observer", "default_on_completed", "default_error", "ignore_error_handler"]
 
 
 _ObserverDefinition = namedtuple("Observer", ["on_next", "on_error", "on_completed"])

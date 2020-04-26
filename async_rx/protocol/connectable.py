@@ -1,9 +1,8 @@
-"""Observable utilities."""
+"""Connectable Observable utilities."""
 
 from collections import namedtuple
 
-from .definition import ConnectableObservable, ConnectableObservableHandler, ConnectHandler, RefCountHandler, Subscribe, ConnectableObservableEventHandler
-
+from .definition import ConnectableObservable, ConnectableObservableEventHandler, ConnectableObservableHandler, ConnectHandler, RefCountHandler, Subscribe
 
 __all__ = ["connectable_observable", "connectable_observable_handler"]
 

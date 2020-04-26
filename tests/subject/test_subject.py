@@ -1,6 +1,4 @@
-from async_rx.observable import rx_range
-from async_rx.protocol import Observer
-from async_rx.subject import subject
+from async_rx import Observer, rx_range, rx_subject
 
 from ..model import ObserverCounterCollector
 
@@ -26,7 +24,7 @@ def test_subject(kernel):
     seeker_b = ObserverCounterCollector()
     subject_handler = SubjectHandlerCounter()
 
-    a_subject = subject(subject_handler=subject_handler)
+    a_subject = rx_subject(subject_handler=subject_handler)
     assert a_subject
 
     sub_a = kernel.run(a_subject.subscribe(seeker_a))
