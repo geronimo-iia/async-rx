@@ -1,13 +1,21 @@
-from typing import Any
+from typing import Any, Dict
 
 from ..protocol import Observable, Observer, Subscription, default_subscription
 from .rx_create import rx_create
+from .rx_dict import rx_dict
 
 __all__ = ["rx_from"]
 
 
 def rx_from(observable_input: Any) -> Observable:
     """Convert almost anything to an Observable.
+
+    Anything means:
+        - a dictionnary in an rx_dict
+        - an async iterable
+        - an iterable
+        - something which can be cast to an Observable (have a subscribe function)
+        - an object
 
     Args:
         observable_input (Any): A subscribable object
@@ -17,6 +25,9 @@ def rx_from(observable_input: Any) -> Observable:
             that was converted.
 
     """
+    if isinstance(observable_input, Dict):
+        return rx_dict(initial_value=observable_input)
+
     if hasattr(observable_input, "subscribe"):
         # observable like
         return rx_create(subscribe=observable_input.subscribe)

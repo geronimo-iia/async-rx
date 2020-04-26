@@ -29,6 +29,15 @@ from .rx_concat import rx_concat
 from .rx_zip import rx_zip
 from .rx_amb import rx_amb
 from .rx_map import rx_map
+from .rx_merge_map import rx_merge_map
+from .rx_group_by import rx_group_by
+from .rx_sample import rx_sample
+from .rx_throttle import rx_throttle
+from .rx_delay import rx_delay
+from .rx_debounce import rx_debounce
+from .rx_dict import rx_dict
+from .rx_list import rx_list
+
 
 __all__ = [
     "rx_create",
@@ -57,5 +66,13 @@ __all__ = [
     "rx_concat",
     "rx_zip",
     "rx_amb",
-    "rx_map"
+    "rx_map",
+    "rx_merge_map",
+    "rx_group_by",
+    "rx_sample",
+    "rx_throttle",
+    "rx_delay",
+    "rx_debounce",
+    "rx_dict",
+    "rx_list"
 ]

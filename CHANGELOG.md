@@ -6,7 +6,7 @@
 - integrate old stuff about rx, async
 - use python 3.8
 - add a bunch of test unit
-- finalize protocol implementation
+- finalize protocol declaration and internal implementation
 - normalize public api (rx_xxxx) for all public members
 
 

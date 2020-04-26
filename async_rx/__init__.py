@@ -55,6 +55,14 @@ from .observable import (
     rx_zip,
     rx_amb,
     rx_map,
+    rx_merge_map,
+    rx_group_by,
+    rx_sample,
+    rx_throttle,
+    rx_delay,
+    rx_debounce,
+    rx_dict,
+    rx_list
 )
 
 from .protocol.definition import __all__ as _def_all
@@ -109,6 +117,14 @@ __all__ = [
     "rx_zip",
     "rx_amb",
     "rx_map",
+    "rx_merge_map",
+    "rx_group_by",
+    "rx_sample",
+    "rx_throttle",
+    "rx_delay",
+    "rx_debounce",
+    "rx_dict",
+    "rx_list",
     # subject
     "rx_subject",
     "rx_subject_replay",

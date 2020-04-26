@@ -1,12 +1,12 @@
 from inspect import iscoroutinefunction
-from typing import Callable, Any
+from typing import Callable, Any, Optional
 from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 
 __all__ = ["rx_map"]
 
 
-def rx_map(observable: Observable, transform: Callable) -> Observable:
+def rx_map(observable: Observable, transform: Callable, expand_kwarg_parameters: Optional[bool] = False) -> Observable:
     """Map operator.
 
     Map operator modifies an Observable<A> into Observable<B> given a function with the type A->B.
@@ -17,6 +17,7 @@ def rx_map(observable: Observable, transform: Callable) -> Observable:
     Args:
         observable (Observable): an observable instance
         transform (Callable): transform function (sync or async)
+        expand_kwarg_parameters (Optional[bool]): if true each item will be expanded as kwargs before call transform.
 
     Returns:
         (Observable): observable instance
@@ -28,10 +29,13 @@ def rx_map(observable: Observable, transform: Callable) -> Observable:
     async def _subscribe(an_observer: Observer) -> Subscription:
         async def _on_next(item: Any):
             nonlocal _is_awaitable
-            if _is_awaitable:
-                await an_observer.on_next(item=await transform(item))
+
+            if expand_kwarg_parameters:
+                _next_item = await transform(**item) if _is_awaitable else transform(**item)
             else:
-                await an_observer.on_next(item=transform(item))
+                _next_item = await transform(item) if _is_awaitable else transform(item)
+
+            await an_observer.on_next(item=_next_item)
 
         return await observable.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 
