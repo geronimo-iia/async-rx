@@ -50,7 +50,7 @@ def rx_group_by(observable: Observable, key_selector: Callable) -> Observable:
             for _, o in _observables.items():
                 try:
                     await o.on_error(err=err)
-                except Exception:
+                except Exception:  # pragma: no cover
                     pass
             await an_observer.on_error(err=err)
             return None
