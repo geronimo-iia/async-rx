@@ -63,7 +63,7 @@ def rx_publish(
         if _subscription:
             return _unsubscribe
 
-        if not _subject:
+        if not _subject:  # pragma: no cover
             # never reached
             raise RuntimeError("unexpected error")
 
@@ -112,7 +112,7 @@ def rx_publish(
         """
         nonlocal _ref_count_activated, _connectable_observable
 
-        if not _connectable_observable:
+        if not _connectable_observable:  # pragma: no cover
             # never reached
             raise RuntimeError("unexpected error")
 

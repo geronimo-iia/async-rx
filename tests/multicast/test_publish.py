@@ -54,6 +54,10 @@ def test_multicast(kernel):
     kernel.run(a_multicast.connect())
     assert connection_handler.connected  # with no ref_count, did not connect automatically
 
+    # two call on connect did not matter
+    kernel.run(a_multicast.connect())
+    assert connection_handler.connected  # with no ref_count, did not connect automatically
+
     # both observer see the same things
     assert seeker_a.on_next_count == seeker_b.on_next_count
     assert seeker_a.on_error_count == seeker_b.on_error_count
