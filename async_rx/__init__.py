@@ -62,7 +62,7 @@ from .observable import (
     rx_delay,
     rx_debounce,
     rx_dict,
-    rx_list
+    rx_list,
 )
 
 from .protocol.definition import __all__ as _def_all

@@ -1,8 +1,9 @@
-import curio
-from typing import Optional, List
 from collections import UserList
-from ..protocol import Observable, Observer, Subscription
+from typing import List, Optional
 
+import curio
+
+from ..protocol import Observable, Observer, Subscription
 
 __all__ = ["rx_list"]
 

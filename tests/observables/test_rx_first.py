@@ -19,8 +19,6 @@ def test_rx_first(kernel):
     assert seeker.items == [0]
 
 
-
-
 def test_rx_first_with_just_one(kernel):
 
     seeker = ObserverCounterCollector()

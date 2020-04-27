@@ -1,9 +1,11 @@
+from typing import Any, List, NoReturn, Optional
+
 import curio
-from typing import List, Any, Optional, NoReturn
+
 from ..protocol import Observable, Observer, Subscription, disposable_subscription_on_cancel, rx_observer
+from ..subject import rx_subject
 from .rx_create import rx_create
 from .rx_first import rx_first
-from ..subject import rx_subject
 
 __all__ = ["rx_amb"]
 

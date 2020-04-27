@@ -1,5 +1,6 @@
 import curio
-from async_rx import rx_range, Observer
+
+from async_rx import Observer, rx_range
 from async_rx.protocol import default_subscription
 
 

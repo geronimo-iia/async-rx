@@ -1,4 +1,4 @@
-from async_rx import Observer, rx_subject, rx_range, rx_publish
+from async_rx import Observer, rx_publish, rx_range, rx_subject
 
 from ..model import ObserverCounterCollector
 

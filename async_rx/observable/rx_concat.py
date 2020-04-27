@@ -1,6 +1,7 @@
+from typing import Any, Optional
+
 from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
-from typing import Optional, Any
 
 __all__ = ["rx_concat"]
 

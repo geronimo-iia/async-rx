@@ -1,5 +1,6 @@
-import curio
 from typing import Any, List, NoReturn, Optional
+
+import curio
 
 from ..protocol import Observable, Observer, Subscription, rx_observer
 from .rx_create import rx_create

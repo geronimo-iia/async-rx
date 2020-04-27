@@ -1,8 +1,9 @@
-import curio
-from typing import Optional, Dict
 from collections import UserDict
-from ..protocol import Observable, Observer, Subscription
+from typing import Dict, Optional
 
+import curio
+
+from ..protocol import Observable, Observer, Subscription
 
 __all__ = ["rx_dict"]
 

@@ -1,4 +1,4 @@
-from async_rx import Observer, rx_range, rx_zip, rx_from
+from async_rx import Observer, rx_from, rx_range, rx_zip
 
 from ..model import ObserverCounterCollector
 

@@ -1,5 +1,6 @@
 from inspect import iscoroutinefunction
-from typing import Callable, Any
+from typing import Any, Callable
+
 from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 from .rx_merge import rx_merge

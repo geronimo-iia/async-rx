@@ -74,5 +74,5 @@ __all__ = [
     "rx_delay",
     "rx_debounce",
     "rx_dict",
-    "rx_list"
+    "rx_list",
 ]

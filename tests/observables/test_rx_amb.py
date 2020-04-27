@@ -1,4 +1,4 @@
-from async_rx import Observer, rx_range, rx_amb, rx_from, rx_create
+from async_rx import Observer, rx_amb, rx_create, rx_from, rx_range
 
 from ..model import ObserverCounterCollector
 from .model import countdown
@@ -36,4 +36,3 @@ def test_rx_amb2(kernel):
     assert seeker.on_error_count == 0
     assert seeker.on_next_count == 1
     assert seeker.items == [b]
-

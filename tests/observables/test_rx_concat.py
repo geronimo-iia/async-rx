@@ -1,4 +1,4 @@
-from async_rx import Observer, rx_range, rx_concat, rx_from, rx_create
+from async_rx import Observer, rx_concat, rx_create, rx_from, rx_range
 
 from ..model import ObserverCounterCollector
 from .model import countdown

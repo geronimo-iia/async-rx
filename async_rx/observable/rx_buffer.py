@@ -1,8 +1,8 @@
-from typing import Any, Deque, Optional
 from collections import deque
+from typing import Any, Deque, Optional
+
 from ..protocol import Observable, Observer, Subscription, rx_observer
 from .rx_create import rx_create
-
 
 __all__ = ["rx_buffer"]
 

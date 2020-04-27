@@ -1,4 +1,5 @@
-from async_rx import rx_map, rx_from
+from async_rx import rx_from, rx_map
+
 from ..model import ObserverCounterCollector
 
 

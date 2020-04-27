@@ -1,8 +1,9 @@
-
-from async_rx import Observer, rx_range, rx_merge, rx_from, rx_create
+from async_rx import Observer, rx_create, rx_from, rx_merge, rx_range
 from async_rx.protocol import default_subscription
+
 from ..model import ObserverCounterCollector
 from .model import countdown
+
 
 def test_rx_merge_concurrent(kernel):
 

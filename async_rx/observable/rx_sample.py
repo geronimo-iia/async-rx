@@ -1,6 +1,8 @@
-import curio
 from datetime import timedelta
 from typing import Any, Optional
+
+import curio
+
 from ..protocol import Observable, Observer, Subscription, rx_observer
 from .rx_create import rx_create
 

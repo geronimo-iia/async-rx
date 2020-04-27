@@ -10,9 +10,9 @@ from ..protocol import (
     SubjectFactory,
     SubjectHandler,
     Subscription,
-    subject_handler as _subject_handler,
-    connectable_observable
+    connectable_observable,
 )
+from ..protocol import subject_handler as _subject_handler
 from ..subject import rx_subject
 
 __all__ = ["rx_publish"]

@@ -1,5 +1,6 @@
+from datetime import datetime, timedelta
 from typing import Any
-from datetime import timedelta, datetime
+
 from ..protocol import Observable, Observer, Subscription, rx_observer_from
 from .rx_create import rx_create
 
@@ -10,7 +11,7 @@ def rx_throttle(observable: Observable, time_delta: timedelta) -> Observable:
     """Throttle operator.
 
     Throttle are used to rate-limit the sequence.
-    They will filter out elements based on the timing. 
+    They will filter out elements based on the timing.
 
     Throttle will emit the first event from a burst and will ignore all subsequent values that arrive during the set timeout
 

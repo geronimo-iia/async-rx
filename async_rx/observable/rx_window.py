@@ -1,9 +1,9 @@
+from typing import Any
+
 from ..protocol import Observable, Observer, Subscription, rx_observer_from
+from .rx_buffer import rx_buffer
 from .rx_create import rx_create
 from .rx_from import rx_from
-from .rx_buffer import rx_buffer
-
-from typing import Any
 
 __all__ = ["rx_window"]
 
