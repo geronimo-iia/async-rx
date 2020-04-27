@@ -34,7 +34,7 @@ async def disposable_subscription_on_cancel(an_observable: Observable, an_observ
     _subscription: Optional[Subscription] = None
     try:
         _subscription = await an_observable.subscribe(an_observer=an_observer)
-    except curio.CancelledError:
+    except curio.CancelledError:  # pragma: no cover
         if _subscription:
             await _subscription()
             _subscription = None
