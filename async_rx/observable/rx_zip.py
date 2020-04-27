@@ -56,7 +56,7 @@ def rx_zip(*observables: Observable) -> Observable:
                 try:
                     queued_values = [x.pop(0) for x in queues]
                     await an_observer.on_next(item=tuple(queued_values))
-                except Exception as ex:
+                except Exception as ex:  # pragma: no cover
                     await _on_error(ex)
             elif all(x for j, x in enumerate(_is_done) if j != i):
                 _disposable = False
