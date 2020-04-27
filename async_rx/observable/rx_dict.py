@@ -10,9 +10,9 @@ __all__ = ["rx_dict"]
 
 class _RxDict(UserDict):
     def __init__(self, dict: Dict):
-        super().__init__(dict)
         self._event = curio.UniversalEvent()
         self._subscribers = 0
+        super().__init__(dict)
 
     async def subscribe(self, an_observer: Observer) -> Subscription:
 
@@ -47,7 +47,7 @@ class _RxDict(UserDict):
         return _subscription
 
     def _set_event(self):
-        if not self._event.is_set():
+        if not self._event.is_set() and self._subscribers:
             self._event.set()
 
     def __setitem__(self, key, item):
@@ -57,6 +57,9 @@ class _RxDict(UserDict):
     def __delitem__(self, key):
         del self.data[key]
         self._set_event()
+
+    def copy(self):
+        return rx_dict(super().copy())
 
 
 def rx_dict(initial_value: Optional[Dict] = None) -> Observable:

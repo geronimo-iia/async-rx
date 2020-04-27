@@ -3,16 +3,17 @@ from async_rx import rx_dict
 
 from ..model import ObserverCounterCollector
 
+
 def test_rx_dict_default_dict_behaviour():
     a = rx_dict()
-    assert  a == {}
-    
+    assert a == {}
+
     a["A"] = True
     a["B"] = False
-    
+
     assert a["A"]
     assert not a["B"]
-    
+
     assert "A" in a
     assert "B" in a
     assert "C" not in a
@@ -28,7 +29,6 @@ def test_rx_dict_with_observer_in_async_word(kernel):
 
     seeker = ObserverCounterCollector()
 
-
     async def _test():
         nonlocal seeker
         a = rx_dict()
@@ -42,6 +42,32 @@ def test_rx_dict_with_observer_in_async_word(kernel):
         await sub()
 
     kernel.run(_test())
+    # there is no guarantees on notification
+    assert seeker.on_next_count <= 3
+    if seeker.on_next_count == 2:
+        assert seeker.items == [{}, {'A': True, 'B': False}]
+
+
+def test_rx_dict_copy():
+    a = rx_dict({'A': True, 'B': False})
+
+    assert hasattr(a, "subscribe")
+    assert hasattr(a.copy(), "subscribe")
+
+
+def test_rx_dict_with_observer_in_sync_word(kernel):
+
+    seeker = ObserverCounterCollector()
+    a = rx_dict()
+    sub = kernel.run(a.subscribe(seeker))
+    assert seeker.on_next_count == 1
+    assert seeker.items == [{}]
+
+    a["A"] = True
+    a["B"] = False
+
+    kernel.run(sub())
+
     # there is no guarantees on notification
     assert seeker.on_next_count <= 3
     if seeker.on_next_count == 2:
@@ -64,4 +90,3 @@ def test_rx_dict_on_subscription_support(kernel):
     # now second can subscribe
     sub_2 = kernel.run(a.subscribe(o2))
     kernel.run(sub_2())
-
