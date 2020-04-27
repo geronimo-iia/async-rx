@@ -71,7 +71,9 @@ def test_multicast_with_ref_count(kernel):
     subject_handler = SubjectHandlerCounter()
     connection_handler = ConnectableObservableCounter()
 
-    a_multicast = rx_publish(an_observable=rx_range(start=0, stop=100), subject_handler=subject_handler, connection_handler=connection_handler).ref_count()
+    a_multicast = kernel.run(
+        rx_publish(an_observable=rx_range(start=0, stop=100), subject_handler=subject_handler, connection_handler=connection_handler).ref_count()
+    )
     assert a_multicast
     assert not connection_handler.connected
 
@@ -99,7 +101,7 @@ def test_multicast_with_ref_count_on_subject(kernel):
 
     a_subject = rx_subject()
 
-    a_multicast = rx_publish(an_observable=a_subject, subject_handler=subject_handler, connection_handler=connection_handler).ref_count()
+    a_multicast = kernel.run(rx_publish(an_observable=a_subject, subject_handler=subject_handler, connection_handler=connection_handler).ref_count())
     assert a_multicast
     assert not connection_handler.connected
 

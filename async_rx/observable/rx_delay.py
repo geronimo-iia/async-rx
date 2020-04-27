@@ -3,8 +3,8 @@ from typing import Any, Optional
 
 import curio
 
-from ...protocol import Observable, Observer, Subscription, rx_observer
-from ..rx_create import rx_create
+from ..protocol import Observable, Observer, Subscription, rx_observer
+from .rx_create import rx_create
 
 __all__ = ["rx_delay"]
 
