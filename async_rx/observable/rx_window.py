@@ -39,6 +39,6 @@ def rx_window(observable: Observable, buffer_size: int) -> Observable:
             await an_observer.on_next(item=rx_from(item))
             return None
 
-        return await observable.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
+        return await _buffer.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 
     return rx_create(subscribe=_subscribe, max_observer=1)
