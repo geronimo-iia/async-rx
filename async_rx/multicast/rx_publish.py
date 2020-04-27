@@ -103,7 +103,7 @@ def rx_publish(
     # our multicast subject used under the hood
     _subject = subject_factory(subject_handler=_subject_handler(on_subscribe=_on_subscribe, on_unsubscribe=_on_unsubscribe))
 
-    def _ref_count_handler() -> Observable:
+    async def _ref_count_handler() -> Observable:
         """Autostart the multicasted observable.
 
         ref_count makes the multicasted Observable automatically start executing when

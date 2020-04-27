@@ -61,7 +61,7 @@ def rx_buffer(observable: Observable, buffer_size: int) -> Observable:
             if _unsub:
                 await _unsub()
 
-        _unsub = observable.subscribe(rx_observer(on_next=_on_next, on_completed=_on_completed, on_error=_on_error))
+        _unsub = await observable.subscribe(rx_observer(on_next=_on_next, on_completed=_on_completed, on_error=_on_error))
 
         return _unsubscribe
 

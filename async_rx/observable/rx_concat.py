@@ -37,7 +37,8 @@ def rx_concat(*observables: Observable) -> Observable:
             await _unsubscribe()
             if _source:
                 obs = _source.pop(0)
-                _current_subscription = await obs.subscribe(_observer)
+                if _observer:
+                    _current_subscription = await obs.subscribe(_observer)
             else:
                 await an_observer.on_completed()
             return None

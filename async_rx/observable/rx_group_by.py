@@ -1,7 +1,7 @@
 from inspect import iscoroutinefunction
 from typing import Any, Callable, Dict
 
-from ..protocol import Observable, Observer, Subscription, rx_observer
+from ..protocol import Observable, Observer, Subject, Subscription, rx_observer
 from ..subject import rx_subject
 from .rx_create import rx_create
 
@@ -29,7 +29,7 @@ def rx_group_by(observable: Observable, key_selector: Callable) -> Observable:
 
     async def _subscribe(an_observer: Observer) -> Subscription:
 
-        _observables: Dict[Any, Observable] = {}
+        _observables: Dict[Any, Subject] = {}
 
         async def _on_next(item: Any):
             nonlocal _observables, _is_awaitable

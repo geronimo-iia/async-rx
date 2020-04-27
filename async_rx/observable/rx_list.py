@@ -10,7 +10,7 @@ __all__ = ["rx_list"]
 
 class _RxList(UserList):
     def __init__(self, initlist: Optional[List] = None):
-        super(UserList, self).__init__(initlist=initlist if initlist else [])
+        super().__init__(initlist=initlist if initlist else [])
         self._event = curio.UniversalEvent()
 
     async def subscribe(self, an_observer: Observer) -> Subscription:
@@ -36,35 +36,30 @@ class _RxList(UserList):
         return _subscription
 
     def __setitem__(self, i, item):
-        super(self).__setitem__(i, item)
+        super().__setitem__(i, item)
         self._event.set()
 
     def __delitem__(self, i):
-        super(self).__delitem__(i)
+        super().__delitem__(i)
         self._event.set()
 
     def __add__(self, other):
-        result = super(self).__add__(other)
-        self._event.set()
-        return result
-
-    def __radd__(self, other):
-        result = super(self).__radd__(other)
+        result = super().__add__(other)
         self._event.set()
         return result
 
     def __iadd__(self, other):
-        super(self).__iadd__(other)
+        super().__iadd__(other)
         self._event.set()
         return self
 
     def __mul__(self, n):
-        result = super(self).__mul__(n)
+        result = super().__mul__(n)
         self._event.set()
         return result
 
     def __imul__(self, n):
-        super(self).__imul__(n)
+        super().__imul__(n)
         self._event.set()
         return self
 

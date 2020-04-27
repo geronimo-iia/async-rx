@@ -10,7 +10,7 @@ __all__ = ["rx_dict"]
 
 class _RxDict(UserDict):
     def __init__(self, dict: Dict):
-        super(UserDict, self).__init__(dict=dict if dict else {})
+        super().__init__(dict)
         self._event = curio.UniversalEvent()
 
     async def subscribe(self, an_observer: Observer) -> Subscription:
@@ -58,4 +58,4 @@ def rx_dict(initial_value: Optional[Dict] = None) -> Observable:
         (Observable): observable instance
 
     """
-    return _RxDict(dict=initial_value)
+    return _RxDict(dict=initial_value if initial_value else {})
