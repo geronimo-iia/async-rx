@@ -41,7 +41,6 @@ def rx_merge(*observables: Observable) -> Observable:
     async def _subscription_handler() -> None:
         nonlocal subscriptions
         for s in subscriptions:
-            print(s)
             await s()
 
     async def _subscribe(an_observer: Observer) -> Subscription:

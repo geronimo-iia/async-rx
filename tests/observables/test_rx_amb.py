@@ -1,6 +1,7 @@
 import curio
 import pytest
 from async_rx import Observer, rx_amb, rx_create, rx_from, rx_range, Subscription
+from async_rx.protocol import default_subscription
 
 from ..model import ObserverCounterCollector
 from .model import countdown
@@ -52,6 +53,7 @@ def test_rx_amb_with_error(kernel):
     async def _subscribe(an_observer: Observer) -> Subscription:
         await curio.sleep(0.05)
         await an_observer.on_error(err="Args")
+        return default_subscription
 
     a = rx_create(subscribe=kernel.run(countdown(5, 0.1)))
 

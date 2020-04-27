@@ -1,8 +1,15 @@
-from async_rx import Observer, rx_create, rx_from, rx_merge, rx_range
+import pytest
+import curio
+from async_rx import Observer, rx_create, rx_from, rx_merge, rx_range, Subscription
 from async_rx.protocol import default_subscription
 
 from ..model import ObserverCounterCollector
 from .model import countdown
+
+
+def test_rx_merge_default():
+    with pytest.raises(RuntimeError):
+        rx_merge()
 
 
 def test_rx_merge_concurrent(kernel):
@@ -69,3 +76,26 @@ def test_rx_merge(kernel):
         "l",
         "e",
     ]
+
+
+def test_rx_merge_with_error(kernel):
+
+    seeker = ObserverCounterCollector()
+
+    async def _subscribe(an_observer: Observer) -> Subscription:
+        await curio.sleep(0.2)
+        await an_observer.on_error(err="Args")
+        return default_subscription
+
+    async def _build():
+        return rx_merge(rx_create(subscribe=await countdown(10, 0.1)), rx_create(subscribe=_subscribe))
+
+    obs = kernel.run(_build())
+    sub_a = kernel.run(obs.subscribe(seeker))
+    kernel.run(sub_a())
+    assert seeker.on_completed_count == 0
+    assert seeker.on_error_count == 1
+    assert seeker.on_next_count <= 3
+    assert seeker.items[0] == 10
+    if seeker.on_next_count > 2:
+        assert seeker.items[1] == 9
