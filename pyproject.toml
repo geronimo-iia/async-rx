@@ -101,6 +101,7 @@ omit = ["tests/*", ".venv/*", "*/__main__.py"]
 exclude_lines =[
     "pragma: no cover",
     "raise NotImplementedError"]
+omit = ["tests/*", ".venv/*", "*/__main__.py"]
 
 
 [build-system]

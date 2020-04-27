@@ -31,7 +31,7 @@ class Subscription(Protocol):
     It define something to be used and thrown away after you call it.
     """
 
-    async def __call__(self) -> None:
+    async def __call__(self) -> None:  # pragma: no cover
         """Release subscription."""
         pass
 
@@ -42,7 +42,7 @@ class NextHandler(Protocol):
     A next handler process an item from associated observable.
     """
 
-    async def __call__(self, item: Any) -> None:
+    async def __call__(self, item: Any) -> None:  # pragma: no cover
         """Process item."""
         pass
 
@@ -53,7 +53,7 @@ class CompleteHandler(Protocol):
     A complete handler is call when no more item will came from the associated observable.
     """
 
-    async def __call__(self) -> None:
+    async def __call__(self) -> None:  # pragma: no cover
         """Signal completion of this observable."""
         pass
 
@@ -64,7 +64,7 @@ class ErrorHandler(Protocol):
     An error handler receive a message or an exception and raise it.
     """
 
-    async def __call__(self, err: Any) -> Optional[NoReturn]:
+    async def __call__(self, err: Any) -> Optional[NoReturn]:  # pragma: no cover
         """Raise error.
 
         Args:
@@ -95,15 +95,15 @@ class Observer(Protocol):
     notification that an Observable may deliver.
     """
 
-    async def on_next(self, item: Any) -> None:
+    async def on_next(self, item: Any) -> None:  # pragma: no cover
         """Process item."""
         pass
 
-    async def on_completed(self) -> None:
+    async def on_completed(self) -> None:  # pragma: no cover
         """Signal completion of this observable."""
         pass
 
-    async def on_error(self, err: Any) -> Optional[NoReturn]:
+    async def on_error(self, err: Any) -> Optional[NoReturn]:  # pragma: no cover
         pass
 
 
@@ -113,7 +113,7 @@ class Subscribe(Protocol):
     It's a (sync/async) function wich take an observer and return a subscription.
     """
 
-    async def __call__(self, an_observer: Observer) -> Subscription:
+    async def __call__(self, an_observer: Observer) -> Subscription:  # pragma: no cover
         """Implement observer subscription.
 
         Args:
@@ -132,7 +132,7 @@ class Observable(Protocol):
     An observable is something on which we can subscribe to listen event.
     """
 
-    async def subscribe(self, an_observer: Observer) -> Subscription:
+    async def subscribe(self, an_observer: Observer) -> Subscription:  # pragma: no cover
         pass
 
 
@@ -142,7 +142,7 @@ class ObservableFactory(Protocol):
     Define function which create Observable.
     """
 
-    async def __call__(self) -> Observable:
+    async def __call__(self) -> Observable:  # pragma: no cover
         """Create an Observable.
 
         Returns:
@@ -164,7 +164,7 @@ class Subject(Observable, Observer, Protocol):
 class SubjectEventHandler(Protocol):
     """Subject Event Handler Procotol."""
 
-    async def __call__(self, count: int, source: Observer) -> None:
+    async def __call__(self, count: int, source: Observer) -> None:  # pragma: no cover
         pass
 
 
@@ -174,7 +174,7 @@ class SubjectHandler(Protocol):
     This handler could be called on subscription/unsubscribe event.
     """
 
-    async def on_subscribe(self, count: int, source: Observer) -> None:
+    async def on_subscribe(self, count: int, source: Observer) -> None:  # pragma: no cover
         """Notify on subscribe event.
 
         Args:
@@ -184,7 +184,7 @@ class SubjectHandler(Protocol):
         """
         pass
 
-    async def on_unsubscribe(self, count: int, source: Observer) -> None:
+    async def on_unsubscribe(self, count: int, source: Observer) -> None:  # pragma: no cover
         """Notify on unsubscribe event.
 
         Args:
@@ -196,21 +196,21 @@ class SubjectHandler(Protocol):
 
 
 class SubjectFactory(Protocol):
-    def __call__(self, subject_handler: Optional[SubjectHandler] = None) -> Subject:
+    def __call__(self, subject_handler: Optional[SubjectHandler] = None) -> Subject:  # pragma: no cover
         pass
 
 
 class ConnectHandler(Protocol):
     """Connect Handler Protocol."""
 
-    async def __call__(self) -> Subscription:
+    async def __call__(self) -> Subscription:  # pragma: no cover
         pass
 
 
 class RefCountHandler(Protocol):
     """RefCount Handler Protocol."""
 
-    async def __call__(self) -> Observable:
+    async def __call__(self) -> Observable:  # pragma: no cover
         pass
 
 
@@ -225,11 +225,11 @@ class ConnectableObservable(Observable, Protocol):
             and stop executing when the last subscriber leaves.
     """
 
-    async def connect(self) -> Subscription:
+    async def connect(self) -> Subscription:  # pragma: no cover
         """Connect."""
         pass
 
-    async def ref_count(self) -> Observable:
+    async def ref_count(self) -> Observable:  # pragma: no cover
         """Reference counter.
 
         Make the multicasted Observable automatically start executing when
@@ -242,7 +242,7 @@ class ConnectableObservable(Observable, Protocol):
 class ConnectableObservableEventHandler(Protocol):
     """Connectable Observable Event Handler Protocol."""
 
-    async def __call__(self) -> None:
+    async def __call__(self) -> None:  # pragma: no cover
         pass
 
 
@@ -252,11 +252,11 @@ class ConnectableObservableHandler(Protocol):
     This handler could be called on conect/disconnect event.
     """
 
-    async def on_connect(self) -> None:
+    async def on_connect(self) -> None:  # pragma: no cover
         """Called on connect event."""
         pass
 
-    async def on_disconnect(self) -> None:
+    async def on_disconnect(self) -> None:  # pragma: no cover
         """Called on disconnect event."""
         pass
 
@@ -270,7 +270,7 @@ class AsyncAccumulatorOperator(Protocol[T]):
     Accumulator are used in reduce operation.
     """
 
-    async def __call__(self, buffer: T, item: T) -> T:
+    async def __call__(self, buffer: T, item: T) -> T:  # pragma: no cover
         pass
 
 
@@ -280,7 +280,7 @@ class SyncAccumulatorOperator(Protocol[T]):
     Accumulator are used in reduce operation.
     """
 
-    def __call__(self, buffer: T, item: T) -> T:
+    def __call__(self, buffer: T, item: T) -> T:  # pragma: no cover
         pass
 
 
@@ -297,5 +297,5 @@ class PredicateOperator(Protocol):
     Predicate ae used in filter operation.
     """
 
-    async def __call__(self, item: Any) -> bool:
+    async def __call__(self, item: Any) -> bool:  # pragma: no cover
         pass

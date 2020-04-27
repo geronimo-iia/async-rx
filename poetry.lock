@@ -696,7 +696,7 @@ description = "Mypy static type checker plugin for Pytest"
 name = "pytest-mypy"
 optional = false
 python-versions = "~=3.4"
-version = "0.6.1"
+version = "0.6.2"
 
 [package.dependencies]
 filelock = ">=3.0"
@@ -1309,8 +1309,8 @@ pytest-mock = [
     {file = "pytest_mock-1.13.0-py2.py3-none-any.whl", hash = "sha256:67e414b3caef7bff6fc6bd83b22b5bc39147e4493f483c2679bc9d4dc485a94d"},
 ]
 pytest-mypy = [
-    {file = "pytest-mypy-0.6.1.tar.gz", hash = "sha256:f766b229b2760f99524f2c40c24e3288d4853334e560ab5b59a4ebffb2d4cb1d"},
-    {file = "pytest_mypy-0.6.1-py3-none-any.whl", hash = "sha256:bb70bb64768a87dbbee250eee7932c84d1e8ccf68c4ce0651304b9598d072d6b"},
+    {file = "pytest-mypy-0.6.2.tar.gz", hash = "sha256:2560a9b27d59bb17810d12ec3402dfc7c8e100e40539a70d2814bcbb27240f27"},
+    {file = "pytest_mypy-0.6.2-py3-none-any.whl", hash = "sha256:76e705cfd3800bf2b534738e792245ac5bb8d780698d0f8cd6c79032cc5e9923"},
 ]
 pytest-random = [
     {file = "pytest-random-0.02.tar.gz", hash = "sha256:92f25db8c5d9ffc20d90b51997b914372d6955cb9cf1f6ead45b90514fc0eddd"},
