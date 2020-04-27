@@ -88,7 +88,7 @@ def rx_subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         for o in _registry:
             try:
                 await o.on_error(err=err)
-            except Exception:
+            except Exception:  # pragma: no cover
                 pass
 
     async def _on_completed() -> None:
