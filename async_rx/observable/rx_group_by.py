@@ -15,7 +15,7 @@ def rx_group_by(observable: Observable, key_selector: Callable) -> Observable:
     but as opposite to Window where all windows receive the same sequence,
     GroupBy will emit elements only to one inner observable that is associated
     with the current element based on a key selector function.
-    The observer receive tuple with (key, observable).
+    The observer receive tuple with (key, subject).
 
     Args:
         observable (Observable): observable instance
@@ -43,6 +43,7 @@ def rx_group_by(observable: Observable, key_selector: Callable) -> Observable:
             nonlocal _observables
             for _, o in _observables.items():
                 await o.on_completed()
+            await an_observer.on_completed()
 
         async def _on_error(err: Any):
             nonlocal _observables
@@ -51,6 +52,7 @@ def rx_group_by(observable: Observable, key_selector: Callable) -> Observable:
                     await o.on_error(err=err)
                 except Exception:
                     pass
+            await an_observer.on_error(err=err)
             return None
 
         return await observable.subscribe(rx_observer(on_next=_on_next, on_completed=_on_completed, on_error=_on_error))
