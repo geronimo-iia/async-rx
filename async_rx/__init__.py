@@ -137,5 +137,5 @@ __all__ = [
 
 try:
     __version__ = get_distribution('async_rx').version
-except DistributionNotFound:
+except DistributionNotFound:  # pragma: no cover
     __version__ = '(local)'
