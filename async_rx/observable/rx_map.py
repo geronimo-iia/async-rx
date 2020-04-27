@@ -7,7 +7,9 @@ from .rx_create import rx_create
 __all__ = ["rx_map"]
 
 
-def rx_map(observable: Observable, transform: Callable, expand_kwarg_parameters: Optional[bool] = False) -> Observable:
+def rx_map(
+    observable: Observable, transform: Callable, expand_arg_parameters: Optional[bool] = False, expand_kwarg_parameters: Optional[bool] = False
+) -> Observable:
     """Map operator.
 
     Map operator modifies an Observable<A> into Observable<B> given a function with the type A->B.
@@ -18,6 +20,8 @@ def rx_map(observable: Observable, transform: Callable, expand_kwarg_parameters:
     Args:
         observable (Observable): an observable instance
         transform (Callable): transform function (sync or async)
+        expand_arg_parameters (Optional[bool]): if true each item will be expanded as args before call transform
+            (implique expand_kwarg_parameters = False).
         expand_kwarg_parameters (Optional[bool]): if true each item will be expanded as kwargs before call transform.
 
     Returns:
@@ -33,6 +37,8 @@ def rx_map(observable: Observable, transform: Callable, expand_kwarg_parameters:
 
             if expand_kwarg_parameters:
                 _next_item = await transform(**item) if _is_awaitable else transform(**item)
+            elif expand_arg_parameters:
+                _next_item = await transform(*item) if _is_awaitable else transform(*item)
             else:
                 _next_item = await transform(item) if _is_awaitable else transform(item)
 
