@@ -11,7 +11,7 @@ _ObserverDefinition = namedtuple("Observer", ["on_next", "on_error", "on_complet
 """Implements Observer Protocol."""
 
 
-async def default_on_completed() -> None:
+async def default_on_completed() -> None:  # pragma: no cover
     """Default on complet handler.
 
     No operation.
@@ -34,7 +34,7 @@ async def default_error(err: Any) -> NoReturn:
     raise Exception(err)
 
 
-async def ignore_error_handler(err: Any) -> None:
+async def ignore_error_handler(err: Any) -> None:  # pragma: no cover
     """Always ignore error."""
     pass
 
