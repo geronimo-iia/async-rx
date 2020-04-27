@@ -1,4 +1,5 @@
-from async_rx import Observer, rx_concat, rx_create, rx_from, rx_range
+import pytest
+from async_rx import Observer, rx_concat, rx_create, rx_from, rx_range, Subscription
 
 from ..model import ObserverCounterCollector
 from .model import countdown
@@ -68,3 +69,24 @@ def test_rx_concat(kernel):
         "l",
         "e",
     ]
+
+
+def test_rx_concat_with_error(kernel):
+    async def sub(an_observer: Observer) -> Subscription:
+        await an_observer.on_error("AA")
+
+    seeker = ObserverCounterCollector()
+
+    obs = rx_concat(rx_range(start=1, stop=20), rx_create(subscribe=sub))
+    sub_a = kernel.run(obs.subscribe(seeker))
+    kernel.run(sub_a())
+
+    assert seeker.on_completed_count == 0
+    assert seeker.on_error_count == 1
+    assert seeker.on_next_count == 19
+
+
+def test_rx_concat_with_no_observable(kernel):
+
+    with pytest.raises(RuntimeError):
+        rx_concat()
