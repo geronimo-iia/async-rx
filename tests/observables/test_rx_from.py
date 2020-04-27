@@ -6,6 +6,13 @@ from async_rx.protocol import default_subscription
 from ..model import ObserverCounterCollector
 
 
+def test_rx_from_dict(kernel):
+    result = rx_from({"A": True})
+    assert hasattr(result, "subscribe")
+    result["B"] = False
+    assert result == {"A": True, "B": False}
+
+
 def test_rx_from_iterable(kernel):
 
     obs: Observable = rx_from(observable_input=[1, 2, 3])
