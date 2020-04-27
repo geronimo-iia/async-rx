@@ -12,15 +12,23 @@ class _RxDict(UserDict):
     def __init__(self, dict: Dict):
         super().__init__(dict)
         self._event = curio.UniversalEvent()
+        self._subscribers = 0
 
     async def subscribe(self, an_observer: Observer) -> Subscription:
+
+        if self._subscribers > 0:
+            raise RuntimeError("Only one subscription is supported")
+
+        self._subscribers += 1
+
         _consumer_task = None
 
         async def consumer():
             try:
                 while True:
                     await self._event.wait()
-                    await an_observer.on_next(item=self.data)
+                    await an_observer.on_next(item=dict(self.data))
+                    self._event.clear()
             except curio.TaskCancelled:
                 # it's time to finish
                 pass
@@ -30,18 +38,25 @@ class _RxDict(UserDict):
             if _consumer_task:
                 await _consumer_task.cancel()
                 _consumer_task = None
+            self._subscribers -= 1
 
         _consumer_task = await curio.spawn(consumer())
 
+        await an_observer.on_next(item=dict(self.data))
+
         return _subscription
+
+    def _set_event(self):
+        if not self._event.is_set():
+            self._event.set()
 
     def __setitem__(self, key, item):
         self.data[key] = item
-        self._event.set()
+        self._set_event()
 
     def __delitem__(self, key):
         del self.data[key]
-        self._event.set()
+        self._set_event()
 
 
 def rx_dict(initial_value: Optional[Dict] = None) -> Observable:
