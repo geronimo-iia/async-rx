@@ -8,6 +8,7 @@ __all__ = [
     "ErrorHandler",
     "Observable",
     "Observer",
+    "Collector",
     "Subscribe",
     "Subject",
     "ConnectHandler",
@@ -22,6 +23,8 @@ __all__ = [
     "AccumulatorOperator",
     "SubjectFactory",
 ]
+
+T = TypeVar('T')
 
 
 class Subscription(Protocol):
@@ -104,6 +107,26 @@ class Observer(Protocol):
         pass
 
     async def on_error(self, err: Any) -> Optional[NoReturn]:  # pragma: no cover
+        pass
+
+
+class Collector(Observer, Protocol[T]):
+    """Collector Observer Protocol."""
+
+    def result(self) -> T:  # pragma: no cover
+        """Returns result."""
+        pass
+
+    def is_finish(self) -> bool:  # pragma: no cover
+        """Return true if observable has completed."""
+        pass
+
+    def has_error(self) -> bool:  # pragma: no cover
+        """Return true if observable has meet error."""
+        pass
+
+    def error(self) -> Any:  # pragma: no cover
+        """Return error if observable has meet error."""
         pass
 
 
@@ -259,9 +282,6 @@ class ConnectableObservableHandler(Protocol):
     async def on_disconnect(self) -> None:  # pragma: no cover
         """Called on disconnect event."""
         pass
-
-
-T = TypeVar('T')
 
 
 class AsyncAccumulatorOperator(Protocol[T]):

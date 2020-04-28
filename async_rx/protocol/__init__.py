@@ -8,6 +8,7 @@ from .definition import (
     ErrorHandler,
     Observable,
     Observer,
+    Collector,
     Subscribe,
     Subject,
     ConnectHandler,
@@ -26,7 +27,7 @@ from .observable import observable, ensure_observable_contract_operator
 from .observer import rx_observer, rx_observer_from, default_on_completed, default_error, ignore_error_handler
 from .subject import subject_handler, subject
 from .subscription import default_subscription, disposable_subscription_on_cancel
-
+from .rx_collector import rx_collector
 
 __all__ = [
     "connectable_observable",
@@ -37,6 +38,7 @@ __all__ = [
     "ErrorHandler",
     "Observable",
     "Observer",
+    "Collector",
     "Subscribe",
     "Subject",
     "ConnectHandler",
@@ -60,4 +62,5 @@ __all__ = [
     "subject",
     "default_subscription",
     "disposable_subscription_on_cancel",
+    "rx_collector",
 ]

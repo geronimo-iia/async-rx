@@ -5,7 +5,9 @@ from ..model import ObserverCounterCollector
 
 
 class ObserverGroupByCollector:
-    # TODO we should find something clever.
+    # TODO we should find something clever ?
+    #  - something like an rx_group_by_collector with an aggregate function (sum, avg, min, max, count)
+    #  - something like rx_group_by_map with an observable_factory
 
     def __init__(self, observer_factory: callable):
         self.observer_factory = observer_factory

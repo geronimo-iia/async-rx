@@ -8,6 +8,7 @@ from .protocol import (
     ErrorHandler,
     Observable,
     Observer,
+    Collector,
     Subscribe,
     Subject,
     ConnectHandler,
@@ -23,6 +24,7 @@ from .protocol import (
     SubjectFactory,
     rx_observer,
     rx_observer_from,
+    rx_collector,
 )
 
 from .subject import rx_subject, rx_subject_replay, rx_subject_behavior
@@ -75,6 +77,7 @@ __all__ = [
     "ErrorHandler",
     "Observable",
     "Observer",
+    "Collector",
     "Subscribe",
     "Subject",
     "ConnectHandler",
@@ -90,6 +93,7 @@ __all__ = [
     "SubjectFactory",
     "rx_observer",
     "rx_observer_from",
+    "rx_collector",
     # from observable
     "rx_create",
     "rx_defer",
