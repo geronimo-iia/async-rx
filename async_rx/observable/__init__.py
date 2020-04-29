@@ -37,6 +37,7 @@ from .rx_delay import rx_delay
 from .rx_debounce import rx_debounce
 from .rx_dict import rx_dict
 from .rx_list import rx_list
+from .rx_repeat import rx_repeat
 
 
 __all__ = [
@@ -75,4 +76,5 @@ __all__ = [
     "rx_debounce",
     "rx_dict",
     "rx_list",
+    "rx_repeat",
 ]

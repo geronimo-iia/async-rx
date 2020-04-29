@@ -65,6 +65,7 @@ from .observable import (
     rx_debounce,
     rx_dict,
     rx_list,
+    rx_repeat,
 )
 
 from .protocol.definition import __all__ as _def_all
@@ -129,6 +130,7 @@ __all__ = [
     "rx_debounce",
     "rx_dict",
     "rx_list",
+    "rx_repeat",
     # subject
     "rx_subject",
     "rx_subject_replay",
