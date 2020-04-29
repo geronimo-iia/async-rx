@@ -1,5 +1,5 @@
 from typing import Any
-from async_rx import rx_group_by, rx_range, rx_dict, rx_sum, rx_avg, rx_throw, rx_concat, rx_collector
+from async_rx import rx_group_by, rx_range, rx_dict, rx_sum, rx_avg, rx_throw, rx_concat, rx_collector, rx_subject_from, rx_subject
 
 from ..model import ObserverCounterCollector
 
@@ -118,3 +118,40 @@ def test_rx_group_by_with_collector(kernel):
         for k1, v1 in v.items():
             result[k][k1] = v1.result() if v1.is_finish() else None
     assert result == {'odd': {'sum': 20, 'avg': 4.0}, 'even': {'sum': 25, 'avg': 5.0}}
+
+
+def test_rx_group_by_with_subject(kernel):
+
+    _accumulator = {}
+    _subject = rx_subject()
+
+    async def _on_next(item: Any):
+        nonlocal _accumulator
+        (key, an_observable) = item
+        _sum = rx_collector(0)
+        _avg = rx_collector(0.0)
+        await rx_sum(observable=an_observable).subscribe(_sum)
+        await rx_avg(observable=an_observable).subscribe(_avg)
+        _accumulator[key]= {"sum": _sum, "avg": _avg}
+    
+    async def _on_complete():
+        nonlocal _accumulator
+        result = {}
+        for k, v in _accumulator.items():
+            result[k] = {}
+            for k1, v1 in v.items():
+                result[k][k1] = v1.result() if v1.is_finish() else None
+        await _subject.on_next(item=result)
+        await _subject.on_completed()
+
+    head_subject = rx_subject_from(a_subject=_subject, on_next=_on_next, on_completed=_on_complete)
+
+    
+    source = rx_group_by(rx_range(start=0, stop=10), _key_selector)
+    seeker = ObserverCounterCollector()
+
+    kernel.run(_subject.subscribe(seeker))
+    kernel.run(source.subscribe(head_subject))
+
+    assert seeker.items == [{'odd': {'sum': 20, 'avg': 4.0}, 'even': {'sum': 25, 'avg': 5.0}}]
+    

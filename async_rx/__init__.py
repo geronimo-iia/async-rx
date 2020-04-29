@@ -27,7 +27,7 @@ from .protocol import (
     rx_collector,
 )
 
-from .subject import rx_subject, rx_subject_replay, rx_subject_behavior
+from .subject import rx_subject, rx_subject_replay, rx_subject_behavior, rx_subject_from
 
 from .multicast import rx_publish, rx_publish_replay, rx_publish_behavior
 from .observable import (
@@ -66,6 +66,7 @@ from .observable import (
     rx_dict,
     rx_list,
     rx_repeat,
+    rx_repeat_series,
 )
 
 from .protocol.definition import __all__ as _def_all
@@ -131,8 +132,10 @@ __all__ = [
     "rx_dict",
     "rx_list",
     "rx_repeat",
+    "rx_repeat_series",
     # subject
     "rx_subject",
+    "rx_subject_from",
     "rx_subject_replay",
     "rx_subject_behavior"
     # multicast

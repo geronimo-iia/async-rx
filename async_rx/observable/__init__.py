@@ -38,7 +38,7 @@ from .rx_debounce import rx_debounce
 from .rx_dict import rx_dict
 from .rx_list import rx_list
 from .rx_repeat import rx_repeat
-
+from .rx_repeat_series import rx_repeat_series
 
 __all__ = [
     "rx_create",
@@ -77,4 +77,5 @@ __all__ = [
     "rx_dict",
     "rx_list",
     "rx_repeat",
+    "rx_repeat_series",
 ]

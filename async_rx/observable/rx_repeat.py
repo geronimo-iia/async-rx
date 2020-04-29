@@ -20,6 +20,7 @@ def rx_repeat(duration: timedelta, producer: Callable) -> Observable:
 
     Returns:
         (Observable): observable instance
+
     """
 
     _is_awaitable = iscoroutinefunction(producer)
