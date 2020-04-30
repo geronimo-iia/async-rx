@@ -1,5 +1,6 @@
 import pytest
-from async_rx import Observer, rx_range, rx_subject_replay, Subscription, rx_create
+
+from async_rx import Observer, Subscription, rx_create, rx_range, rx_subject_replay
 from async_rx.protocol import default_subscription
 
 from ..model import ObserverCounterCollector

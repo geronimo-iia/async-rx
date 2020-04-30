@@ -1,5 +1,6 @@
 from typing import Optional
-from ..protocol import Subject, CompleteHandler, ErrorHandler, NextHandler, Subscribe, subject
+
+from ..protocol import CompleteHandler, ErrorHandler, NextHandler, Subject, Subscribe, subject
 
 __all__ = ["rx_subject_from"]
 

@@ -1,4 +1,4 @@
-from async_rx import rx_avg, Observer, Subscription, rx_create
+from async_rx import Observer, Subscription, rx_avg, rx_create
 from async_rx.protocol import default_subscription
 
 from ..model import ObserverCounterCollector

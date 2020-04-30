@@ -1,5 +1,7 @@
+from typing import Any, Optional
+
 import curio
-from typing import Optional, Any
+
 from ..protocol import Observable, Observer, Subscription
 from .rx_create import rx_create
 

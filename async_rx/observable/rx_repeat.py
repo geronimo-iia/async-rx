@@ -1,7 +1,9 @@
+from datetime import timedelta
 from inspect import iscoroutinefunction
 from typing import Callable
-from datetime import timedelta
+
 import curio
+
 from ..protocol import Observable, Observer, Subscription
 from .rx_create import rx_create
 

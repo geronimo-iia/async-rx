@@ -1,5 +1,5 @@
 from collections import UserList
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import curio
 
@@ -9,7 +9,7 @@ __all__ = ["rx_list"]
 
 
 class _RxList(UserList):
-    def __init__(self, initlist: Optional[List] = None):
+    def __init__(self, initlist: Optional[Union[List, "_RxList"]] = None):
         self._event = curio.UniversalEvent()
         self._subscribers = 0
         super().__init__(initlist=initlist if initlist else [])
@@ -60,7 +60,7 @@ class _RxList(UserList):
     def __add__(self, other):
         result = super().__add__(other)
         self._set_event()
-        return rx_list(result)
+        return _RxList(result)
 
     def __iadd__(self, other):
         super().__iadd__(other)
@@ -70,7 +70,7 @@ class _RxList(UserList):
     def __mul__(self, n):
         result = super().__mul__(n)
         self._set_event()
-        return rx_list(result)
+        return _RxList(result)
 
     def __imul__(self, n):
         super().__imul__(n)
@@ -98,7 +98,7 @@ class _RxList(UserList):
         self._set_event()
 
     def copy(self):
-        return rx_list(super().copy())
+        return _RxList(super().copy())
 
     def reverse(self):
         super().reverse()

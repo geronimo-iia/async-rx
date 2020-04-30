@@ -1,6 +1,7 @@
 import curio
 import pytest
-from async_rx import Observer, rx_amb, rx_create, rx_from, rx_range, Subscription
+
+from async_rx import Observer, Subscription, rx_amb, rx_create, rx_from, rx_range
 from async_rx.protocol import default_subscription
 
 from ..model import ObserverCounterCollector

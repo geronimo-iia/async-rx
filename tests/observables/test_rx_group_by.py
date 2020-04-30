@@ -1,5 +1,6 @@
 from typing import Any
-from async_rx import rx_group_by, rx_range, rx_dict, rx_sum, rx_avg, rx_throw, rx_concat, rx_collector, rx_subject_from, rx_subject
+
+from async_rx import rx_avg, rx_collector, rx_concat, rx_dict, rx_group_by, rx_range, rx_subject, rx_subject_from, rx_sum, rx_throw
 
 from ..model import ObserverCounterCollector
 
@@ -132,8 +133,8 @@ def test_rx_group_by_with_subject(kernel):
         _avg = rx_collector(0.0)
         await rx_sum(observable=an_observable).subscribe(_sum)
         await rx_avg(observable=an_observable).subscribe(_avg)
-        _accumulator[key]= {"sum": _sum, "avg": _avg}
-    
+        _accumulator[key] = {"sum": _sum, "avg": _avg}
+
     async def _on_complete():
         nonlocal _accumulator
         result = {}
@@ -146,7 +147,6 @@ def test_rx_group_by_with_subject(kernel):
 
     head_subject = rx_subject_from(a_subject=_subject, on_next=_on_next, on_completed=_on_complete)
 
-    
     source = rx_group_by(rx_range(start=0, stop=10), _key_selector)
     seeker = ObserverCounterCollector()
 
@@ -154,4 +154,3 @@ def test_rx_group_by_with_subject(kernel):
     kernel.run(source.subscribe(head_subject))
 
     assert seeker.items == [{'odd': {'sum': 20, 'avg': 4.0}, 'even': {'sum': 25, 'avg': 5.0}}]
-    

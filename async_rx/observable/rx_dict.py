@@ -1,5 +1,5 @@
 from collections import UserDict
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 import curio
 
@@ -9,7 +9,7 @@ __all__ = ["rx_dict"]
 
 
 class _RxDict(UserDict):
-    def __init__(self, dict: Dict):
+    def __init__(self, dict: Union[Dict, "_RxDict"]):
         self._event = curio.UniversalEvent()
         self._subscribers = 0
         super().__init__(dict)
@@ -59,7 +59,7 @@ class _RxDict(UserDict):
         self._set_event()
 
     def copy(self):
-        return rx_dict(super().copy())
+        return _RxDict(super().copy())
 
 
 def rx_dict(initial_value: Optional[Dict] = None) -> Observable:

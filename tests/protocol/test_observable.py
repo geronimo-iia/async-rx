@@ -1,4 +1,5 @@
 import pytest
+
 from async_rx.protocol import observable
 
 

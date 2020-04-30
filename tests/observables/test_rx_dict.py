@@ -1,4 +1,5 @@
 import pytest
+
 from async_rx import rx_dict
 
 from ..model import ObserverCounterCollector

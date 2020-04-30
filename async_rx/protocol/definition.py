@@ -110,10 +110,10 @@ class Observer(Protocol):
         pass
 
 
-class Collector(Observer, Protocol[T]):
+class Collector(Observer, Protocol):
     """Collector Observer Protocol."""
 
-    def result(self) -> T:  # pragma: no cover
+    def result(self) -> Any:  # pragma: no cover
         """Returns result."""
         pass
 

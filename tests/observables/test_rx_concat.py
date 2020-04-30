@@ -1,5 +1,6 @@
 import pytest
-from async_rx import Observer, rx_concat, rx_create, rx_from, rx_range, Subscription
+
+from async_rx import Observer, Subscription, rx_concat, rx_create, rx_from, rx_range
 
 from ..model import ObserverCounterCollector
 from .model import countdown

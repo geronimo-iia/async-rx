@@ -1,5 +1,6 @@
-from typing import TypeVar, Any
 from collections import namedtuple
+from typing import Any, TypeVar
+
 from .definition import Collector
 
 __all__ = ["rx_collector"]
@@ -9,7 +10,7 @@ T = TypeVar("T")
 _CollectorDefinition = namedtuple("Collector", ["on_next", "on_error", "on_completed", "result", "is_finish", "has_error", "error"])
 
 
-def rx_collector(initial_value: T) -> Collector[T]:
+def rx_collector(initial_value: T) -> Collector:
     """Create an observer collector.
 
     Args:
@@ -19,34 +20,44 @@ def rx_collector(initial_value: T) -> Collector[T]:
         (Collector[T]): a collector instance
 
     """
-    _value = initial_value
+
     _is_finish = False
     _has_error = False
     _error = None
 
     if isinstance(initial_value, dict):
+        _dict = dict(initial_value)
 
-        async def _on_next_to_dict(item: Any):
-            nonlocal _value
+        async def _on_next(item: Any):
+            nonlocal _dict
             (k, v) = item
-            _value[k] = v
+            _dict[k] = v
 
-        _on_next = _on_next_to_dict
+        def get_result() -> Any:
+            nonlocal _dict
+            return _dict
 
     elif isinstance(initial_value, list):
+        _list = list(initial_value)
 
-        async def _on_next_to_list(item: Any):
-            nonlocal _value
-            _value.append(item)
+        async def _on_next(item: Any):
+            nonlocal _list
+            _list.append(item)
 
-        _on_next = _on_next_to_list
+        def get_result() -> Any:
+            nonlocal _list
+            return _list
+
     else:
+        _value = initial_value
 
-        async def _on_next_to_hint(item: Any):
+        async def _on_next(item: Any):
             nonlocal _value
             _value = item
 
-        _on_next = _on_next_to_hint
+        def _get_result() -> Any:
+            nonlocal _value
+            return _value
 
     async def _on_completed():
         nonlocal _is_finish
@@ -56,10 +67,6 @@ def rx_collector(initial_value: T) -> Collector[T]:
         nonlocal _has_error, _error
         _error = err
         _has_error = True
-
-    def _get_result():
-        nonlocal _value
-        return _value
 
     def _get_is_finish():
         nonlocal _is_finish
