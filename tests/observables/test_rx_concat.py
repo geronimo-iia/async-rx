@@ -1,6 +1,6 @@
 import pytest
-
-from async_rx import Observer, Subscription, rx_concat, rx_create, rx_from, rx_range
+import curio
+from async_rx import Observer, Subscription, rx_concat, rx_create, rx_from, rx_range, rx_throw, rx_repeat_series
 
 from ..model import ObserverCounterCollector
 from .model import countdown
@@ -85,6 +85,33 @@ def test_rx_concat_with_error(kernel):
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1
     assert seeker.on_next_count == 19
+
+
+def test_rx_concat_with_throw(kernel):
+
+    seeker = ObserverCounterCollector()
+
+    obs = rx_concat(rx_range(start=1, stop=20), rx_throw("oups"))
+    sub_a = kernel.run(obs.subscribe(seeker))
+    kernel.run(sub_a())
+
+    assert seeker.on_completed_count == 0
+    assert seeker.on_error_count == 1
+    assert seeker.on_next_count == 19
+
+
+def test_rx_concat_with_series_throw(kernel):
+
+    seeker = ObserverCounterCollector()
+
+    obs = rx_concat(rx_repeat_series([(0.1, "A"), (0.5, "B"), (1.0, "C")]), rx_throw("oups"))
+    sub_a = kernel.run(obs.subscribe(seeker))
+    kernel.run(curio.sleep(3))
+    kernel.run(sub_a())
+
+    assert seeker.on_next_count == 3
+    assert seeker.on_completed_count == 0
+    assert seeker.on_error_count == 1
 
 
 def test_rx_concat_with_no_observable(kernel):

@@ -29,22 +29,29 @@ def rx_delay(observable: Observable, duration: timedelta, buffer_size: Optional[
     Returns:
         (Observable): observable instance
 
+    Raise:
+        (RuntimeError): if no observable or duration are provided or buffer_size <= 0
+
     """
+    if not observable or not duration:
+        raise RuntimeError("observable and duration are mandatory")
+    if buffer_size and buffer_size <= 0:
+        raise RuntimeError("buffer_size must be greather than zero or None")
 
     async def _subscribe(an_observer: Observer) -> Subscription:
         _queue = curio.Queue(buffer_size) if buffer_size else curio.Queue()
         _consumer_task = None
         _subscription: Optional[Subscription] = None
-        _duration = timedelta.total_seconds
+        _duration = duration.total_seconds()
 
         async def consumer():
             nonlocal _queue, _duration
             try:
                 while True:
                     item = await _queue.get()  # retreaive an item (lock until one)
+                    await curio.sleep(_duration)  # add duration delay before send
                     await an_observer.on_next(item=item)
                     await _queue.task_done()  # notify that job is done
-                    await curio.sleep(_duration)  # add duration delay before process a new one
             except curio.TaskCancelled:
                 # it's time to finish
                 pass
@@ -69,6 +76,7 @@ def rx_delay(observable: Observable, duration: timedelta, buffer_size: Optional[
 
         async def _on_error(err: Any):
             nonlocal _consumer_task
+            await curio.sleep(_duration)  # add duration delay on error
             await _cancel_consumer()
             await an_observer.on_error(err=err)
 

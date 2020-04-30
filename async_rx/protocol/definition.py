@@ -284,7 +284,7 @@ class ConnectableObservableHandler(Protocol):
         pass
 
 
-class AsyncAccumulatorOperator(Protocol[T]):
+class _AsyncAccumulatorOperator(Protocol[T]):
     """Async Accumulator Operator Protocol.
 
     Accumulator are used in reduce operation.
@@ -294,7 +294,7 @@ class AsyncAccumulatorOperator(Protocol[T]):
         pass
 
 
-class SyncAccumulatorOperator(Protocol[T]):
+class _SyncAccumulatorOperator(Protocol[T]):
     """Async Accumulator Operator Protocol.
 
     Accumulator are used in reduce operation.
@@ -304,18 +304,35 @@ class SyncAccumulatorOperator(Protocol[T]):
         pass
 
 
-AccumulatorOperator = Union[AsyncAccumulatorOperator, SyncAccumulatorOperator]
+AccumulatorOperator = Union[_AsyncAccumulatorOperator, _SyncAccumulatorOperator]
 """Accumulator Operator Protocol.
 
 Accumulator are used in reduce operation.
 """
 
 
-class PredicateOperator(Protocol):
-    """Predicate Operator Protocol.
+class _AsyncPredicateOperator(Protocol):
+    """Async Predicate Operator Protocol.
 
-    Predicate ae used in filter operation.
+    Predicate are used in filter operation.
     """
 
     async def __call__(self, item: Any) -> bool:  # pragma: no cover
         pass
+
+
+class _SyncPredicateOperator(Protocol):
+    """Sync Predicate Operator Protocol.
+
+    Predicate are used in filter operation.
+    """
+
+    def __call__(self, item: Any) -> bool:  # pragma: no cover
+        pass
+
+
+PredicateOperator = Union[_AsyncPredicateOperator, _SyncPredicateOperator]
+"""Predicate Operator Protocol.
+
+Predicate are used in filter operation.
+"""

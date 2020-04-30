@@ -1,3 +1,4 @@
+from inspect import iscoroutinefunction
 from typing import Any
 
 from ..protocol import Observable, Observer, PredicateOperator, Subscription, rx_observer_from
@@ -19,9 +20,13 @@ def rx_filter(observable: Observable, predicate: PredicateOperator) -> Observabl
 
     """
 
+    _awaitable = iscoroutinefunction(predicate)
+
     async def _subscribe(an_observer: Observer) -> Subscription:
         async def _on_next(item: Any):
-            if await predicate(item=item):
+            nonlocal _awaitable
+            _test = await predicate(item=item) if _awaitable else predicate(item=item)
+            if _test:
                 await an_observer.on_next(item=item)
 
         return await observable.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next))
