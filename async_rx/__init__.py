@@ -45,6 +45,7 @@ from .observable import (
     rx_skip,
     rx_take,
     rx_throw,
+    rx_reduce,
     rx_count,
     rx_max,
     rx_min,
@@ -105,7 +106,8 @@ __all__ = [
     "rx_first",
     "rx_forward",
     "rx_from",
-    "rx_last" "rx_of",
+    "rx_last",
+    "rx_of",
     "rx_range",
     "rx_skip",
     "rx_take",
@@ -137,7 +139,7 @@ __all__ = [
     "rx_subject",
     "rx_subject_from",
     "rx_subject_replay",
-    "rx_subject_behavior"
+    "rx_subject_behavior",
     # multicast
     "rx_publish",
     "rx_publish_replay",
