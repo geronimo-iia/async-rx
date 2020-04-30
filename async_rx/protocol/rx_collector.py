@@ -33,7 +33,7 @@ def rx_collector(initial_value: T) -> Collector:
             (k, v) = item
             _dict[k] = v
 
-        def get_result() -> Any:
+        def _get_result() -> Any:
             nonlocal _dict
             return _dict
 
@@ -44,7 +44,7 @@ def rx_collector(initial_value: T) -> Collector:
             nonlocal _list
             _list.append(item)
 
-        def get_result() -> Any:
+        def _get_result() -> Any:
             nonlocal _list
             return _list
 
