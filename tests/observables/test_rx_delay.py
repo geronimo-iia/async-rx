@@ -1,7 +1,10 @@
+from datetime import timedelta
+
 import curio
 import pytest
-from async_rx import rx_delay, rx_repeat_series, rx_from, rx_concat, rx_throw
-from datetime import timedelta
+
+from async_rx import rx_concat, rx_delay, rx_from, rx_repeat_series, rx_throw
+
 from ..model import ObserverCounterCollectorWithTime
 
 

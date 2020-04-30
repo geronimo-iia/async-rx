@@ -1,5 +1,6 @@
 import curio
 import pytest
+
 from async_rx import rx_repeat_series
 
 from ..model import ObserverCounterCollectorWithTime

@@ -7,7 +7,7 @@ from .rx_create import rx_create
 __all__ = ["rx_throttle"]
 
 
-def rx_throttle(observable: Observable, time_delta: timedelta) -> Observable:
+def rx_throttle(observable: Observable, duration: timedelta) -> Observable:
     """Throttle operator.
 
     Throttle are used to rate-limit the sequence.
@@ -17,12 +17,17 @@ def rx_throttle(observable: Observable, time_delta: timedelta) -> Observable:
 
     Args:
         observable (Observable): an observable instance
-        time_delta (timedelta): timedelta of interval (the duration)
+        duration (timedelta): timedelta of interval (the duration)
 
     Returns:
         (Observable): observable instance
 
+    Raise:
+        (RuntimeError): if no observable or duration are provided
+
     """
+    if not observable or not duration:
+        raise RuntimeError("observable and duration are mandatory")
 
     async def _subscribe(an_observer: Observer) -> Subscription:
 
@@ -31,7 +36,7 @@ def rx_throttle(observable: Observable, time_delta: timedelta) -> Observable:
         async def _on_next(item: Any):
             nonlocal _last_send_item
             _now = datetime.utcnow()
-            if not _last_send_item or _last_send_item + time_delta <= _now:
+            if not _last_send_item or _last_send_item + duration <= _now:
                 _last_send_item = _now
                 await an_observer.on_next(item=item)
 

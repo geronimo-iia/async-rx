@@ -23,7 +23,12 @@ def rx_repeat(duration: timedelta, producer: Callable) -> Observable:
     Returns:
         (Observable): observable instance
 
+    Raise:
+        (RuntimeError): if no producer or duration are provided
+
     """
+    if not producer or not duration:
+        raise RuntimeError("producer and duration are mandatory")
 
     _is_awaitable = iscoroutinefunction(producer)
     _duration = duration.total_seconds()
@@ -32,7 +37,7 @@ def rx_repeat(duration: timedelta, producer: Callable) -> Observable:
         _task = None
 
         async def _producer():
-            nonlocal an_observer, _duration, _is_awaitable
+            nonlocal _duration, _is_awaitable
             try:
                 while True:
                     await curio.sleep(_duration)
@@ -47,6 +52,7 @@ def rx_repeat(duration: timedelta, producer: Callable) -> Observable:
         async def _subscribe():
             nonlocal _task
             if _task:
+                await an_observer.on_completed()
                 await _task.cancel()
                 _task = None
 

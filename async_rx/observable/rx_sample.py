@@ -9,7 +9,7 @@ from .rx_create import rx_create
 __all__ = ["rx_sample"]
 
 
-def rx_sample(observable: Observable, time_delta: timedelta) -> Observable:
+def rx_sample(observable: Observable, duration: timedelta) -> Observable:
     """Sample operator used to rate-limit the sequence.
 
     Sample filter out elements based on the timing.
@@ -18,12 +18,17 @@ def rx_sample(observable: Observable, time_delta: timedelta) -> Observable:
 
     Args:
         observable (Observable): an observable instance
-        time_delta (timedelta): timedelta of interval (the duration)
+        duration (timedelta): timedelta of interval (the duration)
 
     Returns:
         (Observable): observable instance
 
+    Raise:
+        (RuntimeError): if no observable or duration are provided
+
     """
+    if not observable or not duration:
+        raise RuntimeError("observable and duration are mandatory")
 
     async def _subscribe(an_observer: Observer) -> Subscription:
 
@@ -31,7 +36,7 @@ def rx_sample(observable: Observable, time_delta: timedelta) -> Observable:
         _lastest_value = None
         _consumer_task = None
         _subscription: Optional[Subscription] = None
-        _duration = timedelta.total_seconds
+        _duration = duration.total_seconds()
 
         async def consumer():
             nonlocal _duration, _lastest_value, _receive_value

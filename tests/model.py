@@ -1,5 +1,5 @@
-from typing import Any, NoReturn
 from datetime import datetime
+from typing import Any, NoReturn
 
 
 class ObserverCounter:
