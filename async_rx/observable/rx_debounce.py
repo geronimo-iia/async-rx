@@ -9,7 +9,7 @@ from .rx_create import rx_create
 __all__ = ["rx_debounce"]
 
 
-def rx_debounce(an_observable: Observable, time_delta: timedelta) -> Observable:
+def rx_debounce(an_observable: Observable, duration: timedelta) -> Observable:
     """Debounce operator.
 
     Debounce are used to rate-limit the sequence.
@@ -17,13 +17,18 @@ def rx_debounce(an_observable: Observable, time_delta: timedelta) -> Observable:
     after the set delay is over and no new event arrives during this delay.
 
     Args:
-        observable (Observable): an observable instance
-        time_delta (timedelta): timedelta of interval (the duration)
+        an_observable (Observable): an observable instance
+        duration (timedelta): timedelta of interval (the duration)
 
     Returns:
         (Observable): observable instance
 
+    Raise:
+        (RuntimeError): if no observable or duration are provided
+
     """
+    if not an_observable or not duration:
+        raise RuntimeError("observable and duration are mandatory")
 
     async def _subscribe(an_observer: Observer) -> Subscription:
 
@@ -31,16 +36,17 @@ def rx_debounce(an_observable: Observable, time_delta: timedelta) -> Observable:
         _lastest_value = None
         _consumer_task = None
         _subscription: Optional[Subscription] = None
-        _duration = timedelta.total_seconds
+        _sleep_duration = duration.total_seconds()
 
         async def consumer():
-            nonlocal _duration, _lastest_value, _lastest_value_time
+            nonlocal _sleep_duration, _lastest_value, _lastest_value_time
             try:
                 while True:
-                    await curio.sleep(_duration)  # add duration delay before process a new one
+                    await curio.sleep(_sleep_duration)  # add duration delay before process a new one
 
-                    if _lastest_value_time and (_lastest_value_time + time_delta <= datetime.utcnow()):  # no value between time delta
+                    if _lastest_value_time and (_lastest_value_time + duration <= datetime.utcnow()):  # no value between time delta
                         await an_observer.on_next(item=_lastest_value)
+                        _lastest_value_time = None
 
             except curio.TaskCancelled:
                 # it's time to finish

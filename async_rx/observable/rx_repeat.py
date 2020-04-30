@@ -26,7 +26,7 @@ def rx_repeat(duration: timedelta, producer: Callable) -> Observable:
     """
 
     _is_awaitable = iscoroutinefunction(producer)
-    _duration = duration.total_seconds
+    _duration = duration.total_seconds()
 
     async def _subscribe(an_observer: Observer) -> Subscription:
         _task = None

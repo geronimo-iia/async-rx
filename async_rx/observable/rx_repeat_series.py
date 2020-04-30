@@ -29,13 +29,12 @@ def rx_repeat_series(source: Any, ratio: Optional[float] = 1.0) -> Observable:
         _task = None
 
         async def _proceed_item(item: Any):
-            nonlocal an_observer
             (duration, value) = item
             await curio.sleep(duration * ratio)
             await an_observer.on_next(item=value)
 
         async def _producer():
-            nonlocal an_observer, _task
+            nonlocal _task
             try:
                 if hasattr(source, "__aiter__"):
                     async for item in source:
@@ -43,16 +42,18 @@ def rx_repeat_series(source: Any, ratio: Optional[float] = 1.0) -> Observable:
                 else:
                     for item in source:
                         await _proceed_item(item=item)
+
+                _task = None  # do not cancel this task if concurrent call to _subscribe occurs
                 await an_observer.on_completed()
-            except curio.TaskCancelled:
+            except curio.TaskCancelled:  # pragma: no cover
                 # it's time to finish
-                _task = None
+                pass
 
         _task = await curio.spawn(_producer())
 
         async def _subscribe():
             nonlocal _task
-            if _task:
+            if _task:  # pragma: no cover
                 await _task.cancel()
 
         return _subscribe
