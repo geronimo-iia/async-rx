@@ -1,5 +1,5 @@
 import curio
-
+import pytest
 from async_rx import rx_list
 
 from ..model import ObserverCounterCollector
@@ -28,6 +28,33 @@ def test_rx_list_default_behavior():
 
     l += "E"
     assert l == ["A", "D", "A", "B", "C", "E"]
+
+    l.insert(0, "Z")
+    assert l == ["Z", "A", "D", "A", "B", "C", "E"]
+
+    l.pop()
+    assert l == ["Z", "A", "D", "A", "B", "C"]
+
+    l.remove("Z")
+    assert l == ["A", "D", "A", "B", "C"]
+
+    nl = l.copy()
+    assert nl == ["A", "D", "A", "B", "C"]
+
+    l.insert(0, "Z")
+    assert nl != l
+
+    nl.clear()
+    assert nl == []
+
+    l.reverse()
+    assert l == ["C", "B", "A", "D", "A", "Z"]
+
+    l.sort()
+    assert l == ["A", "A", "B", "C", "D", "Z"]
+
+    l.extend(["AA", "BB"])
+    assert l == ["A", "A", "B", "C", "D", "Z", "AA", "BB"]
 
     a = l + ["F"]
     assert hasattr(a, "subscribe")
@@ -58,3 +85,11 @@ def test_rx_list_with_observer(kernel):
     # there is no guarantees on notification
     assert seeker.on_next_count <= 5
     assert seeker.items == [[], ['A', 'B'], ['A', 'B', 'C'], ['A', 'B', 'C', 'A', 'B', 'C']]
+
+
+def test_rx_list_support_one_observer(kernel):
+
+    l = rx_list()
+    sub = kernel.run(l.subscribe(ObserverCounterCollector()))
+    with pytest.raises(RuntimeError):
+        sub = kernel.run(l.subscribe(ObserverCounterCollector()))
