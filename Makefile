@@ -84,7 +84,7 @@ $(DIST_FILES): $(MODULES) pyproject.toml
 publish: build ## Publishes the package, previously built with the build command, to the remote repository
 	@git diff --name-only --exit-code
 	poetry publish
-	PROJECT_RELEASE := $(poetry run python -c "import async_rx; print(async_rx.__version__);")
+	PROJECT_RELEASE=$(poetry run python -c "import async_rx; print(async_rx.__version__);")
 	@git tag "v$(PROJECT_RELEASE)"
 	@git push origin "v$(PROJECT_RELEASE)"
 	@tools/open https://pypi.org/project/async-rx
