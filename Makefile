@@ -4,8 +4,6 @@ REPOSITORY := geronimo-iia/async-rx
 PACKAGES := $(PACKAGE) tests
 MODULES := $(wildcard $(PACKAGE)/*.py)
 
-# uncomment if you wanna disable test coverage
-# DISABLE_COVERAGE := True
 
 # MAIN TASKS ##################################################################
 
@@ -60,10 +58,7 @@ check: install   ## Run linters and static analysis
 
 RANDOM_SEED ?= $(shell date +%s)
 FAILURES := .cache/v/cache/lastfailed
-PYTEST_OPTIONS := --random --random-seed=$(RANDOM_SEED)
-ifdef DISABLE_COVERAGE
-	PYTEST_OPTIONS += --no-cov --disable-warnings
-endif
+PYTEST_OPTIONS := --random --random-seed=$(RANDOM_SEED) --cov=$(PACKAGES)/
 
 .PHONY: test
 test: install ## Run unit tests
@@ -71,11 +66,6 @@ test: install ## Run unit tests
 	@if test -e $(FAILURES); then poetry run pytest tests --last-failed --exitfirst; fi
 	@rm -rf $(FAILURES)
 	poetry run pytest tests $(PYTEST_OPTIONS)
-	poetry run coveragespace $(REPOSITORY) overall
-	
-ifndef DISABLE_COVERAGE
-	@echo  "coverage report is located at htmlcov/index.html"
-endif
 
 
 # BUILD #######################################################################

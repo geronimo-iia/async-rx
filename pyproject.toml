@@ -63,7 +63,6 @@ pytest-mock = "^1.10"
 pytest-mypy = "*"
 coverage = {version = "^5.0.3", extras = ["toml"]} # Code coverage measurement for Python
 xdoctest = "^0.11.0" # A rewrite of the builtin doctest module
-coveragespace = "^3.0.1" # A place to track your code coverage metrics.
 
 # Documentation
 sphinx = "^2.3.1"
