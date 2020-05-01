@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.observable.rx_forward &mdash; async_rx 1.0.0 documentation</title>
+  <title>async_rx.observable.rx_max &mdash; async_rx 1.0.0 documentation</title>
   
 
   
@@ -131,7 +131,7 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-      <li>async_rx.observable.rx_forward</li>
+      <li>async_rx.observable.rx_max</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -146,45 +146,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for async_rx.observable.rx_forward</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+  <h1>Source code for async_rx.observable.rx_max</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">Observable</span>
+<span class="kn">from</span> <span class="nn">.rx_reduce</span> <span class="kn">import</span> <span class="n">rx_reduce</span>
 
-<span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">Subscription</span><span class="p">,</span> <span class="n">rx_observer</span>
-<span class="kn">from</span> <span class="nn">.rx_create</span> <span class="kn">import</span> <span class="n">rx_create</span>
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rx_forward&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rx_max&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="rx_forward"><a class="viewcode-back" href="../../../api.html#async_rx.rx_forward">[docs]</a><span class="k">def</span> <span class="nf">rx_forward</span><span class="p">(</span><span class="n">observable</span><span class="p">:</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">except_complet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">except_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create an observable wich forward event.</span>
+<div class="viewcode-block" id="rx_max"><a class="viewcode-back" href="../../../api.html#async_rx.rx_max">[docs]</a><span class="k">def</span> <span class="nf">rx_max</span><span class="p">(</span><span class="n">observable</span><span class="p">:</span> <span class="n">Observable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create an observable wich returns the maximal item in the source when completes.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        observable (Observable): observable source</span>
-<span class="sd">        except_complet (bool): if true then did not forward &#39;on_complet&#39; (default: {False})</span>
-<span class="sd">        except_error (bool): if true then did not forward &#39;on_error&#39; (default: {False})</span>
+<span class="sd">        observable (observable): the observable source</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        (Observable): observable instance.</span>
+<span class="sd">        (Observable): observable instance</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_dummy_on_completed</span><span class="p">():</span>
-        <span class="k">pass</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_dummy_on_error</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-        <span class="k">pass</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
-
-        <span class="k">return</span> <span class="k">await</span> <span class="n">observable</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span>
-            <span class="n">an_observer</span><span class="o">=</span><span class="n">rx_observer</span><span class="p">(</span>
-                <span class="n">on_next</span><span class="o">=</span><span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">,</span>
-                <span class="n">on_error</span><span class="o">=</span><span class="n">_dummy_on_error</span> <span class="k">if</span> <span class="n">except_error</span> <span class="k">else</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_error</span><span class="p">,</span>
-                <span class="n">on_completed</span><span class="o">=</span><span class="n">_dummy_on_completed</span> <span class="k">if</span> <span class="n">except_complet</span> <span class="k">else</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_completed</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">rx_create</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">_subscribe</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">rx_reduce</span><span class="p">(</span><span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">,</span> <span class="n">accumulator</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="k">else</span> <span class="n">b</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

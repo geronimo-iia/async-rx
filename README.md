@@ -9,13 +9,11 @@
 Versions following [Semantic Versioning](https://semver.org/)
 
 
-WARN: It still in progress
-
 ## Overview
 
 A free implemntation of "rx" alias "react" alias "the power of observable pattern and his children" for application server side.
 
-Implementation relie on:
+Implementation is based on:
 
 - async function with curio framework
 - closed variable, clojure
@@ -49,6 +47,58 @@ $ python
 ```
 
 Take a look on [documentation](https://geronimo-iia.github.io/async-rx) and [API](https://geronimo-iia.github.io/async-rx/api.html).
+
+
+
+| Function Name                                                                                                               | Description                                                                          |
+| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [rx_observer(on_next, on_error, on_completed)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_observer) | Return an observer.                                                                  |
+| [rx_observer_from(observer, on_next, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_observer_from)       | Build an observer from another one.                                                  |
+| [rx_collector(initial_value)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_collector)                  | Create an observer collector.                                                        |
+| [rx_create(subscribe, ensure_contract, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_create)     | Create an observable with specific delayed execution ‘subscribe’.                    |
+| [rx_defer(observable_factory)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_defer)                 | Create an observable when a subscription occurs.                                     |
+| [rx_distinct(observable, frame_size)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_distinct)          | Create an observable which send distinct event inside a windows of size #frame_size. |
+| [rx_empty()](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_empty)                                   | Create an empty Observable.                                                          |
+| [rx_filter(observable, predicate, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_filter)                                                                                        | Create an observable which event are filtered by a predicate function.               |
+| [rx_first(observable)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_first)                                                                                                       | Create an observale which only take the first event and complete.                    |
+| [rx_forward(observable, except_complet, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_forward)                                                                                  | Create an observable wich forward event.                                             |
+| [rx_from(observable_input)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_from)                                                                                                  | Convert almost anything to an Observable.                                            |
+| [rx_last(observable, count)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_last)                                                                                                 | Create an observale which only take #count (or less) last events and complete.       |
+| [rx_of(*args)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_of)                                                                                                               | Convert arguments into an observable sequence.                                       |
+| [rx_range(start, stop, step)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_range)                                                                                                | Create an observable sequence of range.                                              |
+| [rx_skip(observable, count)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_skip)                                                                                                 | Create an obervable wich skip #count event on source.                                |
+| [rx_take(observable, count)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_take)                                                                                                 | Create an observable which take only first #count event maximum (could be less).     |
+| [rx_throw(error)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_throw)                                                                                                            | Create an observable wich always call error.                                         |
+| [rx_reduce(observable, accumulator, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_reduce)                                                                                      | Create an observable which reduce source with accumulator and seed value.            |
+| [rx_count(observable)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_count)                                                                                                       | Create an observable wich counts the emissions on the source and emits result.       |
+| [rx_max(observable)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_max)                                                                                                         | Create an observable wich returns the maximal item in the source when completes.     |
+| [rx_min(observable)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_min)                                                                                                         | Create an observable wich returns minimal item in the source when completes.         |
+| [rx_sum(observable)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_sum)                                                                                                         | Create an observable wich return the sum items in the source when completes.         |
+| [rx_avg(observable)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_avg)                                                                                                         | Create an observable wich return the average items in the source when completes.     |
+| [rx_buffer(observable, buffer_size)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_buffer)                                                                                         | Buffer operator.                                                                     |
+| [rx_window(observable, buffer_size)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_window)                                                                                         | Window operator.                                                                     |
+| [rx_merge(*observables)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_merge)                                                                                                     | Flattens multiple Observables together by blending their values into one Observable. |
+| [rx_concat(*observables)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_concat)                                                                                                    | Concat operator.                                                                     |
+| [rx_zip(*observables)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_zip)                                                                                                       | Combine multiple Observables to create an Observable.                                |
+| [rx_amb(*observables)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_amb)                                                                                                       | Amb operator.                                                                        |
+| [rx_map(observable, transform, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_map)                                                                                           | Map operator.                                                                        |
+| [rx_merge_map(*observables, transform)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_merge_map)                                                                                      | Merge map operator.                                                                  |
+| [rx_group_by(observable, key_selector)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_group_by)                                                                                      | Group by operator.                                                                   |
+| [rx_sample(observable, duration)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_sample)                                                                                            | Sample operator used to rate-limit the sequence.                                     |
+| [rx_throttle(observable, duration)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_throttle)                                                                                          | Throttle operator.                                                                   |
+| [rx_delay(observable, duration, buffer_size, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_delay)                                                                             | Delay operator.                                                                      |
+| [rx_debounce(an_observable, duration)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_debounce)                                                                                       | Debounce operator.                                                                   |
+| [rx_dict(initial_value)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_dict)                                                                                                     | Create an observable on dictionnary.                                                 |
+| [rx_list(initial_value)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_list)                                                                                                     | Create an observable on list.                                                        |
+| [rx_repeat(duration, producer)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_repeat)                                                                                              | Repeat data.                                                                         |
+| [rx_repeat_series(source, ratio)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_repeat_series)                                                                                            | Repeat a series (delay, value) as an observable for each subscription.               |
+| [rx_subject(subject_handler)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_subject)                                                                                                | Create a subject.                                                                    |
+| [rx_subject_from(a_subject, subscribe, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_subject_from)                                                                                   | Build a subject from another one by override some function.                          |
+| [rx_subject_replay(buffer_size, subject_handler)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_subject_replay)                                                                            | Create a replay subject.                                                             |
+| [rx_subject_behavior(subject_handler)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_subject_behavior)                                                                                       | Create a behavior subject.                                                           |
+| [rx_publish(an_observable, subject_handler, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_publish)                                                                              | Create a Connectable Observable.                                                     |
+| [rx_publish_replay(an_observable, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_publish_replay)                                                                                        | Create a publish_replay.                                                             |
+| [rx_publish_behavior(an_observable, …)](https://geronimo-iia.github.io/async-rx/api.html#async_rx.rx_publish_behavior)                                                                                      | Create a publish_behavior.                                                           |
 
 ## A short sample
 
@@ -103,7 +153,7 @@ First question: Where to begin ?
 
 If you read this page, you probably ever doing lot of search on google & co, and probably loose as me about
 react component in html/js/whatever.
-I can't purpose your the best state of the explanation, but... AMHPOV, if you like to known how slug are done behind the scence, you should remember:
+I can't purpose your the best state of the explanation, but... AMHPOV, if you like to known how slug are done behind the scene, you should remember:
 
 - what is Observable pattern (or listener, alias callback)
 - what is an event emiter (something which send event ?)
@@ -138,6 +188,13 @@ Its like a subject which you can connect/disconnect as you want or automatically
 I hope this could help you a little bit :)
 
 
+## Reference
+
+ - React
+ - manifest
+ - java rx
+ - python rx
+ - dorus peelen
 
 
 

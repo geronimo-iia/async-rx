@@ -150,8 +150,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;Define rx_create.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">..observer</span> <span class="kn">import</span> <span class="n">ensure_observable_contract_operator</span>
-<span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">ObservableDefinition</span><span class="p">,</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">Subscribe</span><span class="p">,</span> <span class="n">Subscription</span>
+<span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">Subscribe</span><span class="p">,</span> <span class="n">Subscription</span><span class="p">,</span> <span class="n">observable</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rx_create&quot;</span><span class="p">]</span>
 
@@ -180,25 +179,17 @@
     <span class="k">if</span> <span class="n">subscribe</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;a subscribe function must be provided&#39;</span><span class="p">)</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">ensure_contract</span><span class="p">:</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">ensure_observable_contract_operator</span><span class="p">(</span><span class="n">an_observer</span><span class="p">))</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="n">max_observer</span><span class="p">:</span>
-        <span class="c1"># This limiter is probably a brain dead issue...</span>
-        <span class="c1"># may we fix this disease later...</span>
         <span class="n">current_observer</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">async</span> <span class="k">def</span> <span class="nf">_subscribe_tracked</span><span class="p">(</span><span class="n">an_observer</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
             <span class="k">nonlocal</span> <span class="n">current_observer</span>
 
             <span class="k">if</span> <span class="n">current_observer</span> <span class="o">==</span> <span class="n">max_observer</span><span class="p">:</span>
-                <span class="c1"># TODO should we add NoReturn in Subscribe to manage this case ?</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">max_observer</span><span class="si">}</span><span class="s1"> #observers limit reached&#39;</span><span class="p">)</span>
 
             <span class="n">current_observer</span> <span class="o">=</span> <span class="n">current_observer</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">subscription</span> <span class="o">=</span> <span class="k">await</span> <span class="n">_subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="p">)</span>
+            <span class="n">subscription</span> <span class="o">=</span> <span class="k">await</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="p">)</span>
 
             <span class="k">async</span> <span class="k">def</span> <span class="nf">_unsubscribe</span><span class="p">():</span>
                 <span class="k">nonlocal</span> <span class="n">current_observer</span>
@@ -207,9 +198,9 @@
 
             <span class="k">return</span> <span class="n">_unsubscribe</span>
 
-        <span class="k">return</span> <span class="n">ObservableDefinition</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">_subscribe_tracked</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">observable</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">_subscribe_tracked</span><span class="p">,</span> <span class="n">ensure_contract</span><span class="o">=</span><span class="n">ensure_contract</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">ObservableDefinition</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">_subscribe</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">observable</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">subscribe</span><span class="p">,</span> <span class="n">ensure_contract</span><span class="o">=</span><span class="n">ensure_contract</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

@@ -147,16 +147,24 @@
            <div itemprop="articleBody">
             
   <h1>Source code for async_rx.observable.rx_from</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">Observable</span><span class="p">,</span> <span class="n">Observer</span><span class="p">,</span> <span class="n">Subscription</span><span class="p">,</span> <span class="n">default_subscription</span>
 <span class="kn">from</span> <span class="nn">.rx_create</span> <span class="kn">import</span> <span class="n">rx_create</span>
+<span class="kn">from</span> <span class="nn">.rx_dict</span> <span class="kn">import</span> <span class="n">rx_dict</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rx_from&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="rx_from"><a class="viewcode-back" href="../../../api.html#async_rx.rx_from">[docs]</a><span class="k">def</span> <span class="nf">rx_from</span><span class="p">(</span><span class="n">observable_input</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Convert almost anything to an Observable.</span>
+
+<span class="sd">    Anything means:</span>
+<span class="sd">        - a dictionnary in an rx_dict</span>
+<span class="sd">        - an async iterable</span>
+<span class="sd">        - an iterable</span>
+<span class="sd">        - something which can be cast to an Observable (have a subscribe function)</span>
+<span class="sd">        - an object</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        observable_input (Any): A subscribable object</span>
@@ -166,6 +174,9 @@
 <span class="sd">            that was converted.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">observable_input</span><span class="p">,</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">rx_dict</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">observable_input</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">observable_input</span><span class="p">,</span> <span class="s2">&quot;subscribe&quot;</span><span class="p">):</span>
         <span class="c1"># observable like</span>
         <span class="k">return</span> <span class="n">rx_create</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">observable_input</span><span class="o">.</span><span class="n">subscribe</span><span class="p">)</span>

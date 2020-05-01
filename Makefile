@@ -105,6 +105,7 @@ SPHINX_BUILD_DIR = .cache/sphinx
 .PHONY: docs
 docs:  ## Build and publish sit documentation.
 	@rm -rf docs/
+	@rm -rf $(SPHINX_BUILD_DIR)/
 	@mkdir -p $(SPHINX_BUILD_DIR)
 	@poetry run sphinx-build -M html "sphinx" "$(SPHINX_BUILD_DIR)"
 	@mv $(SPHINX_BUILD_DIR)/html docs/

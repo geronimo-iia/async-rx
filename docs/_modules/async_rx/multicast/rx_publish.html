@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>async_rx.multicast.rx_publish &mdash; async_rx 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> async_rx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">async_rx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>async_rx.multicast.rx_publish</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for async_rx.multicast.rx_publish</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">..observable</span> <span class="kn">import</span> <span class="n">rx_create</span>
+<span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConnectableObservable</span><span class="p">,</span>
+    <span class="n">ConnectableObservableHandler</span><span class="p">,</span>
+    <span class="n">Observable</span><span class="p">,</span>
+    <span class="n">Observer</span><span class="p">,</span>
+    <span class="n">Subject</span><span class="p">,</span>
+    <span class="n">SubjectFactory</span><span class="p">,</span>
+    <span class="n">SubjectHandler</span><span class="p">,</span>
+    <span class="n">Subscription</span><span class="p">,</span>
+    <span class="n">connectable_observable</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..protocol</span> <span class="kn">import</span> <span class="n">subject_handler</span> <span class="k">as</span> <span class="n">_subject_handler</span>
+<span class="kn">from</span> <span class="nn">..subject</span> <span class="kn">import</span> <span class="n">rx_subject</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rx_publish&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="rx_publish"><a class="viewcode-back" href="../../../api.html#async_rx.rx_publish">[docs]</a><span class="k">def</span> <span class="nf">rx_publish</span><span class="p">(</span>
+    <span class="n">an_observable</span><span class="p">:</span> <span class="n">Observable</span><span class="p">,</span>
+    <span class="n">subject_handler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SubjectHandler</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">connection_handler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConnectableObservableHandler</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">subject_factory</span><span class="p">:</span> <span class="n">SubjectFactory</span> <span class="o">=</span> <span class="n">rx_subject</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConnectableObservable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a Connectable Observable.</span>
+
+<span class="sd">    A multicasted Observable (rx_publish) uses a Subject under the hood to make multiple</span>
+<span class="sd">    Observers see the same Observable execution.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        an_observable (Observable): observable to connect</span>
+<span class="sd">        subject_handler (Optional[SubjectHandler]): optional subject handler</span>
+<span class="sd">        connection_handler (Optional[ConnectableObservableHandler]): optional connection handler</span>
+<span class="sd">        subject_factory (Optional[SubjectFactory]): subject factory, per default use subject</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (ConnectableObservable): the multicasted Observable instance</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ref_count_activated</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Flag to enable auto-connect</span>
+    <span class="n">_ref_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># subscription count (used for auto-connect)</span>
+    <span class="n">_subscription</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Subscription</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># observale subscription</span>
+    <span class="n">_connectable_observable</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConnectableObservable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># for ref_count return value</span>
+    <span class="n">_subject</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Subject</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_unsubscribe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_subscription</span>
+
+        <span class="k">if</span> <span class="n">_subscription</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">_subscription</span><span class="p">()</span>
+            <span class="c1"># notify</span>
+            <span class="k">if</span> <span class="n">connection_handler</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">connection_handler</span><span class="o">.</span><span class="n">on_disconnect</span><span class="p">()</span>
+
+            <span class="n">_subscription</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_connect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Subscription</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Connection Handler implementation.&quot;&quot;&quot;</span>
+        <span class="k">nonlocal</span> <span class="n">_subscription</span><span class="p">,</span> <span class="n">_subject</span>
+
+        <span class="k">if</span> <span class="n">_subscription</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_unsubscribe</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_subject</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="c1"># never reached</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;unexpected error&quot;</span><span class="p">)</span>
+
+        <span class="n">_subscription</span> <span class="o">=</span> <span class="k">await</span> <span class="n">an_observable</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">an_observer</span><span class="o">=</span><span class="n">_subject</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">connection_handler</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">connection_handler</span><span class="o">.</span><span class="n">on_connect</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">_unsubscribe</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_subscribe</span><span class="p">(</span><span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_subscription</span><span class="p">,</span> <span class="n">_ref_count_activated</span><span class="p">,</span> <span class="n">_ref_count</span>
+
+        <span class="n">_ref_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># forward event</span>
+        <span class="k">if</span> <span class="n">subject_handler</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">subject_handler</span><span class="o">.</span><span class="n">on_subscribe</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="c1"># auto connect</span>
+        <span class="k">if</span> <span class="n">_ref_count_activated</span> <span class="ow">and</span> <span class="n">_subscription</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">_ref_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">_connect</span><span class="p">()</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_unsubscribe</span><span class="p">(</span><span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Observer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">nonlocal</span> <span class="n">_subscription</span><span class="p">,</span> <span class="n">_ref_count_activated</span><span class="p">,</span> <span class="n">_ref_count</span>
+
+        <span class="n">_ref_count</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># forward event</span>
+        <span class="k">if</span> <span class="n">subject_handler</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">subject_handler</span><span class="o">.</span><span class="n">on_unsubscribe</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="c1"># auto disconnect</span>
+        <span class="k">if</span> <span class="n">_ref_count_activated</span> <span class="ow">and</span> <span class="n">_subscription</span> <span class="ow">and</span> <span class="n">_ref_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">_unsubscribe</span><span class="p">()</span>
+
+    <span class="c1"># our multicast subject used under the hood</span>
+    <span class="n">_subject</span> <span class="o">=</span> <span class="n">subject_factory</span><span class="p">(</span><span class="n">subject_handler</span><span class="o">=</span><span class="n">_subject_handler</span><span class="p">(</span><span class="n">on_subscribe</span><span class="o">=</span><span class="n">_on_subscribe</span><span class="p">,</span> <span class="n">on_unsubscribe</span><span class="o">=</span><span class="n">_on_unsubscribe</span><span class="p">))</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_ref_count_handler</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Autostart the multicasted observable.</span>
+
+<span class="sd">        ref_count makes the multicasted Observable automatically start executing when</span>
+<span class="sd">        the first subscriber arrives,</span>
+<span class="sd">        and stop executing when the last subscriber leaves.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">nonlocal</span> <span class="n">_ref_count_activated</span><span class="p">,</span> <span class="n">_connectable_observable</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_connectable_observable</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="c1"># never reached</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;unexpected error&quot;</span><span class="p">)</span>
+
+        <span class="n">_ref_count_activated</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">rx_create</span><span class="p">(</span><span class="n">subscribe</span><span class="o">=</span><span class="n">_connectable_observable</span><span class="o">.</span><span class="n">subscribe</span><span class="p">)</span>
+
+    <span class="c1"># our connectable observable</span>
+    <span class="n">_connectable_observable</span> <span class="o">=</span> <span class="n">connectable_observable</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="n">_connect</span><span class="p">,</span> <span class="n">ref_count</span><span class="o">=</span><span class="n">_ref_count_handler</span><span class="p">,</span> <span class="n">subscribe</span><span class="o">=</span><span class="n">_subject</span><span class="o">.</span><span class="n">subscribe</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_connectable_observable</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
