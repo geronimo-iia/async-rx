@@ -26,7 +26,8 @@ script:
   - make test
 
 after_success:
-  - pip install scrutinizer-ocular
+  - pip install coveralls scrutinizer-ocular
+  - coveralls
   - ocular
 
 notifications:
