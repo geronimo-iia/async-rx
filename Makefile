@@ -71,6 +71,7 @@ test: install ## Run unit tests
 	@if test -e $(FAILURES); then poetry run pytest tests --last-failed --exitfirst; fi
 	@rm -rf $(FAILURES)
 	poetry run pytest tests $(PYTEST_OPTIONS)
+	poetry run coveragespace $(REPOSITORY) overall
 	
 ifndef DISABLE_COVERAGE
 	@echo  "coverage report is located at htmlcov/index.html"
