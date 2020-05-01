@@ -109,7 +109,7 @@ docs:  ## Build and publish sit documentation.
 	@mkdir -p $(SPHINX_BUILD_DIR)
 	@poetry run sphinx-build -M html "sphinx" "$(SPHINX_BUILD_DIR)"
 	@mv $(SPHINX_BUILD_DIR)/html docs/
-	@touch docs/.nojekill
+	@touch docs/.nojekyll
 
 
 # CLEANUP #####################################################################
