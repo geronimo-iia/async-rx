@@ -191,11 +191,13 @@ I hope this could help you a little bit :)
 
 ## Reference
 
- - React
- - manifest
- - java rx
- - python rx
- - dorus peelen
+ - [reactivex](http://reactivex.io/documentation/observable.html)
+ - [reactjs](https://reactjs.org/)
+ - [The Reactive Manifesto](https://www.reactivemanifesto.org/)
+ - [working with unreliable observers using reactive extensions](https://www.ru.nl/publish/pages/769526/dorus_peelen.pdf)
+ - ...
+
+
 
 
 
