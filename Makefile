@@ -58,7 +58,7 @@ check: install   ## Run linters and static analysis
 
 RANDOM_SEED ?= $(shell date +%s)
 FAILURES := .cache/v/cache/lastfailed
-PYTEST_OPTIONS := --random --random-seed=$(RANDOM_SEED) --cov=$(PACKAGES)/
+PYTEST_OPTIONS := --random --random-seed=$(RANDOM_SEED)
 
 .PHONY: test
 test: install ## Run unit tests
