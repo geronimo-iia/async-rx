@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "async_rx"
 version = "1.0.0"
-description = "Rx or the observable pattern."
+description = "Rx or the observable pattern with curio async."
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]
 readme = "README.md"
 homepage = "https://pypi.org/project/async_rx"
 documentation = "https://geronimo-iia.github.io/async-rx/"
 repository = "https://github.com/geronimo-iia/async-rx"
-keywords = []
+keywords = ["async", "react", "curio", "functional", "observer", "observable"]
 classifiers = [
     # update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
     "Development Status :: 5 - Production/Stable",
@@ -17,7 +17,7 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed"
 ]
