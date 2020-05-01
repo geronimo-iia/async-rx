@@ -91,7 +91,6 @@ use_parentheses = true
 [tool.coverage.run]
 # see https://coverage.readthedocs.io/en/coverage-5.0.3/config.html
 branch = true
-#data_file = ".cache/coverage"
 source = ["async_rx"]
 omit = ["tests/*", ".venv/*", "*/__main__.py"]
 
