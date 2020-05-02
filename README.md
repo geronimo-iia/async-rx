@@ -3,7 +3,7 @@
 
 [![Unix Build Status](https://img.shields.io/travis/geronimo-iia/async-rx/master.svg?label=unix)](https://travis-ci.com/geronimo-iia/async-rx)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382)](https://www.codacy.com/app/geronimo-iia/async-rx?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=geronimo-iia/async-rx&amp;utm_campaign=Badge_Grade)
-[![Coverage Status](https://coveralls.io/repos/github/geronimo-iia/async-rx/badge.svg?branch=master)](https://coveralls.io/github/geronimo-iia/async-rx?branch=master)[![PyPI Version](https://img.shields.io/pypi/v/async-rx.svg)](https://pypi.org/project/async-rx)
+[![Coverage Status](https://coveralls.io/repos/github/geronimo-iia/async-rx/badge.svg?branch=master)](https://coveralls.io/github/geronimo-iia/async-rx?branch=master)[Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/geronimo-iia/async-rx.svg)](https://scrutinizer-ci.com/g/geronimo-iia/async-rx/?branch=master)[![PyPI Version](https://img.shields.io/pypi/v/async-rx.svg)](https://pypi.org/project/async-rx)
 [![PyPI License](https://img.shields.io/pypi/l/async-rx.svg)](https://pypi.org/project/async-rx)
 
 Versions following [Semantic Versioning](https://semver.org/)
