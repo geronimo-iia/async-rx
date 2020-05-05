@@ -3,9 +3,9 @@ import sys
 from typing import Any, NoReturn, Optional, TypeVar, Union
 
 # Protocol is only available in Python 3.8+.
-if sys.version_info.minor > 7:
+if sys.version_info.minor > 7:  # pragma: no cover
     from typing import Protocol
-else:
+else:  # pragma: no cover
     from typing_extensions import Protocol  # type: ignore
 
 
