@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async-rx &mdash; async_rx 1.0.0 documentation</title>
+  <title>async-rx &mdash; async_rx 1.0.1 documentation</title>
   
 
   
@@ -153,6 +153,8 @@
 <span id="index"></span><h1>async-rx<a class="headerlink" href="#async-rx" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="https://travis-ci.com/geronimo-iia/async-rx"><img alt="Unix Build Status" src="https://img.shields.io/travis/geronimo-iia/async-rx/master.svg?label=unix" /></a>
 <a class="reference external image-reference" href="https://www.codacy.com/app/geronimo-iia/async-rx?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=geronimo-iia/async-rx&amp;amp;utm_campaign=Badge_Grade"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382" /></a>
+<a class="reference external image-reference" href="https://coveralls.io/github/geronimo-iia/async-rx?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/geronimo-iia/async-rx/badge.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://scrutinizer-ci.com/g/geronimo-iia/async-rx/?branch=master"><img alt="Scrutinizer Code Quality" src="https://img.shields.io/scrutinizer/g/geronimo-iia/async-rx.svg" /></a>
 <a class="reference external image-reference" href="https://pypi.org/project/async-rx"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/async-rx.svg" /></a>
 <a class="reference external image-reference" href="https://pypi.org/project/async-rx"><img alt="PyPI License" src="https://img.shields.io/pypi/l/async-rx.svg" /></a>
 <p>Versions following <a class="reference external" href="https://semver.org/">Semantic Versioning</a></p>
@@ -162,11 +164,12 @@
 <p>Implementation is based on:</p>
 <ul class="simple">
 <li><p>async function with curio framework</p></li>
-<li><p>closed variable, clojure</p></li>
-<li><p>python 3.8 Protocol declaration</p></li>
+<li><p>user Protocol declaration for type checking</p></li>
+<li><p>our friends: poetry, flake8, black, isort, pytest, mypy, sphinx, tox, travis …</p></li>
 <li><p>a taste of namedtuple</p></li>
+<li><p>a lot of closed variable, clojure function, inner function</p></li>
 <li><p>a taste of curiosity</p></li>
-<li><p>shake it and tadaa !</p></li>
+<li><p>shake it, again a little bit and tadaa !</p></li>
 </ul>
 </div>
 <div class="section" id="installation">
@@ -179,6 +182,12 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ poetry add async-rx
 </pre></div>
 </div>
+<p>Note about Python version support:</p>
+<ul class="simple">
+<li><p>python code is write with python 3.8+</p></li>
+<li><p>typing extensions give us python 3.6+ and 3.7.4+ support</p></li>
+<li><p>On python 3.7.[0-3] mypy raise error on typing, you should not use those versions</p></li>
+</ul>
 </div>
 <div class="section" id="api-and-usage">
 <h2>API and Usage<a class="headerlink" href="#api-and-usage" title="Permalink to this headline">¶</a></h2>
@@ -415,6 +424,16 @@ See the function <a class="reference external" href="https://geronimo-iia.github
 <p>Its like a subject which you can connect/disconnect as you want or automatically (with a call on ref_count).
 “connect” mean that subject start to receive from observable, so items will be send on observers.</p>
 <p>I hope this could help you a little bit :)</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://reactivex.io/documentation/observable.html">reactivex</a></p></li>
+<li><p><a class="reference external" href="https://reactjs.org/">reactjs</a></p></li>
+<li><p><a class="reference external" href="https://www.reactivemanifesto.org/">The Reactive Manifesto</a></p></li>
+<li><p><a class="reference external" href="https://www.ru.nl/publish/pages/769526/dorus_peelen.pdf">working with unreliable observers using reactive extensions</a></p></li>
+<li><p>…</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="contents">

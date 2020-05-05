@@ -2,7 +2,7 @@
 
 ## 1.0.1
 
-- add support for python 3.6, 3.7 with conditional dependency (see pyproject.toml)
+- add support for python >3.6, >3.7.4 with conditional dependency (see pyproject.toml)
 - add tox target (used only in local for now)
 - fix publish makefile target command issue
 - fix poetry.lock makefile target command issue
