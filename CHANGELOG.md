@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.1
+
+- add support for python 3.6, 3.7 with conditional dependency (see pyproject.toml)
+- add tox target (used only in local for now)
+- fix publish makefile target command issue
+- fix poetry.lock makefile target command issue
+
 ## 1.0.0 (2020-04-21)
 
 - initial project structure based on [geronimo-iia/template-python](https://github.com/geronimo-iia/template-python)

@@ -16,12 +16,13 @@ A free implemntation of "rx" alias "react" alias "the power of observable patter
 Implementation is based on:
 
 - async function with curio framework
-- python 3.8 Protocol declaration
-- our friends: poetry, flake8, pytest, mypy, sphinx, ...
+- python 3.8 Protocol declaration, and extra support for python 3.6 and 3.7
+- our friends: poetry, flake8, black, isort, pytest, mypy, sphinx, tox, travis ...
 - a taste of namedtuple
-- closed variable, clojure function
+- a lot of closed variable, clojure function, inner function
 - a taste of curiosity
 - shake it, again a little bit and tadaa !
+
 
 ## Installation
 
