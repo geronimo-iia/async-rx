@@ -1,12 +1,12 @@
 """Protocol definition."""
+import sys
 from typing import Any, NoReturn, Optional, TypeVar, Union
 
-try:
-    # python 3.8
+# Protocol is only available in Python 3.8+.
+if sys.version_info.minor > 7:
     from typing import Protocol
-except ImportError:  # pragma: no cover
-    # python 3.6 || 3.7
-    from typing_extensions import Protocol
+else:
+    from typing_extensions import Protocol  # type: ignore
 
 
 __all__ = [
