@@ -19,8 +19,19 @@ category = "dev"
 description = "Utilities for refactoring imports in python-like syntax."
 name = "aspy.refactor-imports"
 optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "1.1.0"
+
+[package.dependencies]
+cached-property = "*"
+
+[[package]]
+category = "dev"
+description = "Utilities for refactoring imports in python-like syntax."
+name = "aspy.refactor-imports"
+optional = false
 python-versions = ">=3.6.1"
-version = "2.1.0"
+version = "2.1.1"
 
 [package.dependencies]
 cached-property = "*"
@@ -118,6 +129,14 @@ category = "dev"
 description = "Validate configuration and produce human readable error messages."
 name = "cfgv"
 optional = false
+python-versions = ">=3.6"
+version = "3.0.0"
+
+[[package]]
+category = "dev"
+description = "Validate configuration and produce human readable error messages."
+name = "cfgv"
+optional = false
 python-versions = ">=3.6.1"
 version = "3.1.0"
 
@@ -140,7 +159,7 @@ version = "7.1.2"
 [[package]]
 category = "dev"
 description = "Cross-platform colored terminal text."
-marker = "sys_platform == \"win32\" and python_version != \"3.4\" or sys_platform == \"win32\" and python_version >= \"3.5\" or sys_platform == \"win32\""
+marker = "sys_platform == \"win32\" and python_version != \"3.4\" or sys_platform == \"win32\" and python_version >= \"3.5\" or platform_system == \"Windows\" or sys_platform == \"win32\""
 name = "colorama"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
@@ -179,7 +198,7 @@ description = "A utility for ensuring Google-style docstrings stay up to date wi
 name = "darglint"
 optional = false
 python-versions = ">=3.5,<4.0"
-version = "1.2.3"
+version = "1.3.0"
 
 [[package]]
 category = "dev"
@@ -237,6 +256,10 @@ version = "1.5.0"
 
 [package.dependencies]
 flake8 = ">=3.7"
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.9"
 
 [[package]]
 category = "dev"
@@ -308,6 +331,10 @@ version = "3.2.2"
 
 [package.dependencies]
 flake8 = ">=3.0,<3.2.0 || >3.2.0,<4"
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = "*"
 
 [[package]]
 category = "dev"
@@ -422,6 +449,43 @@ name = "imagesize"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "1.2.0"
+
+[[package]]
+category = "dev"
+description = "Read metadata from Python packages"
+marker = "python_version < \"3.8\" or python_version >= \"3.5\" and python_version < \"3.8\""
+name = "importlib-metadata"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+version = "1.6.0"
+
+[package.dependencies]
+zipp = ">=0.5"
+
+[package.extras]
+docs = ["sphinx", "rst.linker"]
+testing = ["packaging", "importlib-resources"]
+
+[[package]]
+category = "dev"
+description = "Read resources from Python packages"
+marker = "python_version < \"3.7\""
+name = "importlib-resources"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+version = "1.5.0"
+
+[package.dependencies]
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = "*"
+
+[package.dependencies.zipp]
+python = "<3.8"
+version = ">=0.4"
+
+[package.extras]
+docs = ["sphinx", "rst.linker", "jaraco.packaging"]
 
 [[package]]
 category = "dev"
@@ -542,6 +606,11 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.13.1"
 
+[package.dependencies]
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12"
+
 [package.extras]
 dev = ["pre-commit", "tox"]
 
@@ -562,6 +631,14 @@ pyyaml = "*"
 six = "*"
 toml = "*"
 virtualenv = ">=15.2"
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = "*"
+
+[package.dependencies.importlib-resources]
+python = "<3.7"
+version = "*"
 
 [[package]]
 category = "dev"
@@ -635,6 +712,10 @@ wcwidth = "*"
 python = "<3.4.0 || >=3.5.0"
 version = "*"
 
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12"
+
 [package.dependencies.more-itertools]
 python = ">=2.8"
 version = ">=4.0.0"
@@ -701,7 +782,11 @@ version = "0.6.2"
 [package.dependencies]
 filelock = ">=3.0"
 
-[package.dependencies.mypy]
+[[package.dependencies.mypy]]
+python = ">=3.5,<3.8"
+version = ">=0.500"
+
+[[package.dependencies.mypy]]
 python = ">=3.8"
 version = ">=0.700"
 
@@ -917,6 +1002,32 @@ version = "0.10.0"
 
 [[package]]
 category = "dev"
+description = "tox is a generic virtualenv management and test command line tool"
+name = "tox"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+version = "3.15.0"
+
+[package.dependencies]
+colorama = ">=0.4.1"
+filelock = ">=3.0.0,<4"
+packaging = ">=14"
+pluggy = ">=0.12.0,<1"
+py = ">=1.4.17,<2"
+six = ">=1.14.0,<2"
+toml = ">=0.9.4"
+virtualenv = ">=16.0.0,<20.0.0 || >20.0.0,<20.0.1 || >20.0.1,<20.0.2 || >20.0.2,<20.0.3 || >20.0.3,<20.0.4 || >20.0.4,<20.0.5 || >20.0.5,<20.0.6 || >20.0.6,<20.0.7 || >20.0.7"
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12,<2"
+
+[package.extras]
+docs = ["sphinx (>=2.0.0,<3)", "towncrier (>=18.5.0)", "pygments-github-lexers (>=0.0.5)", "sphinxcontrib-autoprogram (>=0.1.5)"]
+testing = ["freezegun (>=0.3.11,<1)", "pathlib2 (>=2.3.3,<3)", "pytest (>=4.0.0,<6)", "pytest-cov (>=2.5.1,<3)", "pytest-mock (>=1.10.0,<2)", "pytest-xdist (>=1.22.2,<2)", "pytest-randomly (>=1.0.0,<4)", "flaky (>=3.4.0,<4)", "psutil (>=5.6.1,<6)"]
+
+[[package]]
+category = "dev"
 description = "a fork of Python 2 and 3 ast modules with type comment support"
 name = "typed-ast"
 optional = false
@@ -924,7 +1035,7 @@ python-versions = "*"
 version = "1.4.1"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Backported and Experimental Type Hints for Python 3.5+"
 name = "typing-extensions"
 optional = false
@@ -950,7 +1061,7 @@ description = "Virtual Python Environment builder"
 name = "virtualenv"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
-version = "20.0.18"
+version = "20.0.20"
 
 [package.dependencies]
 appdirs = ">=1.4.3,<2"
@@ -958,9 +1069,17 @@ distlib = ">=0.3.0,<1"
 filelock = ">=3.0.0,<4"
 six = ">=1.9.0,<2"
 
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12,<2"
+
+[package.dependencies.importlib-resources]
+python = "<3.7"
+version = ">=1.0,<2"
+
 [package.extras]
-docs = ["sphinx (>=2.0.0,<3)", "sphinx-argparse (>=0.2.5,<1)", "sphinx-rtd-theme (>=0.4.3,<1)", "towncrier (>=19.9.0rc1)", "proselint (>=0.10.2,<1)"]
-testing = ["pytest (>=4.0.0,<6)", "coverage (>=4.5.1,<6)", "pytest-mock (>=2.0.0,<3)", "pytest-env (>=0.6.2,<1)", "pytest-timeout (>=1.3.4,<2)", "packaging (>=20.0)", "xonsh (>=0.9.16,<1)"]
+docs = ["sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=19.9.0rc1)", "proselint (>=0.10.2)"]
+testing = ["pytest (>=4)", "coverage (>=5)", "coverage-enable-subprocess (>=1)", "pytest-xdist (>=1.31.0)", "pytest-mock (>=2)", "pytest-env (>=0.6.2)", "pytest-randomly (>=1)", "pytest-timeout", "packaging (>=20.0)", "xonsh (>=0.9.16)"]
 
 [[package]]
 category = "dev"
@@ -986,9 +1105,22 @@ all = ["six", "pytest", "pytest-cov", "codecov", "pygments", "colorama"]
 optional = ["pygments", "colorama"]
 tests = ["pytest", "pytest-cov", "codecov"]
 
+[[package]]
+category = "dev"
+description = "Backport of pathlib-compatible object wrapper for zip files"
+marker = "python_version < \"3.8\" or python_version >= \"3.5\" and python_version < \"3.8\""
+name = "zipp"
+optional = false
+python-versions = ">=3.6"
+version = "3.1.0"
+
+[package.extras]
+docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
+testing = ["jaraco.itertools", "func-timeout"]
+
 [metadata]
-content-hash = "b100569dbd18119784302315cc7a272007f1f6f1b0ac8ac33a4ef7ef8be18dda"
-python-versions = "^3.8"
+content-hash = "bacff4db204b02f2b908333c96b6d7b902a99dffb281602fe36eb269913ed06d"
+python-versions = "^3.6 || ^3.7.4 || ^3.8"
 
 [metadata.files]
 alabaster = [
@@ -1000,8 +1132,10 @@ appdirs = [
     {file = "appdirs-1.4.3.tar.gz", hash = "sha256:9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92"},
 ]
 "aspy.refactor-imports" = [
-    {file = "aspy.refactor_imports-2.1.0-py2.py3-none-any.whl", hash = "sha256:e8dd8a3ab3fd162fac539e752ecd9a609870254cddaaaa4434b0825bd8594857"},
-    {file = "aspy.refactor_imports-2.1.0.tar.gz", hash = "sha256:4a1e75cdbe1502c898222f7ebf7d8a2d9649978715364364a066328d11c60450"},
+    {file = "aspy.refactor_imports-1.1.0-py2.py3-none-any.whl", hash = "sha256:6d465c18cadad7e5a87810ecf8e516cb6f78e91871f4f55d0f228c6c376bd16a"},
+    {file = "aspy.refactor_imports-1.1.0.tar.gz", hash = "sha256:88418d9bd1a0d50b9d3836504469dce6f26ee8b2d78bd58b805d73dd8b381d55"},
+    {file = "aspy.refactor_imports-2.1.1-py2.py3-none-any.whl", hash = "sha256:9df76bf19ef81620068b785a386740ab3c8939fcbdcebf20c4a4e0057230d782"},
+    {file = "aspy.refactor_imports-2.1.1.tar.gz", hash = "sha256:eec8d1a73bedf64ffb8b589ad919a030c1fb14acf7d1ce0ab192f6eedae895c5"},
 ]
 "aspy.yaml" = [
     {file = "aspy.yaml-1.3.0-py2.py3-none-any.whl", hash = "sha256:463372c043f70160a9ec950c3f1e4c3a82db5fca01d334b6bc89c7164d744bdc"},
@@ -1035,6 +1169,8 @@ certifi = [
     {file = "certifi-2020.4.5.1.tar.gz", hash = "sha256:51fcb31174be6e6664c5f69e3e1691a2d72a1a12e90f872cbdb1567eb47b6519"},
 ]
 cfgv = [
+    {file = "cfgv-3.0.0-py2.py3-none-any.whl", hash = "sha256:f22b426ed59cd2ab2b54ff96608d846c33dfb8766a67f0b4a6ce130ce244414f"},
+    {file = "cfgv-3.0.0.tar.gz", hash = "sha256:04b093b14ddf9fd4d17c53ebfd55582d27b76ed30050193c14e560770c5360eb"},
     {file = "cfgv-3.1.0-py2.py3-none-any.whl", hash = "sha256:1ccf53320421aeeb915275a196e23b3b8ae87dea8ac6698b1638001d4a486d53"},
     {file = "cfgv-3.1.0.tar.gz", hash = "sha256:c8e8f552ffcc6194f4e18dd4f68d9aef0c0d58ae7e7be8c82bee3c5e9edfa513"},
 ]
@@ -1087,8 +1223,8 @@ curio = [
     {file = "curio-1.2.tar.gz", hash = "sha256:90f320fafb3f5b791f25ffafa7b561cc980376de173afd575a2114380de7939b"},
 ]
 darglint = [
-    {file = "darglint-1.2.3-py3-none-any.whl", hash = "sha256:cf56caa6cf059bd9cff798ee34cd6ac4b017d0c43760c15db42158fc31535de3"},
-    {file = "darglint-1.2.3.tar.gz", hash = "sha256:d1ab063da91987342c0e51b41028b4b5fc7fb72b04789e4534f7368a9146cd92"},
+    {file = "darglint-1.3.0-py3-none-any.whl", hash = "sha256:bb5b0c7e1b0dd4b16d1c355db61a230b68f5537e483cc9e8a8f4b925314b5fad"},
+    {file = "darglint-1.3.0.tar.gz", hash = "sha256:a20546d703c8608a260048c5721dad638e9d439d1aaaff1891ac3bfa6b2e8d96"},
 ]
 distlib = [
     {file = "distlib-0.3.0.zip", hash = "sha256:2e166e231a26b36d6dfe35a48c4464346620f8645ed0ace01ee31822b288de21"},
@@ -1173,6 +1309,14 @@ idna = [
 imagesize = [
     {file = "imagesize-1.2.0-py2.py3-none-any.whl", hash = "sha256:6965f19a6a2039c7d48bca7dba2473069ff854c36ae6f19d2cde309d998228a1"},
     {file = "imagesize-1.2.0.tar.gz", hash = "sha256:b1f6b5a4eab1f73479a50fb79fcf729514a900c341d8503d62a62dbc4127a2b1"},
+]
+importlib-metadata = [
+    {file = "importlib_metadata-1.6.0-py2.py3-none-any.whl", hash = "sha256:2a688cbaa90e0cc587f1df48bdc97a6eadccdcd9c35fb3f976a09e3b5016d90f"},
+    {file = "importlib_metadata-1.6.0.tar.gz", hash = "sha256:34513a8a0c4962bc66d35b359558fd8a5e10cd472d37aec5f66858addef32c1e"},
+]
+importlib-resources = [
+    {file = "importlib_resources-1.5.0-py2.py3-none-any.whl", hash = "sha256:85dc0b9b325ff78c8bef2e4ff42616094e16b98ebd5e3b50fe7e2f0bbcdcde49"},
+    {file = "importlib_resources-1.5.0.tar.gz", hash = "sha256:6f87df66833e1942667108628ec48900e02a4ab4ad850e25fbf07cb17cf734ca"},
 ]
 isort = [
     {file = "isort-4.3.4-py2-none-any.whl", hash = "sha256:ec9ef8f4a9bc6f71eec99e1806bfa2de401650d996c59330782b89a5555c1497"},
@@ -1389,6 +1533,10 @@ toml = [
     {file = "toml-0.10.0-py2.py3-none-any.whl", hash = "sha256:235682dd292d5899d361a811df37e04a8828a5b1da3115886b73cf81ebc9100e"},
     {file = "toml-0.10.0.tar.gz", hash = "sha256:229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c"},
 ]
+tox = [
+    {file = "tox-3.15.0-py2.py3-none-any.whl", hash = "sha256:8d97bfaf70053ed3db56f57377288621f1bcc7621446d301927d18df93b1c4c3"},
+    {file = "tox-3.15.0.tar.gz", hash = "sha256:af09c19478e8fc7ce7555b3d802ddf601b82684b874812c5857f774b8aee1b67"},
+]
 typed-ast = [
     {file = "typed_ast-1.4.1-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:73d785a950fc82dd2a25897d525d003f6378d1cb23ab305578394694202a58c3"},
     {file = "typed_ast-1.4.1-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:aaee9905aee35ba5905cfb3c62f3e83b3bec7b39413f0a7f19be4e547ea01ebb"},
@@ -1422,8 +1570,8 @@ urllib3 = [
     {file = "urllib3-1.25.9.tar.gz", hash = "sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.0.18-py2.py3-none-any.whl", hash = "sha256:5021396e8f03d0d002a770da90e31e61159684db2859d0ba4850fbea752aa675"},
-    {file = "virtualenv-20.0.18.tar.gz", hash = "sha256:ac53ade75ca189bc97b6c1d9ec0f1a50efe33cbf178ae09452dcd9fd309013c1"},
+    {file = "virtualenv-20.0.20-py2.py3-none-any.whl", hash = "sha256:b4c14d4d73a0c23db267095383c4276ef60e161f94fde0427f2f21a0132dde74"},
+    {file = "virtualenv-20.0.20.tar.gz", hash = "sha256:fd0e54dec8ac96c1c7c87daba85f0a59a7c37fe38748e154306ca21c73244637"},
 ]
 wcwidth = [
     {file = "wcwidth-0.1.9-py2.py3-none-any.whl", hash = "sha256:cafe2186b3c009a04067022ce1dcd79cb38d8d65ee4f4791b8888d6599d1bbe1"},
@@ -1432,4 +1580,8 @@ wcwidth = [
 xdoctest = [
     {file = "xdoctest-0.11.0-py2.py3-none-any.whl", hash = "sha256:292d8c0e8de9bcab6ce3fa5009da445278ce343c744aa2ae260710f924c5242e"},
     {file = "xdoctest-0.11.0.tar.gz", hash = "sha256:71951c60bb8b15fdf3c368c5636a6bbbd658ef5c2e5949e784adf5e1a1275fbd"},
+]
+zipp = [
+    {file = "zipp-3.1.0-py3-none-any.whl", hash = "sha256:aa36550ff0c0b7ef7fa639055d797116ee891440eac1a56f378e2d3179e0320b"},
+    {file = "zipp-3.1.0.tar.gz", hash = "sha256:c599e4d75c98f6798c509911d08a22e6c021d074469042177c8c86fb92eefd96"},
 ]

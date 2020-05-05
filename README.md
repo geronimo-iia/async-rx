@@ -16,12 +16,13 @@ A free implemntation of "rx" alias "react" alias "the power of observable patter
 Implementation is based on:
 
 - async function with curio framework
-- python 3.8 Protocol declaration
-- our friends: poetry, flake8, pytest, mypy, sphinx, ...
+- user Protocol declaration for type checking
+- our friends: poetry, flake8, black, isort, pytest, mypy, sphinx, tox, travis ...
 - a taste of namedtuple
-- closed variable, clojure function
+- a lot of closed variable, clojure function, inner function
 - a taste of curiosity
 - shake it, again a little bit and tadaa !
+
 
 ## Installation
 
@@ -36,6 +37,13 @@ or add it to your [Poetry](https://poetry.eustace.io/) project:
 ```text
 $ poetry add async-rx
 ```
+
+Note about Python version support:
+
+- python code is write with python 3.8+
+- typing extensions give us python 3.6+ and 3.7.4+ support
+- On python 3.7.[0-3] mypy raise error on typing, you should not use those versions
+
 
 ## API and Usage
 

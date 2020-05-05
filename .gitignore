@@ -25,6 +25,7 @@ Icon*
 /.coverage
 /.coverage.*
 /htmlcov/
+.tox
 
 # Build and release directories
 /build/
