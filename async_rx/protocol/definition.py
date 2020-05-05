@@ -1,5 +1,13 @@
 """Protocol definition."""
-from typing import Any, NoReturn, Optional, Protocol, TypeVar, Union
+from typing import Any, NoReturn, Optional, TypeVar, Union
+
+try:
+    # python 3.8
+    from typing import Protocol
+except ImportError:  # pragma: no cover
+    # python 3.6 || 3.7
+    from typing_extensions import Protocol
+
 
 __all__ = [
     "Subscription",

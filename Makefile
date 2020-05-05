@@ -36,6 +36,7 @@ GIT_DIR = .git
 
 poetry.lock: pyproject.toml
 	poetry lock
+	@touch $@
 
 .cache:
 	@mkdir -p .cache
@@ -67,6 +68,10 @@ test: install ## Run unit tests
 	@rm -rf $(FAILURES)
 	poetry run pytest tests $(PYTEST_OPTIONS)
 
+.PHONY: tox
+tox: install
+	#pyenv local 3.7.3 3.8.2
+	poetry run tox
 
 # BUILD #######################################################################
 
@@ -84,9 +89,9 @@ $(DIST_FILES): $(MODULES) pyproject.toml
 publish: build ## Publishes the package, previously built with the build command, to the remote repository
 	@git diff --name-only --exit-code
 	poetry publish
-	PROJECT_RELEASE=$$(poetry run python -c "import async_rx; print(async_rx.__version__);")
-	@git tag "v$(PROJECT_RELEASE)"
-	@git push origin "v$(PROJECT_RELEASE)"
+	@PROJECT_RELEASE=$$(poetry run python -c "import async_rx; print(async_rx.__version__);") && \
+		git tag "v$$PROJECT_RELEASE" && \
+		git push origin "v$$PROJECT_RELEASE"
 	@tools/open https://pypi.org/project/async-rx
 
 
