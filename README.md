@@ -199,6 +199,7 @@ I hope this could help you a little bit :)
 
 ## Reference
 
+ - [RxPy](https://github.com/ReactiveX/RxPY)
  - [reactivex](http://reactivex.io/documentation/observable.html)
  - [reactjs](https://reactjs.org/)
  - [The Reactive Manifesto](https://www.reactivemanifesto.org/)
