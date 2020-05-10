@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "async_rx"
-version = "1.0.1"
+version = "1.0.2"
 description = "Rx or the observable pattern with curio async."
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]

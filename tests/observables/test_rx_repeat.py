@@ -25,9 +25,9 @@ def test_rx_repeat(kernel):
     kernel.run(sub())
 
     assert seeker.on_completed_count == 1
-    assert seeker.on_next_count == 5
+    assert seeker.on_next_count == 6
     assert seeker.on_error_count == 0
-    assert seeker.get_delta() == [0.2, 0.2, 0.2, 0.2]
+    assert seeker.get_delta() == [0.2, 0.2, 0.2, 0.2, 0.2]
 
 
 def test_rx_repeat_async(kernel):
@@ -40,6 +40,19 @@ def test_rx_repeat_async(kernel):
     kernel.run(sub())
 
     assert seeker.on_completed_count == 1
-    assert seeker.on_next_count == 5
+    assert seeker.on_next_count == 6
     assert seeker.on_error_count == 0
-    assert seeker.get_delta() == [0.2, 0.2, 0.2, 0.2]
+    assert seeker.get_delta() == [0.2, 0.2, 0.2, 0.2, 0.2]
+
+
+def test_rx_repeat_with_initial_delay(kernel):
+
+    seeker = ObserverCounterCollectorWithTime()
+    sub = kernel.run(rx_repeat(duration=timedelta(seconds=0.2), producer=lambda: True, initial_delay=timedelta(seconds=0.4)).subscribe(seeker))
+    kernel.run(curio.sleep(1.1))
+    kernel.run(sub())
+
+    assert seeker.on_completed_count == 1
+    assert seeker.on_next_count == 4
+    assert seeker.on_error_count == 0
+    assert seeker.get_delta() == [0.2, 0.2, 0.2]
