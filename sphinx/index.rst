@@ -14,7 +14,7 @@ Contents
     contributing
     code_of_conduct
     license
-
+    Github <https://github.com/geronimo-iia/async-rx>
 
 Indices and tables
 ==================
