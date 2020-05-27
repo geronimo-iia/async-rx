@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.2 (comming soor)
+## 1.0.2
 
 - rx_repeat: adjust waiting time in order to keep constant time period of events
 

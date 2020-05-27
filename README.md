@@ -11,7 +11,7 @@ Versions following [Semantic Versioning](https://semver.org/)
 
 ## Overview
 
-A free implemntation of "rx" alias "react" alias "the power of observable pattern and his children" for application server side.
+A free implementation of "rx" alias "react" alias "the power of observable pattern and his children" for application server side.
 
 Implementation is based on:
 
