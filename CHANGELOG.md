@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.2 (comming soor)
+
+- rx_repeat: adjust waiting time in order to keep constant time period of events
+
+
 ## 1.0.1
 
 - add support for python >3.6, >3.7.4 with conditional dependency (see pyproject.toml)
