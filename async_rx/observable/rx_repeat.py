@@ -2,7 +2,7 @@ from datetime import timedelta
 from inspect import iscoroutinefunction
 from typing import Callable, Optional
 
-from curio import time, spawn, TaskCancelled
+from curio import TaskCancelled, spawn, time
 
 from ..protocol import Observable, Observer, Subscription
 from .rx_create import rx_create
