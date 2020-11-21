@@ -68,10 +68,6 @@ test: install ## Run unit tests
 	@rm -rf $(FAILURES)
 	poetry run pytest tests $(PYTEST_OPTIONS)
 
-.PHONY: tox
-tox: install
-	#pyenv local 3.7.3 3.8.2
-	poetry run tox
 
 # BUILD #######################################################################
 
