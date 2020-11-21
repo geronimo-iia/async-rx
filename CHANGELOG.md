@@ -5,6 +5,8 @@
 - update curio dependency
 - add pytest-curio
 - rewrote test unit according pytest-curio features
+- remove support of 3.6, 3.7
+- remove tox
 
 ## 1.0.2 (2020-05-27)
 

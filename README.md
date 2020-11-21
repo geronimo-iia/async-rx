@@ -40,9 +40,8 @@ $ poetry add async-rx
 
 Note about Python version support:
 
-- python code is write with python 3.8+
-- typing extensions give us python 3.6+ and 3.7.4+ support
-- On python 3.7.[0-3] mypy raise error on typing, you should not use those versions
+- python code and test use python 3.8+
+- typing extensions give us an optional python < 3.8 support
 
 
 ## API and Usage

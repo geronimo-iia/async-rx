@@ -16,23 +16,18 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed"
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6 || ^3.7.4 || ^3.8"
+python = "^3.8"
 curio = "^1"
 # optional dependency to obtain typing.Protocol in python version older than 3.8
 typing-extensions = { version = "^3.7.4.2", python = "<3.8" }
 
-
 [tool.poetry.dev-dependencies]
-
 black = "=19.3b0" # The uncompromising code formatter.
 isort = "=4.3.4" #A Python utility / library to sort Python imports.
 seed-isort-config = "^1.9"
@@ -68,35 +63,16 @@ pytest-mock = "^3"
 coverage =  {version = "^5.0.3", extras = ["toml"]} # Code coverage measurement for Python
 xdoctest = "^0.15.0" # A rewrite of the builtin doctest module
 
-
-# TOX
-tox = "^3.15.0"
-#tox-pyenv = "^1.1.0"
-
 # Documentation
 sphinx = "^2.3.1"
 sphinx_rtd_theme = "^0.4.3"
 m2r = "^0.2.1"  # M2R converts a markdown file including reStructuredText (rst)
 autodocsumm = "*"
 
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-isolated_build = true
-envlist = py37, py38
-
-[testenv]
-whitelist_externals = poetry
-                      make
-commands =
-    python -V
-    poetry install -v
-    poetry run pytest tests --random --random-seed={env:PYTHONHASHSEED}
-"""
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
-target-version = ["py37"]
+target-version = ["py38"]
 skip-string-normalization = true
 line_length = 160
 
