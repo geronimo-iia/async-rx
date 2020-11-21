@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.3 (coming soon)
+## 1.0.3 (2020-11-21)
 
 - update curio dependency
 - add pytest-curio
