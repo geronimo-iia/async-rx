@@ -1,19 +1,22 @@
 from typing import Any
 
+import pytest
+
 from async_rx import Observer, rx_filter
 
 from ..model import ObserverCounterCollector
 from .model import get_observable
 
 
-def test_rx_filter(kernel):
+@pytest.mark.curio
+async def test_rx_filter():
     async def _predicate(item: int) -> bool:
         return item % 2 == 0
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_filter(observable=get_observable(), predicate=_predicate).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_filter(observable=get_observable(), predicate=_predicate).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 50
     assert seeker.on_completed_count == 1

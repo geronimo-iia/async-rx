@@ -7,29 +7,31 @@ from ..model import ObserverCounterCollector
 from .model import countdown
 
 
-def test_rx_concat_concurrent(kernel):
+@pytest.mark.curio
+async def test_rx_concat_concurrent():
 
     seeker = ObserverCounterCollector()
 
     async def _build():
         return rx_concat(rx_create(subscribe=await countdown(5, 0.1)), rx_create(subscribe=await countdown(5, 0.2)))
 
-    obs = kernel.run(_build())
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    obs = await _build()
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
     assert seeker.on_next_count == 10
     assert seeker.items == [5, 4, 3, 2, 1, 5, 4, 3, 2, 1]
 
 
-def test_rx_concat(kernel):
+@pytest.mark.curio
+async def test_rx_concat():
 
     seeker = ObserverCounterCollector()
 
     obs = rx_concat(rx_range(start=1, stop=20), rx_from("i am an iterable"))
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
@@ -73,49 +75,53 @@ def test_rx_concat(kernel):
     ]
 
 
-def test_rx_concat_with_error(kernel):
+@pytest.mark.curio
+async def test_rx_concat_with_error():
     async def sub(an_observer: Observer) -> Subscription:
         await an_observer.on_error("AA")
 
     seeker = ObserverCounterCollector()
 
     obs = rx_concat(rx_range(start=1, stop=20), rx_create(subscribe=sub))
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1
     assert seeker.on_next_count == 19
 
 
-def test_rx_concat_with_throw(kernel):
+@pytest.mark.curio
+async def test_rx_concat_with_throw():
 
     seeker = ObserverCounterCollector()
 
     obs = rx_concat(rx_range(start=1, stop=20), rx_throw("oups"))
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1
     assert seeker.on_next_count == 19
 
 
-def test_rx_concat_with_series_throw(kernel):
+@pytest.mark.curio
+async def test_rx_concat_with_series_throw():
 
     seeker = ObserverCounterCollector()
 
     obs = rx_concat(rx_repeat_series([(0.1, "A"), (0.5, "B"), (1.0, "C")]), rx_throw("oups"))
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(curio.sleep(3))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await curio.sleep(3)
+    await sub_a()
 
     assert seeker.on_next_count == 3
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1
 
 
-def test_rx_concat_with_no_observable(kernel):
+@pytest.mark.curio
+async def test_rx_concat_with_no_observable():
 
     with pytest.raises(RuntimeError):
         rx_concat()

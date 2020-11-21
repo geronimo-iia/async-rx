@@ -17,7 +17,8 @@ def test_rx_debounce_default():
         rx_debounce(None, timedelta(seconds=1))
 
 
-def test_rx_debounce(kernel):
+@pytest.mark.curio
+async def test_rx_debounce():
 
     source = rx_debounce(
         rx_repeat_series([(0.1, "A0"), (0.1, "A1"), (0.1, "A2"), (0.1, "A3"), (0.5, "B"), (1.0, "C"), (3.0, "D")]), duration=timedelta(seconds=0.5)
@@ -42,9 +43,9 @@ def test_rx_debounce(kernel):
     #     5.3 -> complete
     seeker = ObserverCounterCollectorWithTime()
 
-    sub = kernel.run(source.subscribe(seeker))
-    kernel.run(curio.sleep(6))
-    kernel.run(sub())
+    sub = await source.subscribe(seeker)
+    await curio.sleep(6)
+    await sub()
     assert seeker.on_next_count == 2
     assert seeker.on_error_count == 0
     assert seeker.on_completed_count == 1
@@ -55,7 +56,8 @@ def test_rx_debounce(kernel):
     assert seeker.get_delta() == [1.0]
 
 
-def test_rx_debounce_with_error(kernel):
+@pytest.mark.curio
+async def test_rx_debounce_with_error():
 
     source = rx_debounce(
         rx_concat(rx_repeat_series([(0.1, "A0"), (0.1, "A1"), (0.1, "A2"), (0.1, "A3"), (0.5, "B"), (1.0, "C"), (3.0, "D")]), rx_throw("oups")),
@@ -64,9 +66,9 @@ def test_rx_debounce_with_error(kernel):
 
     seeker = ObserverCounterCollectorWithTime()
 
-    sub = kernel.run(source.subscribe(seeker))
-    kernel.run(curio.sleep(6))
-    kernel.run(sub())
+    sub = await source.subscribe(seeker)
+    await curio.sleep(6)
+    await sub()
 
     assert len(seeker.items) == 2
     assert seeker.get_delta() == [1.0]

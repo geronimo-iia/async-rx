@@ -8,7 +8,6 @@ if sys.version_info.minor > 7:  # pragma: no cover
 else:  # pragma: no cover
     from typing_extensions import Protocol  # type: ignore
 
-
 __all__ = [
     "Subscription",
     "NextHandler",

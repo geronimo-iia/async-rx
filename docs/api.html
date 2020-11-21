@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; async_rx 1.0.2 documentation</title>
+  <title>API Reference &mdash; async_rx 1.0.3 documentation</title>
   
 
   
@@ -169,7 +169,7 @@
 <div class="section" id="module-async_rx">
 <span id="async-rx"></span><h2><a class="toc-backref" href="#id3">async-rx</a><a class="headerlink" href="#module-async_rx" title="Permalink to this headline">¶</a></h2>
 <p>async-rx definition.</p>
-<p><strong>Classes</strong></p>
+<p><strong>Classes:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -232,23 +232,23 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Functions</strong></p>
+<p><strong>Functions:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_observer" title="async_rx.rx_observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_observer</span></code></a>(on_next, on_error, on_completed)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_observer" title="async_rx.rx_observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_observer</span></code></a>(on_next[, on_error, on_completed])</p></td>
 <td><p>Return an observer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_observer_from" title="async_rx.rx_observer_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_observer_from</span></code></a>(observer, on_next, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_observer_from" title="async_rx.rx_observer_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_observer_from</span></code></a>(observer[, on_next, …])</p></td>
 <td><p>Build an observer from another one.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_collector" title="async_rx.rx_collector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_collector</span></code></a>(initial_value)</p></td>
 <td><p>Create an observer collector.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_create" title="async_rx.rx_create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_create</span></code></a>(subscribe, ensure_contract, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_create" title="async_rx.rx_create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_create</span></code></a>(subscribe[, ensure_contract, …])</p></td>
 <td><p>Create an observable with specific delayed execution ‘subscribe’.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_defer" title="async_rx.rx_defer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_defer</span></code></a>(observable_factory)</p></td>
@@ -260,25 +260,25 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_empty" title="async_rx.rx_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_empty</span></code></a>()</p></td>
 <td><p>Create an empty Observable.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_filter" title="async_rx.rx_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_filter</span></code></a>(observable, predicate, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_filter" title="async_rx.rx_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_filter</span></code></a>(observable, predicate)</p></td>
 <td><p>Create an observable which event are filtered by a predicate function.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_first" title="async_rx.rx_first"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_first</span></code></a>(observable)</p></td>
 <td><p>Create an observale which only take the first event and complete.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_forward" title="async_rx.rx_forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_forward</span></code></a>(observable, except_complet, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_forward" title="async_rx.rx_forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_forward</span></code></a>(observable[, except_complet, …])</p></td>
 <td><p>Create an observable wich forward event.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_from" title="async_rx.rx_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_from</span></code></a>(observable_input)</p></td>
 <td><p>Convert almost anything to an Observable.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_last" title="async_rx.rx_last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_last</span></code></a>(observable, count)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_last" title="async_rx.rx_last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_last</span></code></a>(observable[, count])</p></td>
 <td><p>Create an observale which only take #count (or less) last events and complete.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_of" title="async_rx.rx_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_of</span></code></a>(*args)</p></td>
 <td><p>Convert arguments into an observable sequence.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_range" title="async_rx.rx_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_range</span></code></a>(start, stop, step)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_range" title="async_rx.rx_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_range</span></code></a>(start, stop[, step])</p></td>
 <td><p>Create an observable sequence of range.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_skip" title="async_rx.rx_skip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_skip</span></code></a>(observable, count)</p></td>
@@ -290,7 +290,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_throw" title="async_rx.rx_throw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_throw</span></code></a>(error)</p></td>
 <td><p>Create an observable wich always call error.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_reduce" title="async_rx.rx_reduce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_reduce</span></code></a>(observable, accumulator, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_reduce" title="async_rx.rx_reduce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_reduce</span></code></a>(observable, accumulator[, seed])</p></td>
 <td><p>Create an observable which reduce source with accumulator and seed value.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_count" title="async_rx.rx_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_count</span></code></a>(observable)</p></td>
@@ -326,7 +326,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_amb" title="async_rx.rx_amb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_amb</span></code></a>(*observables)</p></td>
 <td><p>Amb operator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_map" title="async_rx.rx_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_map</span></code></a>(observable, transform, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_map" title="async_rx.rx_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_map</span></code></a>(observable, transform[, …])</p></td>
 <td><p>Map operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_merge_map" title="async_rx.rx_merge_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_merge_map</span></code></a>(*observables, transform)</p></td>
@@ -341,43 +341,43 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_throttle" title="async_rx.rx_throttle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_throttle</span></code></a>(observable, duration)</p></td>
 <td><p>Throttle operator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_delay" title="async_rx.rx_delay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_delay</span></code></a>(observable, duration, buffer_size, …)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_delay" title="async_rx.rx_delay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_delay</span></code></a>(observable, duration[, …])</p></td>
 <td><p>Delay operator.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_debounce" title="async_rx.rx_debounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_debounce</span></code></a>(an_observable, duration)</p></td>
 <td><p>Debounce operator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_dict" title="async_rx.rx_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_dict</span></code></a>(initial_value)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_dict" title="async_rx.rx_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_dict</span></code></a>([initial_value])</p></td>
 <td><p>Create an observable on dictionnary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_list" title="async_rx.rx_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_list</span></code></a>(initial_value)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_list" title="async_rx.rx_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_list</span></code></a>([initial_value])</p></td>
 <td><p>Create an observable on list.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_repeat" title="async_rx.rx_repeat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_repeat</span></code></a>(duration, producer, initial_delay)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_repeat" title="async_rx.rx_repeat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_repeat</span></code></a>(duration, producer[, initial_delay])</p></td>
 <td><p>Repeat data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_repeat_series" title="async_rx.rx_repeat_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_repeat_series</span></code></a>(source, ratio)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_repeat_series" title="async_rx.rx_repeat_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_repeat_series</span></code></a>(source[, ratio])</p></td>
 <td><p>Repeat a series (delay, value) as an observable for each subscription.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_subject" title="async_rx.rx_subject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject</span></code></a>(subject_handler)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_subject" title="async_rx.rx_subject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject</span></code></a>([subject_handler])</p></td>
 <td><p>Create a subject.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_subject_from" title="async_rx.rx_subject_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject_from</span></code></a>(a_subject, subscribe, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_subject_from" title="async_rx.rx_subject_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject_from</span></code></a>(a_subject[, subscribe, …])</p></td>
 <td><p>Build a subject from another one by override some function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_subject_replay" title="async_rx.rx_subject_replay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject_replay</span></code></a>(buffer_size, subject_handler)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_subject_replay" title="async_rx.rx_subject_replay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject_replay</span></code></a>(buffer_size[, subject_handler])</p></td>
 <td><p>Create a replay subject.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_subject_behavior" title="async_rx.rx_subject_behavior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject_behavior</span></code></a>(subject_handler)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_subject_behavior" title="async_rx.rx_subject_behavior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_subject_behavior</span></code></a>([subject_handler])</p></td>
 <td><p>Create a behavior subject.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_publish" title="async_rx.rx_publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_publish</span></code></a>(an_observable, subject_handler, …)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_publish" title="async_rx.rx_publish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_publish</span></code></a>(an_observable[, subject_handler, …])</p></td>
 <td><p>Create a Connectable Observable.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_publish_replay" title="async_rx.rx_publish_replay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_publish_replay</span></code></a>(an_observable, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#async_rx.rx_publish_replay" title="async_rx.rx_publish_replay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_publish_replay</span></code></a>(an_observable, buffer_size)</p></td>
 <td><p>Create a publish_replay.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_publish_behavior" title="async_rx.rx_publish_behavior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_publish_behavior</span></code></a>(an_observable, …)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#async_rx.rx_publish_behavior" title="async_rx.rx_publish_behavior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rx_publish_behavior</span></code></a>(an_observable[, …])</p></td>
 <td><p>Create a publish_behavior.</p></td>
 </tr>
 </tbody>
@@ -389,7 +389,7 @@
 <p>Subscription Protocol.</p>
 <p>Subscription is a function to release resources or cancel Observable executions (act as a Disposable).
 It define something to be used and thrown away after you call it.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -415,7 +415,7 @@ It define something to be used and thrown away after you call it.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>NextHandler Protocol.</p>
 <p>A next handler process an item from associated observable.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -441,7 +441,7 @@ It define something to be used and thrown away after you call it.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>CompleteHandler Protocol.</p>
 <p>A complete handler is call when no more item will came from the associated observable.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -467,7 +467,7 @@ It define something to be used and thrown away after you call it.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>ErrorHandler Protocol.</p>
 <p>An error handler receive a message or an exception and raise it.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -501,7 +501,7 @@ It define something to be used and thrown away after you call it.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>Observable Protocol.</p>
 <p>An observable is something on which we can subscribe to listen event.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -534,7 +534,9 @@ delivered by the Observable:</p>
 <li><p>error,</p></li>
 <li><p>and complete.</p></li>
 </ul>
-<p><strong>Methods</strong></p>
+<p>Observers are just “objects” with three callbacks, one for each type of
+notification that an Observable may deliver.</p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -552,8 +554,6 @@ delivered by the Observable:</p>
 </tr>
 </tbody>
 </table>
-<p>Observers are just “objects” with three callbacks, one for each type of
-notification that an Observable may deliver.</p>
 <dl class="method">
 <dt id="async_rx.Observer.on_next">
 <em class="property">async </em><code class="sig-name descname">on_next</code><span class="sig-paren">(</span><em class="sig-param">item: Any</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/async_rx/protocol/definition.html#Observer.on_next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Observer.on_next" title="Permalink to this definition">¶</a></dt>
@@ -578,7 +578,7 @@ notification that an Observable may deliver.</p>
 <em class="property">class </em><code class="sig-prename descclassname">async_rx.</code><code class="sig-name descname">Collector</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_rx/protocol/definition.html#Collector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_rx.Collector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">async_rx.protocol.definition.Observer</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>Collector Observer Protocol.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -631,7 +631,7 @@ notification that an Observable may deliver.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>Subscribe Protocol.</p>
 <p>It’s a (sync/async) function wich take an observer and return a subscription.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -702,7 +702,7 @@ and stop executing when the last subscriber leaves.</p>
 </ul>
 </dd>
 </dl>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -740,7 +740,7 @@ and stop executing when the last subscriber leaves.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>Async ObservableFactory Protocol.</p>
 <p>Define function which create Observable.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -781,7 +781,7 @@ and stop executing when the last subscriber leaves.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>Subscribe Handler Protocol.</p>
 <p>This handler could be called on subscription/unsubscribe event.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -839,7 +839,7 @@ and stop executing when the last subscriber leaves.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Protocol</span></code></p>
 <p>Connectable Observable Handler Protocol.</p>
 <p>This handler could be called on conect/disconnect event.</p>
-<p><strong>Methods</strong></p>
+<p><strong>Methods:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />

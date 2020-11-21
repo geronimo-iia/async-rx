@@ -13,13 +13,14 @@ def test_rx_buffer_default():
         rx_buffer(observable=rx_empty(), buffer_size=-1)
 
 
-def test_rx_buffer(kernel):
+@pytest.mark.curio
+async def test_rx_buffer():
 
     seeker = ObserverCounterCollector()
 
     obs = rx_buffer(rx_range(start=1, stop=20), buffer_size=5)
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
@@ -27,7 +28,8 @@ def test_rx_buffer(kernel):
     assert seeker.items == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15]]
 
 
-def test_rx_buffer_with_error(kernel):
+@pytest.mark.curio
+async def test_rx_buffer_with_error():
     async def _subscribe(an_observer: Observer) -> Subscription:
         await an_observer.on_next(1)
         await an_observer.on_next(2)
@@ -40,8 +42,8 @@ def test_rx_buffer_with_error(kernel):
     seeker = ObserverCounterCollector()
 
     obs = rx_buffer(rx_create(subscribe=_subscribe), buffer_size=2)
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1

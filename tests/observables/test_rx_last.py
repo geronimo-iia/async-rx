@@ -8,12 +8,13 @@ from ..model import ObserverCounterCollector
 from .model import get_observable
 
 
-def test_rx_last_with_default(kernel):
+@pytest.mark.curio
+async def test_rx_last_with_default():
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_last(observable=get_observable()).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_last(observable=get_observable()).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 1
     assert seeker.on_completed_count == 1
@@ -21,12 +22,13 @@ def test_rx_last_with_default(kernel):
     assert seeker.items == [99]
 
 
-def test_rx_last(kernel):
+@pytest.mark.curio
+async def test_rx_last():
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_last(observable=get_observable(), count=5).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_last(observable=get_observable(), count=5).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 5
     assert seeker.on_completed_count == 1

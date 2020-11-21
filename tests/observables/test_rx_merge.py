@@ -13,29 +13,31 @@ def test_rx_merge_default():
         rx_merge()
 
 
-def test_rx_merge_concurrent(kernel):
+@pytest.mark.curio
+async def test_rx_merge_concurrent():
 
     seeker = ObserverCounterCollector()
 
     async def _build():
         return rx_merge(rx_create(subscribe=await countdown(10, 0.1)), rx_create(subscribe=await countdown(10, 0.2)))
 
-    obs = kernel.run(_build())
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    obs = await _build()
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
     assert seeker.on_next_count == 20
     assert seeker.items == [10, 10, 9, 8, 9, 7, 6, 8, 5, 4, 7, 3, 2, 6, 1, 5, 4, 3, 2, 1]
 
 
-def test_rx_merge(kernel):
+@pytest.mark.curio
+async def test_rx_merge():
 
     seeker = ObserverCounterCollector()
 
     obs = rx_merge(rx_range(start=1, stop=20), rx_from("i am an iterable"))
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
@@ -79,7 +81,8 @@ def test_rx_merge(kernel):
     ]
 
 
-def test_rx_merge_with_error(kernel):
+@pytest.mark.curio
+async def test_rx_merge_with_error():
 
     seeker = ObserverCounterCollector()
 
@@ -91,9 +94,9 @@ def test_rx_merge_with_error(kernel):
     async def _build():
         return rx_merge(rx_create(subscribe=await countdown(10, 0.1)), rx_create(subscribe=_subscribe))
 
-    obs = kernel.run(_build())
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    obs = await _build()
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1
     assert seeker.on_next_count <= 3

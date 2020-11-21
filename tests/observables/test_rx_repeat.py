@@ -17,12 +17,13 @@ def test_rx_repeat_default():
         rx_repeat(None, lambda a: not a)
 
 
-def test_rx_repeat(kernel):
+@pytest.mark.curio
+async def test_rx_repeat():
 
     seeker = ObserverCounterCollectorWithTime()
-    sub = kernel.run(rx_repeat(duration=timedelta(seconds=0.2), producer=lambda: True).subscribe(seeker))
-    kernel.run(curio.sleep(1.1))
-    kernel.run(sub())
+    sub = await rx_repeat(duration=timedelta(seconds=0.2), producer=lambda: True).subscribe(seeker)
+    await curio.sleep(1.1)
+    await sub()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_next_count == 6
@@ -30,14 +31,15 @@ def test_rx_repeat(kernel):
     assert seeker.get_delta() == [0.2, 0.2, 0.2, 0.2, 0.2]
 
 
-def test_rx_repeat_async(kernel):
+@pytest.mark.curio
+async def test_rx_repeat_async():
     async def _producer():
         return True
 
     seeker = ObserverCounterCollectorWithTime()
-    sub = kernel.run(rx_repeat(duration=timedelta(seconds=0.2), producer=_producer).subscribe(seeker))
-    kernel.run(curio.sleep(1.1))
-    kernel.run(sub())
+    sub = await rx_repeat(duration=timedelta(seconds=0.2), producer=_producer).subscribe(seeker)
+    await curio.sleep(1.1)
+    await sub()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_next_count == 6
@@ -45,12 +47,13 @@ def test_rx_repeat_async(kernel):
     assert seeker.get_delta() == [0.2, 0.2, 0.2, 0.2, 0.2]
 
 
-def test_rx_repeat_with_initial_delay(kernel):
+@pytest.mark.curio
+async def test_rx_repeat_with_initial_delay():
 
     seeker = ObserverCounterCollectorWithTime()
-    sub = kernel.run(rx_repeat(duration=timedelta(seconds=0.2), producer=lambda: True, initial_delay=timedelta(seconds=0.4)).subscribe(seeker))
-    kernel.run(curio.sleep(1.1))
-    kernel.run(sub())
+    sub = await rx_repeat(duration=timedelta(seconds=0.2), producer=lambda: True, initial_delay=timedelta(seconds=0.4)).subscribe(seeker)
+    await curio.sleep(1.1)
+    await sub()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_next_count == 4

@@ -8,12 +8,13 @@ from ..model import ObserverCounterCollector
 from .model import get_observable
 
 
-def test_rx_take(kernel):
+@pytest.mark.curio
+async def test_rx_take():
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_take(observable=get_observable(), count=5).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_take(observable=get_observable(), count=5).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 5
     assert seeker.on_completed_count == 1

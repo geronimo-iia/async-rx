@@ -14,21 +14,23 @@ def test_rx_repeat_series_default():
         rx_repeat_series(True)
 
 
-def test_rx_repeat_series(kernel):
+@pytest.mark.curio
+async def test_rx_repeat_series():
 
     source = rx_repeat_series([(0.1, "A"), (0.5, "B"), (1.0, "C")])
 
     seeker = ObserverCounterCollectorWithTime()
 
-    sub = kernel.run(source.subscribe(seeker))
-    kernel.run(curio.sleep(3))
-    kernel.run(sub())
+    sub = await source.subscribe(seeker)
+    await curio.sleep(3)
+    await sub()
 
     assert len(seeker.items) == 3
     assert seeker.get_delta() == [0.5, 1.0]
 
 
-def test_rx_repeat_series_async(kernel):
+@pytest.mark.curio
+async def test_rx_repeat_series_async():
     async def build():
         async def generate():  # this is an asyn generator
             for t in [(0.1, "A"), (0.5, "B"), (1.0, "C")]:
@@ -36,13 +38,13 @@ def test_rx_repeat_series_async(kernel):
 
         return rx_repeat_series(generate())
 
-    source = kernel.run(build())
+    source = await build()
 
     seeker = ObserverCounterCollectorWithTime()
 
-    sub = kernel.run(source.subscribe(seeker))
-    kernel.run(curio.sleep(3))
-    kernel.run(sub())
+    sub = await source.subscribe(seeker)
+    await curio.sleep(3)
+    await sub()
 
     assert len(seeker.items) == 3
     assert seeker.get_delta() == [0.5, 1.0]
