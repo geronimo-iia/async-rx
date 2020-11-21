@@ -64,23 +64,24 @@ def test_rx_list_default_behavior():
     assert hasattr(b, "subscribe")
 
 
-def test_rx_list_with_observer(kernel):
+@pytest.mark.curio
+async def test_rx_list_with_observer():
 
     seeker = ObserverCounterCollector()
     l = rx_list()
-    sub = kernel.run(l.subscribe(seeker))
+    sub = await l.subscribe(seeker)
     assert seeker.on_next_count == 1
     assert seeker.items == [[]]
 
     l.append("A")
     l.append("B")
-    kernel.run(curio.sleep(1))
+    await curio.sleep(1)
     l += "C"
-    kernel.run(curio.sleep(1))
+    await curio.sleep(1)
     l *= 2
-    kernel.run(curio.sleep(1))
+    await curio.sleep(1)
 
-    kernel.run(sub())
+    await sub()
     assert l == ["A", "B", "C", "A", "B", "C"]
 
     # there is no guarantees on notification
@@ -88,9 +89,10 @@ def test_rx_list_with_observer(kernel):
     assert seeker.items == [[], ['A', 'B'], ['A', 'B', 'C'], ['A', 'B', 'C', 'A', 'B', 'C']]
 
 
-def test_rx_list_support_one_observer(kernel):
+@pytest.mark.curio
+async def test_rx_list_support_one_observer():
 
     l = rx_list()
-    sub = kernel.run(l.subscribe(ObserverCounterCollector()))
+    sub = await l.subscribe(ObserverCounterCollector())
     with pytest.raises(RuntimeError):
-        sub = kernel.run(l.subscribe(ObserverCounterCollector()))
+        sub = await l.subscribe(ObserverCounterCollector())

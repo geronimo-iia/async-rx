@@ -1,11 +1,17 @@
 # Change Log
 
-## 1.0.2
+## 1.0.3 (coming soon)
+
+- update curio dependency
+- add pytest-curio
+- rewrote test unit according pytest-curio features
+
+## 1.0.2 (2020-05-27)
 
 - rx_repeat: adjust waiting time in order to keep constant time period of events
 
 
-## 1.0.1
+## 1.0.1 (2020-05-5)
 
 - add support for python >3.6, >3.7.4 with conditional dependency (see pyproject.toml)
 - add tox target (used only in local for now)

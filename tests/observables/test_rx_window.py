@@ -13,13 +13,14 @@ def test_rx_window_default():
         rx_window(observable=rx_empty(), buffer_size=-1)
 
 
-def test_rx_window(kernel):
+@pytest.mark.curio
+async def test_rx_window():
 
     seeker = ObserverCounterCollector()
 
     obs = rx_window(rx_range(start=1, stop=20), buffer_size=5)
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
@@ -28,7 +29,8 @@ def test_rx_window(kernel):
         assert hasattr(item, "subscribe")
 
 
-def test_rx_window_with_error(kernel):
+@pytest.mark.curio
+async def test_rx_window_with_error():
     async def _subscribe(an_observer: Observer) -> Subscription:
         await an_observer.on_next(1)
         await an_observer.on_next(2)
@@ -41,8 +43,8 @@ def test_rx_window_with_error(kernel):
     seeker = ObserverCounterCollector()
 
     obs = rx_window(rx_create(subscribe=_subscribe), buffer_size=2)
-    sub_a = kernel.run(obs.subscribe(seeker))
-    kernel.run(sub_a())
+    sub_a = await obs.subscribe(seeker)
+    await sub_a()
 
     assert seeker.on_completed_count == 0
     assert seeker.on_error_count == 1

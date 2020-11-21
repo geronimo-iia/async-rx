@@ -1,14 +1,17 @@
+import pytest
+
 from async_rx import rx_max
 
 from ..model import ObserverCounterCollector
 from .model import get_observable_to_21
 
 
-def test_rx_max(kernel):
+@pytest.mark.curio
+async def test_rx_max():
 
     seeker = ObserverCounterCollector()
-    sub = kernel.run(rx_max(observable=get_observable_to_21()).subscribe(seeker))
-    kernel.run(sub())
+    sub = await rx_max(observable=get_observable_to_21()).subscribe(seeker)
+    await sub()
 
     assert seeker.on_completed_count == 1
     assert seeker.on_next_count == 1

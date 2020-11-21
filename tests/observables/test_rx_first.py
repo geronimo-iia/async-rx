@@ -1,17 +1,20 @@
 from typing import Any
 
+import pytest
+
 from async_rx import Observer, rx_first, rx_from
 
 from ..model import ObserverCounterCollector
 from .model import get_observable
 
 
-def test_rx_first(kernel):
+@pytest.mark.curio
+async def test_rx_first():
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_first(observable=get_observable()).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_first(observable=get_observable()).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 1
     assert seeker.on_completed_count == 1
@@ -19,12 +22,13 @@ def test_rx_first(kernel):
     assert seeker.items == [0]
 
 
-def test_rx_first_with_just_one(kernel):
+@pytest.mark.curio
+async def test_rx_first_with_just_one():
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_first(observable=rx_from("A")).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_first(observable=rx_from("A")).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 1
     assert seeker.on_completed_count == 1

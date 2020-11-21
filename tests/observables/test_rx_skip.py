@@ -8,12 +8,13 @@ from ..model import ObserverCounterCollector
 from .model import get_observable
 
 
-def test_rx_skip(kernel):
+@pytest.mark.curio
+async def test_rx_skip():
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_skip(observable=get_observable(), count=5).subscribe(an_observer=seeker))
-    kernel.run(sub())
+    sub = await rx_skip(observable=get_observable(), count=5).subscribe(an_observer=seeker)
+    await sub()
 
     assert seeker.on_next_count == 95
     assert seeker.on_completed_count == 1

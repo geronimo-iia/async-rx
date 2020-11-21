@@ -1,9 +1,12 @@
+import pytest
+
 from async_rx import Observer, rx_publish_replay, rx_range, rx_subject
 
 from ..model import ObserverCounterCollector
 
 
-def test_publish_replay(kernel):
+@pytest.mark.curio
+async def test_publish_replay():
 
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
@@ -12,10 +15,10 @@ def test_publish_replay(kernel):
     assert a_multicast
 
     # subscribe
-    sub_a = kernel.run(a_multicast.subscribe(seeker_a))
-    sub_b = kernel.run(a_multicast.subscribe(seeker_b))
+    sub_a = await a_multicast.subscribe(seeker_a)
+    sub_b = await a_multicast.subscribe(seeker_b)
 
-    kernel.run(a_multicast.connect())
+    await a_multicast.connect()
 
     # both observer see the same things
     assert seeker_a.on_next_count == seeker_b.on_next_count
@@ -28,7 +31,7 @@ def test_publish_replay(kernel):
 
     # replay
     seeker_c = ObserverCounterCollector()
-    sub_c = kernel.run(a_multicast.subscribe(seeker_c))
+    sub_c = await a_multicast.subscribe(seeker_c)
     assert seeker_c.on_next_count == 3
     assert seeker_c.on_error_count == 0
     assert seeker_c.on_completed_count == 1

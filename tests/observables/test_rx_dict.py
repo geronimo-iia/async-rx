@@ -26,7 +26,8 @@ def test_rx_dict_default_dict_behaviour():
     assert a["A"] == 1
 
 
-def test_rx_dict_with_observer_in_async_word(kernel):
+@pytest.mark.curio
+async def test_rx_dict_with_observer_in_async_word():
 
     seeker = ObserverCounterCollector()
 
@@ -42,7 +43,7 @@ def test_rx_dict_with_observer_in_async_word(kernel):
 
         await sub()
 
-    kernel.run(_test())
+    await _test()
     # there is no guarantees on notification
     assert seeker.on_next_count <= 3
     if seeker.on_next_count == 2:
@@ -56,18 +57,19 @@ def test_rx_dict_copy():
     assert hasattr(a.copy(), "subscribe")
 
 
-def test_rx_dict_with_observer_in_sync_word(kernel):
+@pytest.mark.curio
+async def test_rx_dict_with_observer_in_sync_word():
 
     seeker = ObserverCounterCollector()
     a = rx_dict()
-    sub = kernel.run(a.subscribe(seeker))
+    sub = await a.subscribe(seeker)
     assert seeker.on_next_count == 1
     assert seeker.items == [{}]
 
     a["A"] = True
     a["B"] = False
 
-    kernel.run(sub())
+    await sub()
 
     # there is no guarantees on notification
     assert seeker.on_next_count <= 3
@@ -75,19 +77,20 @@ def test_rx_dict_with_observer_in_sync_word(kernel):
         assert seeker.items == [{}, {'A': True, 'B': False}]
 
 
-def test_rx_dict_on_subscription_support(kernel):
+@pytest.mark.curio
+async def test_rx_dict_on_subscription_support():
     o1 = ObserverCounterCollector()
     o2 = ObserverCounterCollector()
     a = rx_dict()
-    sub_1 = kernel.run(a.subscribe(o1))
+    sub_1 = await a.subscribe(o1)
 
     # second cannot subscribe
     with pytest.raises(RuntimeError):
-        kernel.run(a.subscribe(o2))
+        await a.subscribe(o2)
 
     # release subscription
-    kernel.run(sub_1())
+    await sub_1()
 
     # now second can subscribe
-    sub_2 = kernel.run(a.subscribe(o2))
-    kernel.run(sub_2())
+    sub_2 = await a.subscribe(o2)
+    await sub_2()

@@ -1,3 +1,5 @@
+import pytest
+
 from async_rx import Observer, rx_range, rx_subject
 
 from ..model import ObserverCounterCollector
@@ -18,7 +20,8 @@ class SubjectHandlerCounter:
         self.current = count
 
 
-def test_subject(kernel):
+@pytest.mark.curio
+async def test_subject(kernel):
 
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
@@ -27,15 +30,15 @@ def test_subject(kernel):
     a_subject = rx_subject(subject_handler=subject_handler)
     assert a_subject
 
-    sub_a = kernel.run(a_subject.subscribe(seeker_a))
+    sub_a = await a_subject.subscribe(seeker_a)
     assert subject_handler.on_subscribe_count == 1
     assert subject_handler.current == 1
 
-    sub_b = kernel.run(a_subject.subscribe(seeker_b))
+    sub_b = await a_subject.subscribe(seeker_b)
     assert subject_handler.on_subscribe_count == 2
     assert subject_handler.current == 2
 
-    sub_subject = kernel.run(rx_range(start=0, stop=10).subscribe(a_subject))
+    sub_subject = await rx_range(start=0, stop=10).subscribe(a_subject)
 
     # both observer see the same things
     assert seeker_a.on_next_count == seeker_b.on_next_count
@@ -46,14 +49,14 @@ def test_subject(kernel):
     assert seeker_a.on_error_count == 0
     assert seeker_a.on_completed_count == 1
 
-    kernel.run(sub_a())
+    await sub_a()
     assert subject_handler.on_unsubscribe_count == 1
     assert subject_handler.current == 1
     # sub are one shot
-    kernel.run(sub_a())
+    await sub_a()
     assert subject_handler.on_unsubscribe_count == 1
     assert subject_handler.current == 1
 
-    kernel.run(sub_b())
+    await sub_b()
     assert subject_handler.on_unsubscribe_count == 2
     assert subject_handler.current == 0

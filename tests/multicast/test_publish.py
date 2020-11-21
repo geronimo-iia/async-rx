@@ -1,3 +1,5 @@
+import pytest
+
 from async_rx import Observer, rx_publish, rx_range, rx_subject
 
 from ..model import ObserverCounterCollector
@@ -29,7 +31,8 @@ class SubjectHandlerCounter:
         self.current = count
 
 
-def test_multicast(kernel):
+@pytest.mark.curio
+async def test_multicast():
 
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
@@ -41,21 +44,21 @@ def test_multicast(kernel):
     assert not connection_handler.connected
 
     # subscribe
-    sub_a = kernel.run(a_multicast.subscribe(seeker_a))
+    sub_a = await a_multicast.subscribe(seeker_a)
     assert subject_handler.on_subscribe_count == 1
     assert subject_handler.current == 1
     assert not connection_handler.connected
 
-    sub_b = kernel.run(a_multicast.subscribe(seeker_b))
+    sub_b = await a_multicast.subscribe(seeker_b)
     assert subject_handler.on_subscribe_count == 2
     assert subject_handler.current == 2
     assert not connection_handler.connected
 
-    kernel.run(a_multicast.connect())
+    await a_multicast.connect()
     assert connection_handler.connected  # with no ref_count, did not connect automatically
 
     # two call on connect did not matter
-    kernel.run(a_multicast.connect())
+    await a_multicast.connect()
     assert connection_handler.connected  # with no ref_count, did not connect automatically
 
     # both observer see the same things
@@ -68,21 +71,23 @@ def test_multicast(kernel):
     assert seeker_a.on_completed_count == 1
 
 
-def test_multicast_with_ref_count(kernel):
+@pytest.mark.curio
+async def test_multicast_with_ref_count():
 
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
     subject_handler = SubjectHandlerCounter()
     connection_handler = ConnectableObservableCounter()
 
-    a_multicast = kernel.run(
-        rx_publish(an_observable=rx_range(start=0, stop=100), subject_handler=subject_handler, connection_handler=connection_handler).ref_count()
-    )
+    a_multicast = await rx_publish(
+        an_observable=rx_range(start=0, stop=100), subject_handler=subject_handler, connection_handler=connection_handler
+    ).ref_count()
+
     assert a_multicast
     assert not connection_handler.connected
 
     # subscribe
-    sub_a = kernel.run(a_multicast.subscribe(seeker_a))
+    sub_a = await a_multicast.subscribe(seeker_a)
     assert subject_handler.on_subscribe_count == 1
     assert subject_handler.current == 1
 
@@ -92,11 +97,12 @@ def test_multicast_with_ref_count(kernel):
     assert seeker_a.on_error_count == 0
     assert seeker_a.on_completed_count == 1
 
-    kernel.run(sub_a())
+    await sub_a()
     assert not connection_handler.connected  # auto disconnect
 
 
-def test_multicast_with_ref_count_on_subject(kernel):
+@pytest.mark.curio
+async def test_multicast_with_ref_count_on_subject():
 
     seeker_a = ObserverCounterCollector()
     seeker_b = ObserverCounterCollector()
@@ -105,12 +111,12 @@ def test_multicast_with_ref_count_on_subject(kernel):
 
     a_subject = rx_subject()
 
-    a_multicast = kernel.run(rx_publish(an_observable=a_subject, subject_handler=subject_handler, connection_handler=connection_handler).ref_count())
+    a_multicast = await rx_publish(an_observable=a_subject, subject_handler=subject_handler, connection_handler=connection_handler).ref_count()
     assert a_multicast
     assert not connection_handler.connected
 
     # subscribe
-    sub_a = kernel.run(a_multicast.subscribe(seeker_a))
+    sub_a = await a_multicast.subscribe(seeker_a)
     assert subject_handler.on_subscribe_count == 1
     assert subject_handler.current == 1
 
@@ -120,25 +126,25 @@ def test_multicast_with_ref_count_on_subject(kernel):
     assert seeker_a.on_error_count == 0
     assert seeker_a.on_completed_count == 0
 
-    kernel.run(a_subject.on_next(item="one"))  # send "one" item
+    await a_subject.on_next(item="one")  # send "one" item
     assert seeker_a.on_next_count == 1
     assert seeker_a.on_error_count == 0
     assert seeker_a.on_completed_count == 0
 
-    kernel.run(a_subject.on_next(item="two"))  # send "two" item
+    await a_subject.on_next(item="two")  # send "two" item
     assert seeker_a.on_next_count == 2
     assert seeker_a.on_error_count == 0
     assert seeker_a.on_completed_count == 0
 
-    kernel.run(a_subject.on_error(err="oups"))  # send error
+    await a_subject.on_error(err="oups")  # send error
     assert seeker_a.on_next_count == 2
     assert seeker_a.on_error_count == 1
     assert seeker_a.on_completed_count == 0
 
-    kernel.run(a_subject.on_completed())  # ensure contract
+    await a_subject.on_completed()  # ensure contract
     assert seeker_a.on_next_count == 2
     assert seeker_a.on_error_count == 1
     assert seeker_a.on_completed_count == 0
 
-    kernel.run(sub_a())
+    await sub_a()
     assert not connection_handler.connected  # auto disconnect

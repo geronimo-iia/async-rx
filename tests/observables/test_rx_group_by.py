@@ -1,5 +1,7 @@
 from typing import Any
 
+import pytest
+
 from async_rx import rx_avg, rx_collector, rx_concat, rx_dict, rx_group_by, rx_range, rx_subject, rx_subject_from, rx_sum, rx_throw
 
 from ..model import ObserverCounterCollector
@@ -43,12 +45,13 @@ async def _observer_factory(key, obs):
     return _sum, _avg
 
 
-def test_rx_group_by(kernel):
+@pytest.mark.curio
+async def test_rx_group_by():
 
     seeker = ObserverGroupByCollector(observer_factory=_observer_factory)
 
-    sub = kernel.run(rx_group_by(rx_range(start=0, stop=10), _key_selector).subscribe(seeker))
-    kernel.run(sub())
+    sub = await rx_group_by(rx_range(start=0, stop=10), _key_selector).subscribe(seeker)
+    await sub()
 
     assert seeker.on_next_count == 2
     assert seeker.on_completed_count == 1
@@ -63,10 +66,11 @@ def test_rx_group_by(kernel):
     assert a.items == [5.0]
 
 
-def test_rx_group_by_with_error(kernel):
+@pytest.mark.curio
+async def test_rx_group_by_with_error():
     seeker = ObserverGroupByCollector(observer_factory=_observer_factory)
-    sub = kernel.run(rx_group_by(rx_concat(rx_range(start=0, stop=10), rx_throw("oups")), _key_selector).subscribe(seeker))
-    kernel.run(sub())
+    sub = await rx_group_by(rx_concat(rx_range(start=0, stop=10), rx_throw("oups")), _key_selector).subscribe(seeker)
+    await sub()
     print(seeker.result)
     assert seeker.on_next_count == 2
     assert seeker.on_completed_count == 0
@@ -81,14 +85,15 @@ def test_rx_group_by_with_error(kernel):
     assert a.on_error_count == 1
 
 
-def test_rx_group_by_simple(kernel):
+@pytest.mark.curio
+async def test_rx_group_by_simple():
     async def _key_selector(item: int) -> str:
         return "odd" if item % 2 == 0 else "even"
 
     seeker = ObserverCounterCollector()
 
-    sub = kernel.run(rx_group_by(rx_range(start=0, stop=10), _key_selector).subscribe(seeker))
-    kernel.run(sub())
+    sub = await rx_group_by(rx_range(start=0, stop=10), _key_selector).subscribe(seeker)
+    await sub()
     assert seeker.on_next_count == 2
     assert seeker.on_completed_count == 1
     assert seeker.on_error_count == 0
@@ -96,7 +101,8 @@ def test_rx_group_by_simple(kernel):
     assert seeker.items[1][0] == "even"
 
 
-def test_rx_group_by_with_collector(kernel):
+@pytest.mark.curio
+async def test_rx_group_by_with_collector():
     async def _observer_factory(key, obs):
         _sum = rx_collector(0)
         _avg = rx_collector(0.0)
@@ -106,8 +112,8 @@ def test_rx_group_by_with_collector(kernel):
 
     seeker = ObserverGroupByCollector(observer_factory=_observer_factory)
 
-    sub = kernel.run(rx_group_by(rx_range(start=0, stop=10), _key_selector).subscribe(seeker))
-    kernel.run(sub())
+    sub = await rx_group_by(rx_range(start=0, stop=10), _key_selector).subscribe(seeker)
+    await sub()
 
     assert seeker.on_next_count == 2
     assert seeker.on_completed_count == 1
@@ -121,7 +127,8 @@ def test_rx_group_by_with_collector(kernel):
     assert result == {'odd': {'sum': 20, 'avg': 4.0}, 'even': {'sum': 25, 'avg': 5.0}}
 
 
-def test_rx_group_by_with_subject(kernel):
+@pytest.mark.curio
+async def test_rx_group_by_with_subject():
 
     _accumulator = {}
     _subject = rx_subject()
@@ -150,7 +157,7 @@ def test_rx_group_by_with_subject(kernel):
     source = rx_group_by(rx_range(start=0, stop=10), _key_selector)
     seeker = ObserverCounterCollector()
 
-    kernel.run(_subject.subscribe(seeker))
-    kernel.run(source.subscribe(head_subject))
+    await _subject.subscribe(seeker)
+    await source.subscribe(head_subject)
 
     assert seeker.items == [{'odd': {'sum': 20, 'avg': 4.0}, 'even': {'sum': 25, 'avg': 5.0}}]

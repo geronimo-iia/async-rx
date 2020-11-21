@@ -1,3 +1,12 @@
+"""rx_zip module.
+
+Note on this implementation:
+ - Initial implementation is not on my own: the idea of using all, enumerate, list of done was found by someone else.
+ - I was unable to retreive where I see it, and who wrote this heart of this algorithm.
+   If someone reconize this, I will be really happy to set author and reference on this part.
+
+"""
+
 from typing import Any, List, NoReturn, Optional
 
 from ..protocol import CompleteHandler, NextHandler, Observable, Observer, Subscription, rx_observer
