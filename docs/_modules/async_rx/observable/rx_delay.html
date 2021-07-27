@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.observable.rx_delay &mdash; async_rx 1.0.3 documentation</title>
+  <title>async_rx.observable.rx_delay &mdash; async_rx 1.0.4 documentation</title>
   
 
   
@@ -200,7 +200,7 @@
                 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="n">item</span> <span class="o">=</span> <span class="k">await</span> <span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  <span class="c1"># retreaive an item (lock until one)</span>
                     <span class="k">await</span> <span class="n">curio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">_duration</span><span class="p">)</span>  <span class="c1"># add duration delay before send</span>
-                    <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+                    <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
                     <span class="k">await</span> <span class="n">_queue</span><span class="o">.</span><span class="n">task_done</span><span class="p">()</span>  <span class="c1"># notify that job is done</span>
             <span class="k">except</span> <span class="n">curio</span><span class="o">.</span><span class="n">TaskCancelled</span><span class="p">:</span>
                 <span class="c1"># it&#39;s time to finish</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.observable.rx_repeat &mdash; async_rx 1.0.3 documentation</title>
+  <title>async_rx.observable.rx_repeat &mdash; async_rx 1.0.4 documentation</title>
   
 
   
@@ -196,7 +196,7 @@
                 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="n">start</span> <span class="o">=</span> <span class="k">await</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
                     <span class="n">value</span> <span class="o">=</span> <span class="k">await</span> <span class="n">producer</span><span class="p">()</span> <span class="k">if</span> <span class="n">_is_awaitable</span> <span class="k">else</span> <span class="n">producer</span><span class="p">()</span>
-                    <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+                    <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
                     <span class="n">duration</span> <span class="o">=</span> <span class="k">await</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
 
                     <span class="c1"># adjust wait time</span>

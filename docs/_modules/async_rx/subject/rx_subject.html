@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.subject.rx_subject &mdash; async_rx 1.0.3 documentation</title>
+  <title>async_rx.subject.rx_subject &mdash; async_rx 1.0.4 documentation</title>
   
 
   
@@ -201,7 +201,7 @@
 <span class="sd">        sub_2 = await a_subject.subscribe(obs_2)</span>
 
 <span class="sd">        # send your data by your self</span>
-<span class="sd">        await a_subject.on_next(item=&quot;my value&quot;) # obs_1 and obs_2 receive &quot;my value&quot;</span>
+<span class="sd">        await a_subject.on_next(&quot;my value&quot;) # obs_1 and obs_2 receive &quot;my value&quot;</span>
 <span class="sd">        await a_subject.on_completed() # obs_1 and obs_2 receive on_completed</span>
 
 
@@ -230,7 +230,7 @@
         <span class="k">nonlocal</span> <span class="n">_registry</span>
 
         <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">_registry</span><span class="p">:</span>
-            <span class="k">await</span> <span class="n">o</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">o</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_error</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">nonlocal</span> <span class="n">_registry</span>

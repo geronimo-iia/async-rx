@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.protocol.rx_collector &mdash; async_rx 1.0.3 documentation</title>
+  <title>async_rx.protocol.rx_collector &mdash; async_rx 1.0.4 documentation</title>
   
 
   
@@ -157,7 +157,7 @@
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
 
-<span class="n">_CollectorDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Collector&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;on_next&quot;</span><span class="p">,</span> <span class="s2">&quot;on_error&quot;</span><span class="p">,</span> <span class="s2">&quot;on_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="s2">&quot;is_finish&quot;</span><span class="p">,</span> <span class="s2">&quot;has_error&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">])</span>
+<span class="n">CollectorDefinition</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;CollectorDefinition&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;on_next&quot;</span><span class="p">,</span> <span class="s2">&quot;on_error&quot;</span><span class="p">,</span> <span class="s2">&quot;on_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="s2">&quot;is_finish&quot;</span><span class="p">,</span> <span class="s2">&quot;has_error&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">])</span>
 
 
 <div class="viewcode-block" id="rx_collector"><a class="viewcode-back" href="../../../api.html#async_rx.rx_collector">[docs]</a><span class="k">def</span> <span class="nf">rx_collector</span><span class="p">(</span><span class="n">initial_value</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Collector</span><span class="p">:</span>
@@ -230,7 +230,7 @@
         <span class="k">nonlocal</span> <span class="n">_error</span>
         <span class="k">return</span> <span class="n">_error</span>
 
-    <span class="k">return</span> <span class="n">_CollectorDefinition</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">CollectorDefinition</span><span class="p">(</span>
         <span class="n">on_next</span><span class="o">=</span><span class="n">_on_next</span><span class="p">,</span>
         <span class="n">on_error</span><span class="o">=</span><span class="n">_on_error</span><span class="p">,</span>
         <span class="n">on_completed</span><span class="o">=</span><span class="n">_on_completed</span><span class="p">,</span>
