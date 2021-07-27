@@ -45,7 +45,7 @@ def rx_debounce(an_observable: Observable, duration: timedelta) -> Observable:
                     await curio.sleep(_sleep_duration)  # add duration delay before process a new one
 
                     if _lastest_value_time and (_lastest_value_time + duration <= datetime.utcnow()):  # no value between time delta
-                        await an_observer.on_next(item=_lastest_value)
+                        await an_observer.on_next(_lastest_value)
                         _lastest_value_time = None
 
             except curio.TaskCancelled:

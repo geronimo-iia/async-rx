@@ -37,7 +37,7 @@ def rx_last(observable: Observable, count: int = 1) -> Observable:
             nonlocal _q
 
             for item in _q:
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
             _q.clear()
             await an_observer.on_completed()
 

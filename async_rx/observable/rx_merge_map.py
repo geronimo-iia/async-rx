@@ -32,9 +32,9 @@ def rx_merge_map(*observables: Observable, transform: Callable) -> Observable:
         async def _on_next(item: Any):
             nonlocal _is_awaitable
             if _is_awaitable:
-                await an_observer.on_next(item=await transform(item))
+                await an_observer.on_next(await transform(item))
             else:
-                await an_observer.on_next(item=transform(item))
+                await an_observer.on_next(transform(item))
 
         return await _source.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 

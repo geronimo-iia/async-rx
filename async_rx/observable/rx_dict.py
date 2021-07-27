@@ -27,7 +27,7 @@ class _RxDict(UserDict):
             try:
                 while True:
                     await self._event.wait()
-                    await an_observer.on_next(item=dict(self.data))
+                    await an_observer.on_next(dict(self.data))
                     self._event.clear()
             except curio.TaskCancelled:
                 # it's time to finish
@@ -42,7 +42,7 @@ class _RxDict(UserDict):
 
         _consumer_task = await curio.spawn(consumer())
 
-        await an_observer.on_next(item=dict(self.data))
+        await an_observer.on_next(dict(self.data))
 
         return _subscription
 

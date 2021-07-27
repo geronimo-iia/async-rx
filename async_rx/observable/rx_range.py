@@ -19,7 +19,7 @@ def rx_range(start: int, stop: int, step: int = 1) -> Observable:
 
     async def _subscribe(an_observer: Observer) -> Subscription:
         for i in range(start, stop, step):
-            await an_observer.on_next(item=i)
+            await an_observer.on_next(i)
         await an_observer.on_completed()
 
         return default_subscription

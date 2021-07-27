@@ -50,7 +50,7 @@ def rx_delay(observable: Observable, duration: timedelta, buffer_size: Optional[
                 while True:
                     item = await _queue.get()  # retreaive an item (lock until one)
                     await curio.sleep(_duration)  # add duration delay before send
-                    await an_observer.on_next(item=item)
+                    await an_observer.on_next(item)
                     await _queue.task_done()  # notify that job is done
             except curio.TaskCancelled:
                 # it's time to finish

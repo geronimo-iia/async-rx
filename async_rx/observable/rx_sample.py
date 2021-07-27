@@ -44,7 +44,7 @@ def rx_sample(observable: Observable, duration: timedelta) -> Observable:
                 while True:
                     await curio.sleep(_duration)  # add duration delay before process a new one
                     if _receive_value:
-                        await an_observer.on_next(item=_lastest_value)
+                        await an_observer.on_next(_lastest_value)
                         _receive_value = False
 
             except curio.TaskCancelled:

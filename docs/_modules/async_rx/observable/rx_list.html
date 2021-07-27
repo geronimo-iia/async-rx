@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.observable.rx_list &mdash; async_rx 1.0.3 documentation</title>
+  <title>async_rx.observable.rx_list &mdash; async_rx 1.0.4 documentation</title>
   
 
   
@@ -176,7 +176,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-                    <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+                    <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_event</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="k">except</span> <span class="n">curio</span><span class="o">.</span><span class="n">TaskCancelled</span><span class="p">:</span>
                 <span class="c1"># it&#39;s time to finish</span>
@@ -191,7 +191,7 @@
 
         <span class="n">_consumer_task</span> <span class="o">=</span> <span class="k">await</span> <span class="n">curio</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">consumer</span><span class="p">())</span>
 
-        <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">_subscription</span>
 

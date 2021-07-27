@@ -8,7 +8,7 @@ from .observer import rx_observer
 
 __all__ = ["observable", "ensure_observable_contract_operator"]
 
-_ObservableDefinition = namedtuple("Observable", "subscribe")
+ObservableDefinition = namedtuple("ObservableDefinition", "subscribe")
 """Implements Observable Protocol."""
 
 
@@ -37,7 +37,7 @@ def observable(subscribe: Subscribe, ensure_contract: Optional[bool] = True) -> 
             return await subscribe(ensure_observable_contract_operator(an_observer))
         return await subscribe(an_observer)
 
-    return _ObservableDefinition(subscribe=_subscribe)
+    return ObservableDefinition(subscribe=_subscribe)
 
 
 def ensure_observable_contract_operator(an_observer: Observer) -> Observer:

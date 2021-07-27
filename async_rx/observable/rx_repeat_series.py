@@ -31,17 +31,17 @@ def rx_repeat_series(source: Any, ratio: Optional[float] = 1.0) -> Observable:
         async def _proceed_item(item: Any):
             (duration, value) = item
             await curio.sleep(duration * ratio)
-            await an_observer.on_next(item=value)
+            await an_observer.on_next(value)
 
         async def _producer():
             nonlocal _task
             try:
                 if hasattr(source, "__aiter__"):
                     async for item in source:
-                        await _proceed_item(item=item)
+                        await _proceed_item(item)
                 else:
                     for item in source:
-                        await _proceed_item(item=item)
+                        await _proceed_item(item)
 
                 _task = None  # do not cancel this task if concurrent call to _subscribe occurs
                 await an_observer.on_completed()

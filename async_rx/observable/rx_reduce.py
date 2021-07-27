@@ -36,7 +36,7 @@ def rx_reduce(observable: Observable, accumulator: AccumulatorOperator, seed: Op
         async def _on_completed():
             nonlocal _buffer
 
-            await an_observer.on_next(item=_buffer)
+            await an_observer.on_next(_buffer)
             await an_observer.on_completed()
 
         return await observable.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next, on_completed=_on_completed))

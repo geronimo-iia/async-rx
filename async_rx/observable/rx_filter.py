@@ -25,9 +25,9 @@ def rx_filter(observable: Observable, predicate: PredicateOperator) -> Observabl
     async def _subscribe(an_observer: Observer) -> Subscription:
         async def _on_next(item: Any):
             nonlocal _awaitable
-            _test = await predicate(item=item) if _awaitable else predicate(item=item)  # type: ignore
+            _test = await predicate(item) if _awaitable else predicate(item)  # type: ignore
             if _test:
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
 
         return await observable.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next))
 

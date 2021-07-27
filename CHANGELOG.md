@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.4 (not yes released)
+
+- remove item argument on on_next call [issue 6](https://github.com/geronimo-iia/async-rx/issues/6)
+- fix mypy errors
+
 ## 1.0.3 (2020-11-21)
 
 - update curio dependency

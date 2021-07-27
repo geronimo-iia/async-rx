@@ -35,7 +35,7 @@ def rx_buffer(observable: Observable, buffer_size: int) -> Observable:
         async def flush():
             nonlocal _queue
             if len(_queue) >= buffer_size:
-                await an_observer.on_next(item=list(_queue))
+                await an_observer.on_next(list(_queue))
                 _queue.clear()
 
         async def _on_next(item: Any) -> None:

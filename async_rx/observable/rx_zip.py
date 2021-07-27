@@ -64,7 +64,7 @@ def rx_zip(*observables: Observable) -> Observable:
             if all(len(q) for q in queues):
                 try:
                     queued_values = [x.pop(0) for x in queues]
-                    await an_observer.on_next(item=tuple(queued_values))
+                    await an_observer.on_next(tuple(queued_values))
                 except Exception as ex:  # pragma: no cover
                     await _on_error(ex)
             elif all(x for j, x in enumerate(_is_done) if j != i):

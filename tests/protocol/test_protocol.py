@@ -1,6 +1,6 @@
 """Protocol test definition."""
 from async_rx.protocol import Observable, Observer, Subscription, rx_observer
-from async_rx.protocol.observable import _ObservableDefinition
+from async_rx.protocol.observable import ObservableDefinition
 
 
 def test_rx_observer_implements_protocol():
@@ -18,6 +18,6 @@ def test_observable_definition_implements_protocol():
 
         return _unsub
 
-    obs: Observable = _ObservableDefinition(subscribe=_subscribe)
+    obs: Observable = ObservableDefinition(subscribe=_subscribe)
 
     assert obs

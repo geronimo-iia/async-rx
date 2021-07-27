@@ -51,7 +51,7 @@ def rx_subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         sub_2 = await a_subject.subscribe(obs_2)
 
         # send your data by your self
-        await a_subject.on_next(item="my value") # obs_1 and obs_2 receive "my value"
+        await a_subject.on_next("my value") # obs_1 and obs_2 receive "my value"
         await a_subject.on_completed() # obs_1 and obs_2 receive on_completed
 
 
@@ -80,7 +80,7 @@ def rx_subject(subject_handler: Optional[SubjectHandler] = None) -> Subject:
         nonlocal _registry
 
         for o in _registry:
-            await o.on_next(item=item)
+            await o.on_next(item)
 
     async def _on_error(err: Union[Any, Exception]) -> None:
         nonlocal _registry

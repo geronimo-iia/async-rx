@@ -42,7 +42,7 @@ def rx_map(
             else:
                 _next_item = await transform(item) if _is_awaitable else transform(item)
 
-            await an_observer.on_next(item=_next_item)
+            await an_observer.on_next(_next_item)
 
         return await observable.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>async_rx.observable.rx_group_by &mdash; async_rx 1.0.3 documentation</title>
+  <title>async_rx.observable.rx_group_by &mdash; async_rx 1.0.4 documentation</title>
   
 
   
@@ -186,8 +186,8 @@
             <span class="n">key</span> <span class="o">=</span> <span class="k">await</span> <span class="n">key_selector</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">if</span> <span class="n">_is_awaitable</span> <span class="k">else</span> <span class="n">key_selector</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_observables</span><span class="p">:</span>
                 <span class="n">_observables</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">rx_subject</span><span class="p">()</span>
-                <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">_observables</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
-            <span class="k">await</span> <span class="n">_observables</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">await</span> <span class="n">an_observer</span><span class="o">.</span><span class="n">on_next</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">_observables</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+            <span class="k">await</span> <span class="n">_observables</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">on_next</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
         <span class="k">async</span> <span class="k">def</span> <span class="nf">_on_completed</span><span class="p">():</span>
             <span class="k">nonlocal</span> <span class="n">_observables</span>

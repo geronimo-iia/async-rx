@@ -34,7 +34,7 @@ def rx_distinct(observable: Observable, frame_size: int) -> Observable:
 
             if item not in _q:  # distinct value
                 _q.append(item)
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
 
         async def _on_completed():
             nonlocal _q

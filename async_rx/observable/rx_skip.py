@@ -33,7 +33,7 @@ def rx_skip(observable: Observable, count: int) -> Observable:
             if _count < count:
                 _count += 1
             else:
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
 
         return await observable.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next))
 

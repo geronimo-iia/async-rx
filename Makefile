@@ -31,7 +31,6 @@ GIT_DIR = .git
 .install: poetry.lock
 	poetry install
 	poetry check
-	@- test -d $(GIT_DIR) && poetry run pre-commit install -f --install-hooks
 	@touch $@
 
 poetry.lock: pyproject.toml

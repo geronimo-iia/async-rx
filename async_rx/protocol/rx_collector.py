@@ -7,7 +7,7 @@ __all__ = ["rx_collector"]
 
 T = TypeVar("T")
 
-_CollectorDefinition = namedtuple("Collector", ["on_next", "on_error", "on_completed", "result", "is_finish", "has_error", "error"])
+CollectorDefinition = namedtuple("CollectorDefinition", ["on_next", "on_error", "on_completed", "result", "is_finish", "has_error", "error"])
 
 
 def rx_collector(initial_value: T) -> Collector:
@@ -80,7 +80,7 @@ def rx_collector(initial_value: T) -> Collector:
         nonlocal _error
         return _error
 
-    return _CollectorDefinition(
+    return CollectorDefinition(
         on_next=_on_next,
         on_error=_on_error,
         on_completed=_on_completed,
