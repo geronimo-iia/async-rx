@@ -36,7 +36,7 @@ def rx_from(observable_input: Any) -> Observable:
         # something which be async iterable
         async def _subscribe_aiter(an_observer: Observer) -> Subscription:
             async for item in observable_input:
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
             await an_observer.on_completed()
 
             return default_subscription
@@ -47,7 +47,7 @@ def rx_from(observable_input: Any) -> Observable:
         # something iterable
         async def _subscribe_iter(an_observer: Observer) -> Subscription:
             for item in observable_input:
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
             await an_observer.on_completed()
 
             return default_subscription
@@ -57,7 +57,7 @@ def rx_from(observable_input: Any) -> Observable:
     # Build an simple singleton
 
     async def _subscribe_object(an_observer: Observer) -> Subscription:
-        await an_observer.on_next(item=observable_input)
+        await an_observer.on_next(observable_input)
         await an_observer.on_completed()
 
         return default_subscription

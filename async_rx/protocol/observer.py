@@ -7,7 +7,7 @@ from .definition import CompleteHandler, ErrorHandler, NextHandler, Observer
 __all__ = ["rx_observer", "rx_observer_from", "default_on_completed", "default_error", "ignore_error_handler"]
 
 
-_ObserverDefinition = namedtuple("Observer", ["on_next", "on_error", "on_completed"])
+ObserverDefinition = namedtuple("ObserverDefinition", ["on_next", "on_error", "on_completed"])
 """Implements Observer Protocol."""
 
 
@@ -54,7 +54,7 @@ def rx_observer(on_next: NextHandler, on_error: ErrorHandler = default_error, on
         (Observer): an Observer
 
     """
-    return _ObserverDefinition(on_next=on_next, on_error=on_error, on_completed=on_completed)
+    return ObserverDefinition(on_next=on_next, on_error=on_error, on_completed=on_completed)
 
 
 def rx_observer_from(

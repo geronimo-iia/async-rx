@@ -38,7 +38,7 @@ def rx_throttle(observable: Observable, duration: timedelta) -> Observable:
             _now = datetime.utcnow()
             if not _last_send_item or _last_send_item + duration <= _now:
                 _last_send_item = _now
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
 
         return await observable.subscribe(rx_observer_from(observer=an_observer, on_next=_on_next))
 

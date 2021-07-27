@@ -40,7 +40,7 @@ def rx_take(observable: Observable, count: int) -> Observable:
 
             if _count < count:
                 _count += 1
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
 
             if _count == count:
                 await an_observer.on_completed()

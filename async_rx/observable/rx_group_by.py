@@ -36,8 +36,8 @@ def rx_group_by(observable: Observable, key_selector: Callable) -> Observable:
             key = await key_selector(item) if _is_awaitable else key_selector(item)
             if key not in _observables:
                 _observables[key] = rx_subject()
-                await an_observer.on_next(item=(key, _observables[key]))
-            await _observables[key].on_next(item=item)
+                await an_observer.on_next((key, _observables[key]))
+            await _observables[key].on_next(item)
 
         async def _on_completed():
             nonlocal _observables

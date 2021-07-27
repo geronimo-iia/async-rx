@@ -51,7 +51,7 @@ def rx_merge(*observables: Observable) -> Observable:
             nonlocal deliver_next
 
             if deliver_next:  # if no previous error
-                await an_observer.on_next(item=item)
+                await an_observer.on_next(item)
             return None
 
         async def _on_completed() -> None:

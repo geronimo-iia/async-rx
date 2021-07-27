@@ -69,11 +69,11 @@ async def _observer_for(an_observable: Observable, an_observer: Observer):
     """Build an observer that send observable when respond."""
 
     async def _on_next(item: Any) -> None:
-        await an_observer.on_next(item=an_observable)
+        await an_observer.on_next(an_observable)
         return None
 
     async def _on_completed() -> None:
-        await an_observer.on_next(item=an_observable)
+        await an_observer.on_next(an_observable)
         await an_observer.on_completed()
         return None
 

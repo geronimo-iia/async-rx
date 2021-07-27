@@ -34,7 +34,7 @@ def rx_avg(observable: Observable) -> Observable:
             if _count == 0:
                 await an_observer.on_error('No value emitted')
             else:
-                await an_observer.on_next(item=item / _count)
+                await an_observer.on_next(item / _count)
 
         return await reducer.subscribe(an_observer=rx_observer_from(observer=an_observer, on_next=_on_next))
 

@@ -46,7 +46,7 @@ def rx_repeat(duration: timedelta, producer: Callable, initial_delay: Optional[t
                 while True:
                     start = await time.clock()
                     value = await producer() if _is_awaitable else producer()
-                    await an_observer.on_next(item=value)
+                    await an_observer.on_next(value)
                     duration = await time.clock() - start
 
                     # adjust wait time

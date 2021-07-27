@@ -6,10 +6,10 @@ from .observer import default_error, default_on_completed
 
 __all__ = ["subject_handler", "subject"]
 
-_SubjectDefinition = namedtuple("Subject", ["subscribe", "on_next", "on_error", "on_completed"])
+SubjectDefinition = namedtuple("SubjectDefinition", ["subscribe", "on_next", "on_error", "on_completed"])
 """Implements Subject Protocol."""
 
-_SubjectHandlerDefinition = namedtuple("SubjectHandler", ["on_subscribe", "on_unsubscribe"])
+SubjectHandlerDefinition = namedtuple("SubjectHandlerDefinition", ["on_subscribe", "on_unsubscribe"])
 """Implements SubjectHandler Protocol."""
 
 
@@ -31,7 +31,7 @@ def subject(
         (Subject): a subject
 
     """
-    return _SubjectDefinition(subscribe=subscribe, on_next=on_next, on_error=on_error, on_completed=on_completed)
+    return SubjectDefinition(subscribe=subscribe, on_next=on_next, on_error=on_error, on_completed=on_completed)
 
 
 def subject_handler(on_subscribe: SubjectEventHandler, on_unsubscribe: SubjectEventHandler) -> SubjectHandler:
@@ -44,4 +44,4 @@ def subject_handler(on_subscribe: SubjectEventHandler, on_unsubscribe: SubjectEv
         (SubjectHandler): a SubjectHandler instance.
 
     """
-    return _SubjectHandlerDefinition(on_subscribe=on_subscribe, on_unsubscribe=on_unsubscribe)
+    return SubjectHandlerDefinition(on_subscribe=on_subscribe, on_unsubscribe=on_unsubscribe)
