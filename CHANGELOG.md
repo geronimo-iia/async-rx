@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.4 (not yes released)
+## 1.0.4 (2021-07-28)
 
 - remove item argument on on_next call [issue 6](https://github.com/geronimo-iia/async-rx/issues/6)
 - fix mypy errors
